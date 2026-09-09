@@ -1,7 +1,8 @@
 import * as THREE from "three";
+import { TransformControls } from "three/addons/controls/TransformControls.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
-export function createStudioView(element, onSelect) {
+export function createStudioView(element, onSelect, onTransform = null) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color("#f1f4e9");
   const camera = new THREE.PerspectiveCamera(38, 1, 0.01, 100000);
@@ -30,7 +31,82 @@ export function createStudioView(element, onSelect) {
     comparing = false;
   const ray = new THREE.Raycaster(),
     pointer = new THREE.Vector2();
-  let down = null;
+  let down = null,
+    gesture = null,
+    suppressPick = false;
+  const transform = onTransform
+    ? new TransformControls(camera, renderer.domElement)
+    : null;
+  let transformMode = "orbit";
+  if (transform) {
+    scene.add(transform.getHelper());
+    transform.setSpace("world");
+    transform.setSize(0.85);
+    transform.addEventListener("dragging-changed", (e) => {
+      controls.enabled = !e.value;
+    });
+    transform.addEventListener("mouseDown", () => {
+      gesture = {
+        id: selected,
+        position: transform.object.position.toArray(),
+        rotation: transform.object.rotation
+          .toArray()
+          .slice(0, 3)
+          .map(THREE.MathUtils.radToDeg),
+      };
+      suppressPick = true;
+    });
+    transform.addEventListener("objectChange", () => highlight?.update());
+    transform.addEventListener("mouseUp", () => {
+      if (!gesture || !transform.object) return;
+      const before = gesture;
+      const placement = {
+        position: transform.object.position.toArray(),
+        rotation: transform.object.rotation
+          .toArray()
+          .slice(0, 3)
+          .map(THREE.MathUtils.radToDeg),
+      };
+      gesture = null;
+      queueMicrotask(() => {
+        if (
+          [...placement.position, ...placement.rotation].some(
+            (v, i) =>
+              Math.abs(v - [...before.position, ...before.rotation][i]) > 1e-8,
+          )
+        )
+          onTransform(before.id, placement);
+      });
+    });
+    renderer.domElement.addEventListener("pointercancel", cancelTransform);
+    window.addEventListener("blur", cancelTransform);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") cancelTransform();
+    });
+  }
+  function cancelTransform() {
+    if (!gesture) return;
+    transform.reset();
+    gesture = null;
+    transform.dragging = false;
+    transform.axis = null;
+    controls.enabled = true;
+  }
+  function setTransformMode(mode) {
+    cancelTransform();
+    transformMode = mode;
+    if (!transform) return;
+    transform.detach();
+    if (mode !== "orbit") transform.setMode(mode);
+    select(selected);
+  }
+  function focusSelected() {
+    const object = root.children.find(
+      (n) => n.userData.instanceId === selected,
+    );
+    fit(object || root);
+  }
+
   function resize() {
     const { width, height } = element.getBoundingClientRect();
     if (!width || !height) return;
@@ -47,6 +123,8 @@ export function createStudioView(element, onSelect) {
   }
   tick();
   function clear() {
+    cancelTransform();
+    transform?.detach();
     root.traverse((n) => {
       if (n.isMesh) {
         n.geometry.dispose();
@@ -88,8 +166,8 @@ export function createStudioView(element, onSelect) {
     group.userData.instanceId = instanceId;
     return group;
   }
-  function fit() {
-    const box = new THREE.Box3().setFromObject(root);
+  function fit(object = root) {
+    const box = new THREE.Box3().setFromObject(object);
     if (box.isEmpty()) return;
     const sphere = box.getBoundingSphere(new THREE.Sphere());
     const vf = THREE.MathUtils.degToRad(camera.fov),
@@ -111,6 +189,7 @@ export function createStudioView(element, onSelect) {
   }
   function select(id) {
     selected = id;
+    transform?.detach();
     if (highlight) {
       scene.remove(highlight);
       highlight.dispose();
@@ -120,6 +199,7 @@ export function createStudioView(element, onSelect) {
     if (object && !comparing) {
       highlight = new THREE.BoxHelper(object, 0x769344);
       scene.add(highlight);
+      if (transform && transformMode !== "orbit") transform.attach(object);
     }
   }
   function render(project, id, { fitView = false } = {}) {
@@ -161,10 +241,12 @@ export function createStudioView(element, onSelect) {
     fit();
   }
   renderer.domElement.addEventListener("pointerdown", (e) => {
+    if (!gesture) suppressPick = false;
     down = [e.clientX, e.clientY];
   });
   renderer.domElement.addEventListener("pointerup", (e) => {
     if (
+      suppressPick ||
       comparing ||
       !down ||
       Math.hypot(e.clientX - down[0], e.clientY - down[1]) > 5
@@ -181,5 +263,13 @@ export function createStudioView(element, onSelect) {
       onSelect(hit.object.userData.instanceId);
     down = null;
   });
-  return { render, compare, fit, select, resize };
+  return {
+    render,
+    compare,
+    fit,
+    select,
+    resize,
+    setTransformMode,
+    focusSelected,
+  };
 }

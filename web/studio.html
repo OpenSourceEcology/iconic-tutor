@@ -22,8 +22,11 @@
         >ICONIC TUTOR <span class="pill">EARLY DEMO</span></span
       >
       <nav>
-        <a href="https://opensourceecology.github.io/iconic-cad/">House editor ↗</a
-        ><a href="https://opensourceecology.github.io/iconic-cad/machines.html">Machine workbench ↗</a>
+        <a href="https://opensourceecology.github.io/iconic-cad/"
+          >House editor ↗</a
+        ><a href="https://opensourceecology.github.io/iconic-cad/machines.html"
+          >Machine workbench ↗</a
+        >
       </nav>
     </header>
     <main>
@@ -97,13 +100,69 @@
                 Icon composition</button
               ><span id="instance-count"></span>
             </div>
+            <section id="machine-task" hidden aria-label="Machine lesson task">
+              <p class="eyebrow">EXERCISE · A SPACER FOR AN EXAMPLE GAP</p>
+              <h3>Fill a 2 mm gap between two faces</h3>
+              <p>
+                A spacer sits between contact faces, often around a shaft, to
+                set their separation. Make a 2 mm-thick version while keeping
+                this part’s bore and outside diameter fixed.
+              </p>
+              <svg
+                viewBox="0 0 600 175"
+                role="img"
+                aria-label="Illustrative side section: a spacer around a shaft fills the gap between two contact faces"
+              >
+                <path
+                  d="M80 53h120v97H80zM400 53h120v97H400z"
+                  fill="#d8dfd0"
+                  stroke="#617653"
+                />
+                <path
+                  d="M200 53h200v97H200z"
+                  fill="none"
+                  stroke="#8da27b"
+                  stroke-dasharray="5 5"
+                />
+                <path d="M200 53h200v97H200z" fill="#d8b765" stroke="#957526" />
+                <path d="M45 88h510v28H45z" fill="#f5f6ef" stroke="#6c7c64" />
+                <path d="M200 36h200m-200-6v12m200-12v12" stroke="#38532c" />
+                <g
+                  fill="#2e462b"
+                  font-family="system-ui"
+                  font-size="14"
+                  text-anchor="middle"
+                >
+                  <text x="300" y="23">Example gap: 2 mm</text>
+                  <text x="140" y="168">Contact face</text>
+                  <text x="300" y="73">Spacer</text>
+                  <text x="460" y="168">Contact face</text>
+                  <text x="300" y="107">Shaft through the bore</text>
+                </g>
+              </svg>
+              <p class="muted">
+                Concept diagram, not to scale. The faces and shaft are
+                illustrative. The Axis parts below are reference parts; we have
+                not established where this spacer fits in that assembly.
+              </p>
+            </section>
+            <div class="placement-modes" aria-label="3D manipulation">
+              <button data-transform="orbit" aria-pressed="true">Orbit</button
+              ><button data-transform="translate" aria-pressed="false">
+                Move XYZ</button
+              ><button data-transform="rotate" aria-pressed="false">
+                Rotate XYZ</button
+              ><button id="focus-selected">Focus selected</button>
+            </div>
             <div id="viewport" role="tabpanel" aria-label="3D design preview">
               <div id="render-status" role="status">
                 Loading source geometry…
               </div>
               <div class="view-caption">
                 <span id="view-caption">A wall-layout study</span
-                ><span>Drag to orbit · scroll to zoom</span>
+                ><span id="manipulation-help"
+                  >Drag to orbit · scroll to zoom</span
+                >
               </div>
               <button id="fit-view" class="fit-button">Fit view ⤢</button>
             </div>
@@ -141,6 +200,39 @@
               </div>
               <button id="export-svg">Diagram SVG ↓</button>
             </div>
+            <details id="placement-panel">
+              <summary>
+                Position &amp; stack selected part
+                <span id="placement-title"></span>
+              </summary>
+              <form id="placement-form">
+                <fieldset id="placement-fields">
+                  <legend>World coordinates · Z is up</legend>
+                  <div id="placement-inputs"></div>
+                  <button type="submit">Apply position</button>
+                </fieldset>
+              </form>
+              <form id="stack-form">
+                <label
+                  >Stack selected above
+                  <select id="stack-target"></select></label
+                ><label
+                  >Gap (mm)
+                  <input
+                    id="stack-gap"
+                    type="number"
+                    min="0"
+                    max="10000"
+                    step="any"
+                    value="0" /></label
+                ><button id="stack-above" type="submit">Stack above</button>
+              </form>
+              <p class="muted">
+                Stack above centers the parts in X/Y and puts the selected
+                bounding box above the other in Z. It arranges parts; it does
+                not establish a mechanical connection.
+              </p>
+            </details>
             <div class="design-note">
               <span id="design-note"></span
               ><button id="export-cad">Export FreeCAD ↗</button>

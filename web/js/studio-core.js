@@ -1,3 +1,4 @@
+import { rotationMatrixXYZ } from "./machine-core.js";
 // Pure document operations for the two guided composition studies.
 export const DOMAIN_LABELS = {
   house: "A house, one module at a time",
@@ -286,19 +287,71 @@ export function replaceInstance(project, instanceId, asset) {
   return validateProject(next);
 }
 
+export function worldCorners(instance, asset) {
+  const m = rotationMatrixXYZ(...instance.rotation);
+  const points = [];
+  for (const x of [asset.bounds[0], asset.bounds[3]])
+    for (const y of [asset.bounds[1], asset.bounds[4]])
+      for (const z of [asset.bounds[2], asset.bounds[5]])
+        points.push(
+          [0, 1, 2].map(
+            (axis) =>
+              instance.position[axis] +
+              m[axis * 3] * x +
+              m[axis * 3 + 1] * y +
+              m[axis * 3 + 2] * z,
+          ),
+        );
+  return points;
+}
+export function stackAbove(project, selectedId, targetId, gap = 0) {
+  if (
+    selectedId === targetId ||
+    !Number.isFinite(gap) ||
+    gap < 0 ||
+    gap > 10000
+  )
+    throw new Error("Choose another part and a gap from 0 to 10,000 mm.");
+  const next = clone(project);
+  const selected = next.instances.find((i) => i.id === selectedId),
+    target = next.instances.find((i) => i.id === targetId);
+  if (!selected || !target) throw new Error("Select two placed parts.");
+  const bounds = (i) => {
+    const corners = worldCorners(
+      i,
+      next.assets.find((a) => a.id === i.asset_id),
+    );
+    return [0, 1, 2].map((axis) => [
+      Math.min(...corners.map((p) => p[axis])),
+      Math.max(...corners.map((p) => p[axis])),
+    ]);
+  };
+  const a = bounds(selected),
+    b = bounds(target);
+  selected.position[0] += (b[0][0] + b[0][1] - a[0][0] - a[0][1]) / 2;
+  selected.position[1] += (b[1][0] + b[1][1] - a[1][0] - a[1][1]) / 2;
+  selected.position[2] += b[2][1] + gap - a[2][0];
+  return validateProject(next);
+}
 export function footprint(instance, asset) {
-  const angle = (instance.rotation[2] * Math.PI) / 180,
-    c = Math.cos(angle),
-    s = Math.sin(angle);
-  return [
-    [0, 1],
-    [3, 1],
-    [3, 4],
-    [0, 4],
-  ].map(([x, y]) => [
-    instance.position[0] + asset.bounds[x] * c - asset.bounds[y] * s,
-    instance.position[1] + asset.bounds[x] * s + asset.bounds[y] * c,
-  ]);
+  // Convex hull of all eight rotated box corners, projected onto the XY plane.
+  const points = worldCorners(instance, asset)
+    .map((p) => p.slice(0, 2))
+    .sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  const cross = (o, a, b) =>
+    (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]);
+  const half = (list) => {
+    const hull = [];
+    for (const p of list) {
+      while (hull.length >= 2 && cross(hull.at(-2), hull.at(-1), p) <= 0)
+        hull.pop();
+      hull.push(p);
+    }
+    return hull;
+  };
+  const lower = half(points),
+    upper = half([...points].reverse());
+  return [...lower.slice(0, -1), ...upper.slice(0, -1)];
 }
 
 export function compositionSvg(project, selectedId = null, camera = null) {
@@ -325,8 +378,8 @@ export function compositionSvg(project, selectedId = null, camera = null) {
   const shapes = entries
     .map(({ inst, asset }, index) => {
       const p = footprint(inst, asset),
-        cx = p.reduce((a, b) => a + b[0], 0) / 4,
-        cy = p.reduce((a, b) => a + b[1], 0) / 4;
+        cx = p.reduce((a, b) => a + b[0], 0) / p.length,
+        cy = p.reduce((a, b) => a + b[1], 0) / p.length;
       const picked = inst.id === selectedId;
       return `<g data-instance="${escapeXml(inst.id)}" tabindex="0" role="button" aria-label="${escapeXml(asset.title)} ${index + 1}"><title>${escapeXml(asset.title)}</title><polygon points="${p.map((p) => p.join(",")).join(" ")}" fill="${picked ? "#dcebab" : asset.draft ? "#c2dfd8" : "#e7e1d5"}" stroke="${picked ? "#516b26" : "#858d7d"}" stroke-width="${span * 0.003}"/><circle cx="${cx}" cy="${cy}" r="${font * 0.8}" fill="${picked ? "#324522" : "#65725e"}"/><text x="${cx}" y="${cy + font * 0.32}" text-anchor="middle" font-family="system-ui" font-size="${font}" fill="white" pointer-events="none">${index + 1}</text></g>`;
     })

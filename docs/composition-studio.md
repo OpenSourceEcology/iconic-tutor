@@ -171,3 +171,34 @@ Additional verification: `node scripts/verify_studio_interaction.mjs` exercises
 actual mouse and touch input, cancellation, camera stability, single-step undo,
 and persisted tutor context. Its context transport test uses a recorded response;
 the existing browser suite separately checks a real model proposal when connected.
+
+## 3D arrangement and the machine task
+
+The machine exercise is explicitly a spacer for an illustrative 2 mm gap. A
+section diagram shows the spacer between contact faces around a shaft. Those
+faces and the shaft are teaching references, not additional Axis CAD assets.
+The 2 mm dimension is chosen for the exercise, not sourced from the Axis assembly.
+A real mating location for the retained spacer remains unresolved.
+
+Select a placed part and choose **Move XYZ** or **Rotate XYZ** to drag the 3D
+handles. **Focus selected** makes small parts easier to inspect. Z points up;
+Escape cancels a drag, and a completed drag is one undo step. **Position & stack**
+provides exact world X/Y/Z coordinates in millimeters and rotations in degrees.
+Rotations and exported geometry use Rz · Ry · Rx. The plan projects all eight
+rotated bounding-box corners, including tilts around X and Y.
+
+**Stack above** centers the selected part's bounding box over another in X/Y and
+raises its bottom to the other box's top plus the requested gap. This works with
+rotated parts and is an arrangement tool; it does not recognize mating faces,
+align bore axes, or create persistent assembly constraints.
+
+Additional checks:
+
+```sh
+node scripts/verify_studio_placement.mjs
+"$STUDIO_FREECAD_PYTHON" scripts/verify_studio_placement_freecad.py
+```
+
+These exercise a real Z-handle drag, numeric rotations, single-step undo,
+Escape, stacking, project reload and exported CAD. The independent FreeCAD check
+reconstructs placements and compares solids through symmetric differences.

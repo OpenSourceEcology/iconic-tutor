@@ -8,6 +8,7 @@ import {
   addInstance,
   replaceInstance,
   compositionSvg,
+  stackAbove,
   contributionFiles,
   escapeXml,
 } from "./studio-core.js";
@@ -343,8 +344,8 @@ function renderLesson() {
         "Let your new module travel",
       ]
     : [
-        "Meet the idler spacer",
-        "Make room for a different thickness",
+        "See what the spacer is for",
+        "Fill the example’s 2 mm gap",
         "Check what changed",
         "Give the next builder a starting point",
       ];
@@ -356,10 +357,10 @@ function renderLesson() {
         "Save your variant to the palette, then use it in a second wall position. Export the design and the contribution together.",
       ]
     : [
-        "Select the spacer in this parts study. Its source has a 19.812 mm outer diameter, a 12.7 mm bore, and a 1.016 mm thickness.",
-        "Try a 2 mm thickness. Keep the bore and outer diameter unchanged, and compare the new part with its source.",
+        "Follow the gap diagram above the 3D view. This exercise makes a spacer for an illustrative 2 mm separation. The displayed Axis parts are reference geometry, not an assembled machine.",
+        "The source is 1.016 mm thick: 0.984 mm short of our example gap. Generate a 2 mm version, keeping the 12.7 mm bore and 19.812 mm outside diameter fixed.",
         "A valid solid is one check. Whether the spacer fits and performs in an actual assembly is a separate decision requiring interface information.",
-        "Save the spacer with a useful name, then place a second copy. Your variation is now a reusable library asset.",
+        "Save the 2 mm exercise spacer and place a copy. Use Move XYZ or Position & stack to practice arranging it. Finding its actual Axis mating location remains a separate task.",
       ];
   $("step-label").textContent =
     step >= 4 ? "LESSON COMPLETE" : `STEP ${step + 1} OF 4`;
@@ -408,11 +409,11 @@ function render({ fit = false } = {}) {
   $("design-note").textContent =
     domain === "house"
       ? "Wall-layout study only. Corners, roof, foundation and engineering remain to be resolved."
-      : "A spaced parts study. No mating relationships or operating performance are implied.";
+      : "Reference parts, not an assembled Axis. Use XYZ controls to arrange them; see the example-gap lesson above.";
   $("view-caption").textContent =
     domain === "house"
       ? "A 12-foot wall-layout study"
-      : "Universal Axis · source parts study";
+      : "Universal Axis · reference parts";
   $("plan").innerHTML = compositionSvg(
     project(),
     selectedId,
@@ -429,11 +430,116 @@ function render({ fit = false } = {}) {
   $("rotate").disabled = busy || !instance();
   $("comparison-panel").hidden = !candidate;
   $("machine-interface").hidden = domain !== "machines";
+  $("machine-task").hidden = domain !== "machines";
+  renderPlacement();
   renderPalette();
   renderInspector();
   renderLesson();
   if (view) view.render(project(), selectedId, { fitView: fit });
 }
+function applyPlacement(id, placement) {
+  if (busy) {
+    render();
+    return;
+  }
+  try {
+    const next = clone(project());
+    const item = next.instances.find((i) => i.id === id);
+    if (!item) return;
+    item.position = placement.position;
+    item.rotation = placement.rotation;
+    selectedId = id;
+    candidate = null;
+    change(next);
+  } catch (error) {
+    notice(error.message, true);
+    render();
+  }
+}
+function renderPlacement() {
+  const selected = instance();
+  $("placement-title").textContent = selected
+    ? `· ${asset().title}`
+    : "· select a placed part";
+  $("placement-fields").disabled = !selected || busy;
+  $("placement-inputs").replaceChildren();
+  for (const [kind, units] of [
+    ["position", "mm"],
+    ["rotation", "°"],
+  ])
+    for (const [axis, name] of ["X", "Y", "Z"].entries()) {
+      const label = document.createElement("label");
+      label.textContent = `${kind === "rotation" ? "Rotate " : ""}${name} (${units})`;
+      const input = document.createElement("input");
+      Object.assign(input, {
+        id: `place-${kind}-${axis}`,
+        type: "number",
+        min: "-1000000",
+        max: "1000000",
+        step: "any",
+        required: true,
+        value: selected ? Number(selected[kind][axis].toFixed(6)) : 0,
+      });
+      label.append(input);
+      $("placement-inputs").append(label);
+    }
+  const oldTarget = $("stack-target").value;
+  $("stack-target").replaceChildren();
+  for (const [index, item] of project().instances.entries()) {
+    if (item.id === selected?.id) continue;
+    const option = document.createElement("option");
+    option.value = item.id;
+    option.textContent = `${index + 1}. ${project().assets.find((a) => a.id === item.asset_id).title}`;
+    $("stack-target").append(option);
+  }
+  if ([...$("stack-target").options].some((o) => o.value === oldTarget))
+    $("stack-target").value = oldTarget;
+  $("stack-above").disabled =
+    !selected || busy || !$("stack-target").options.length;
+}
+$("placement-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (!instance()) return;
+  const values = (kind) =>
+    [0, 1, 2].map((axis) => Number($(`place-${kind}-${axis}`).value));
+  applyPlacement(selectedId, {
+    position: values("position"),
+    rotation: values("rotation"),
+  });
+});
+$("stack-form").addEventListener("submit", (event) => {
+  event.preventDefault();
+  if (busy || !instance()) return;
+  try {
+    candidate = null;
+    change(
+      stackAbove(
+        project(),
+        selectedId,
+        $("stack-target").value,
+        Number($("stack-gap").value),
+      ),
+    );
+    setView(false);
+    view.fit();
+  } catch (error) {
+    notice(error.message, true);
+  }
+});
+$("focus-selected").addEventListener("click", () => view?.focusSelected?.());
+document.querySelectorAll("[data-transform]").forEach((button) =>
+  button.addEventListener("click", () => {
+    setView(false);
+    view?.setTransformMode?.(button.dataset.transform);
+    document
+      .querySelectorAll("[data-transform]")
+      .forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+    $("manipulation-help").textContent =
+      button.dataset.transform === "orbit"
+        ? "Drag to orbit · scroll to zoom"
+        : "Select a part · drag a colored handle · Z is up · Esc cancels";
+  }),
+);
 function selectInstance(id) {
   if (busy) return;
   candidate = null;
@@ -465,7 +571,7 @@ function selectLessonTarget() {
   addChat(
     domain === "house"
       ? "This window wall is our starting point. Try narrowing the rough opening from 36 to 30 inches. The outer module stays 48 × 96 inches."
-      : "This spacer has an explicit dimensional recipe. Try changing only thickness from 1.016 to 2 mm.",
+      : "The diagram shows a teaching example with a 2 mm gap. Our source spacer is 1.016 mm thick; make it 2 mm to fill that example. We have not established its mating location among the Axis reference parts.",
   );
 }
 async function jsonFetch(path, options = {}) {
@@ -731,10 +837,10 @@ async function askTutor(text) {
       text.toLowerCase().includes("check")
         ? domain === "house"
           ? "Inspect the opening dimensions and framing in the comparison. Geometry checks do not establish header sizing, structural performance, or connection details."
-          : "Check the bore, outer diameter and thickness. Valid solids do not prove mating fit. Record the intended interface before treating this as an assembly-ready part."
+          : "The example diagram puts a spacer between two contact faces around a shaft. Check that the new thickness is 2 mm and its bore and outside diameter stay fixed. The displayed Axis parts have no verified mating location for this spacer."
         : domain === "house"
           ? "The window opening changes inside a fixed 48 × 96 inch wall module. The existing framing compiler updates the surrounding members. Use “Try a 30 in opening” to begin."
-          : "The spacer has three explicit dimensions: outer diameter, bore, and thickness. This lesson changes thickness only. The other machine parts retain their source geometry.",
+          : "The task is to make a spacer for the diagram’s example 2 mm gap. This is a teaching dimension, not an established Axis requirement. Select a part, then use Move XYZ or Position & stack to arrange it in 3D.",
     );
     return;
   }
@@ -1258,7 +1364,7 @@ async function init() {
     selectedId = project().instances[0]?.id;
     paletteId = instance()?.asset_id;
     try {
-      view = createStudioView($("viewport"), selectInstance);
+      view = createStudioView($("viewport"), selectInstance, applyPlacement);
       comparisonView = createStudioView($("comparison-viewport"), () => {});
     } catch {
       setView(true);

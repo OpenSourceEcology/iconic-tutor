@@ -1284,3 +1284,75 @@ dialog::backdrop {
     top: 12px;
   }
 }
+
+#machine-task {
+  padding: 18px 22px;
+  border-bottom: 1px solid #d5dccb;
+  background: #f4f6ec;
+}
+#machine-task h3 {
+  margin: 4px 0 8px;
+}
+#machine-task p {
+  font-size: 13px;
+  line-height: 1.5;
+}
+#machine-task svg {
+  width: 100%;
+  max-height: 175px;
+  display: block;
+}
+.placement-modes {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 8px 12px;
+}
+.placement-modes [aria-pressed="true"] {
+  background: #3f5931;
+  color: white;
+}
+#placement-panel {
+  padding: 12px 18px;
+  border-top: 1px solid #d5dccb;
+  font-size: 12px;
+}
+#placement-panel summary {
+  cursor: pointer;
+  font-weight: 650;
+}
+#placement-title {
+  font-weight: 400;
+}
+#placement-fields {
+  border: 0;
+  margin: 12px 0;
+  padding: 0;
+}
+#placement-inputs {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin: 8px 0;
+}
+#placement-panel label {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+#placement-panel input,
+#placement-panel select {
+  min-width: 0;
+  width: 100%;
+  padding: 6px;
+  box-sizing: border-box;
+  font: inherit;
+  border: 1px solid #bac6ae;
+  border-radius: 4px;
+}
+#stack-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 80px auto;
+  gap: 8px;
+  align-items: end;
+}

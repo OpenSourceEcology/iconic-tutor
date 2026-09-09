@@ -5,6 +5,7 @@ and leaving a reusable contribution. This early OSE demo includes a house
 wall-layout lesson and a Universal CNC Axis spacer lesson.
 
 - Smooth icon dragging, pan/zoom, drop snapping, keyboard placement and undo.
+- XYZ movement/rotation handles, exact coordinates, and bounding-box stacking.
 - Real FreeCAD variants with a separate before/after view and dimensional report.
 - A tutor that remembers the lesson conversation and project goal, sees the
   current composition, and links answers to curated wiki and schema sources.
@@ -74,7 +75,9 @@ Reports and screenshots are local under `reports/studio-browser`.
 
 ## Scope
 
-The house is a wall-layout study. The machine parts have no verified mating
+The house is a wall-layout study. The machine task fills an illustrative 2 mm
+gap shown in a concept diagram; that is a teaching dimension, not an Axis
+assembly requirement. The machine parts have no verified mating
 transforms. The machine source lesson explicitly exposes the wiki's nominal
 1 mm spacer versus the retained CAD's 1.016 mm thickness and a bearing/bore
 mismatch. Valid geometry is not assembly or engineering approval. Source CAD

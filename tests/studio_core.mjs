@@ -8,6 +8,9 @@ import {
   addInstance,
   replaceInstance,
   compositionSvg,
+  footprint,
+  stackAbove,
+  worldCorners,
   contributionFiles,
 } from "../web/js/studio-core.js";
 
@@ -86,4 +89,39 @@ assert.equal(
 );
 console.log(
   "PASS studio core: portable geometry, immutable edits, replacement placement, validation, SVG escaping, contribution package",
+);
+
+// A box turned about X must project its height, not its original depth.
+const tilted = footprint(
+  { position: [10, 20, 30], rotation: [90, 0, 0] },
+  { bounds: [0, 0, 0, 2, 3, 4] },
+);
+assert(Math.abs(Math.min(...tilted.map((p) => p[1])) - 16) < 1e-9);
+assert(Math.abs(Math.max(...tilted.map((p) => p[1])) - 20) < 1e-9);
+const tiltedProject = clone(machines);
+tiltedProject.instances[0].rotation = [20, 35, 10];
+tiltedProject.instances[2].rotation = [35, 20, 0];
+const stacked = stackAbove(tiltedProject, "instance_3", "instance_1", 3);
+const cornersFor = (id) => {
+  const i = stacked.instances.find((i) => i.id === id);
+  return worldCorners(
+    i,
+    stacked.assets.find((a) => a.id === i.asset_id),
+  );
+};
+assert(
+  Math.abs(
+    Math.min(...cornersFor("instance_3").map((p) => p[2])) -
+      Math.max(...cornersFor("instance_1").map((p) => p[2])) -
+      3,
+  ) < 1e-8,
+);
+assert.notDeepEqual(
+  stacked.instances[2].position,
+  tiltedProject.instances[2].position,
+);
+assert.throws(() => stackAbove(machines, "instance_3", "instance_3", 0));
+assert.throws(() => stackAbove(machines, "instance_3", "instance_1", -1));
+console.log(
+  "PASS rotated plan projection and stacking with preserved orientation",
 );
