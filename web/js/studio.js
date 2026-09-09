@@ -546,7 +546,9 @@ function renderLesson() {
           : step === 2
             ? "Inspect the comparison"
             : "Use my saved variant";
-  $("lesson-action").disabled = busy;
+  $("lesson-action").disabled = busy || (step === 1 && !service.generation);
+  if (step === 1 && !service.generation)
+    $("lesson-action").textContent = "Generate in the full version";
   $("chat-suggestions").replaceChildren();
   for (const text of [
     "What changes here?",
@@ -1619,12 +1621,26 @@ async function init() {
     $("render-status").hidden = true;
     render({ fit: true });
     try {
-      service = await jsonFetch("/api/studio/status");
+      const deployment = await (await fetch("deployment.json")).json();
+      if (deployment.backend === "same-origin")
+        service = await jsonFetch("/api/studio/status");
     } catch {}
+    $("hosting-note").hidden = service.generation && service.tutor;
+    if (service.generation && !service.tutor) {
+      $("hosting-note").querySelector("strong").textContent = "Guided mode";
+      $("hosting-note").querySelector("span").textContent =
+        "CAD generation is connected. Guided explanations work; configure a model to enable the AI tutor.";
+    } else if (service.tutor && !service.generation) {
+      $("hosting-note").querySelector("strong").textContent =
+        "CAD preview mode";
+      $("hosting-note").querySelector("span").textContent =
+        "The AI tutor is connected. Explore and resize previews; connect FreeCAD to generate new CAD geometry.";
+    }
     $("tutor-mode").textContent = service.tutor
       ? "Local AI connected"
       : "Guided lesson · AI not connected";
     renderInspector();
+    renderLesson();
     restoreChat();
     if (!conversations[domain].length)
       addChat(

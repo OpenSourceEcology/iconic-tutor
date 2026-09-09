@@ -27,6 +27,33 @@ Open http://localhost:8766/studio.html. The catalog supports composition and
 exports without FreeCAD installed. New variant generation requires the setup
 below. Without a model, the tutor uses clearly identified guided explanations.
 
+## GitHub Pages
+
+GitHub Pages hosts the browser demo at
+`https://opensourceecology.github.io/iconic-tutor/` once the Pages workflow deploys.
+It supports both scenes, live plate-size previews, 3D placement, built-in guided
+explanations, portable projects and export of existing CAD geometry. It cannot
+run the Python/FreeCAD worker or a private model endpoint. The hosted UI labels
+this mode and links back to the full local setup.
+
+The `GitHub Pages` workflow checks the code, builds a static artifact, tests it
+under the `/iconic-tutor/` subpath and deploys only the web files plus license
+notices. Repository Settings → Pages should use **GitHub Actions** as the source.
+Future pushes to `main` redeploy automatically.
+
+To verify the Pages artifact locally:
+
+```sh
+python3 scripts/build_pages.py
+python3 -m http.server 8777 --bind 127.0.0.1 --directory reports/pages-preview
+# In another terminal, after installing Playwright/Chromium:
+node scripts/verify_pages.mjs
+```
+
+Full generation and AI can run on your local machine or a separately hosted
+backend. The current backend serves the UI and API together; it is not exposed
+by the Pages deployment. API credentials remain outside the static artifact.
+
 ## Enable real generation
 
 The repository includes a pinned, unchanged subset of Iconic CAD's housing

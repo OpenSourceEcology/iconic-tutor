@@ -1496,3 +1496,25 @@ dialog::backdrop {
 #mount-tools #mount-preview-label {
   color: #76531b;
 }
+
+#hosting-note {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  padding: 14px 18px;
+  margin-top: 16px;
+  background: #edf1df;
+  border: 1px solid #cfdbbb;
+  border-radius: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+}
+#hosting-note span {
+  flex: 1;
+  min-width: 240px;
+}
+#hosting-note a {
+  color: #3e602b;
+  font-weight: 600;
+}

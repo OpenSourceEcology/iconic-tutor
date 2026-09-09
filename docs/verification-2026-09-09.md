@@ -50,3 +50,12 @@ assembled/exploded display without export changes, nominal hole alignment,
 legacy Axis download preservation, responsive layouts, 3D manipulation and
 persisted tutor context. The live tutor proposed a 100 mm plate width while the
 saved geometry stayed at 90 mm. JavaScript core checks and 22 Python tests passed.
+
+## GitHub Pages preparation
+
+The static artifact passed a real browser check under `/iconic-tutor/`: local
+assets loaded, live 90 mm plate preview and exploded display worked, guided
+answers and existing CAD exports worked, generation-only actions were disabled,
+and no backend API requests were made. JavaScript core tests and 22 Python tests
+passed. The workflow gates Pages deployment on code and static browser checks.
+The workflow itself has not run on GitHub until the repository is published.

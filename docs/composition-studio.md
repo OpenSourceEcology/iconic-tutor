@@ -119,3 +119,12 @@ view-only explosion, old-project preservation, undo, pointer/touch cancellation,
 the actual exports and independently checks placement, volumes, opening voids,
 plate hole locations, motor/rail interference and contribution compilers.
 Reports and screenshots are written under ignored `reports/` directories.
+
+## Hosted browser demo
+
+GitHub Pages serves an explicitly static artifact. The build writes
+`deployment.json` with a null backend, so the browser makes no API calls.
+Slider previews, viewing, placement, existing-geometry exports and guided
+explanations work. New FreeCAD generation and the AI tutor require the full
+server; the UI explains this and disables generation-only lesson actions.
+The full server may be local or hosted separately. See README for deployment.
