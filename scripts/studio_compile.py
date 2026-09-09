@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT / "scripts"))
 from studio_contract import (
     HOUSE_IDS,
     MACHINE_IDS,
+    MOUNT_IDS,
     PARAMETERS,
     defaults,
     validate_parameters,
@@ -90,6 +91,15 @@ def compile_asset(request):
             "Geometry from the Iconic CAD SEH compiler and shared framing enumerator."
         )
         domain = "house"
+    elif source in MOUNT_IDS:
+        from mount_geometry import compile_mount, SCHEMA_PATH
+
+        schema_path = SCHEMA_PATH
+        objects = compile_mount(source, parameters, doc)
+        source_url = "https://www.pololu.com/file/0J685/SY42STH47-1206A.pdf"
+        source_revision = "motor-mount-v1-drawing-060047000"
+        source_note = "Original motor mounting exercise. Motor interface follows SOYO SY42STH47-1206A drawing 060047000; reference envelope is simplified. Frame rails and plate are original demo designs."
+        domain = "machines"
     else:
         library = Path(os.environ["STUDIO_GVCS_ROOT"]).resolve()
         sys.path.insert(0, str(library))
@@ -131,9 +141,20 @@ def compile_asset(request):
             {
                 "id": obj.Name,
                 "label": obj.Label,
-                "color": "#a9b9aa"
-                if "osb" in obj.Name.lower()
-                else ("#c29b68" if domain == "house" else "#779baa"),
+                "color": (
+                    {
+                        "Adapter_plate": "#e3aa45",
+                        "Motor_body": "#343b43",
+                        "Motor_front_cap": "#b9c4cc",
+                        "Motor_rear_cap": "#b9c4cc",
+                        "Motor_boss": "#c9d2d7",
+                        "Motor_shaft": "#dfe4e8",
+                    }.get(obj.Name, "#647d96")
+                    if source in MOUNT_IDS
+                    else "#a9b9aa"
+                    if "osb" in obj.Name.lower()
+                    else ("#c29b68" if domain == "house" else "#779baa")
+                ),
                 "mesh": {
                     "vertices": [v for p in points for v in (p.x, p.y, p.z)],
                     "indices": [v for t in triangles for v in t],
@@ -160,6 +181,8 @@ def compile_asset(request):
             ROOT / "scripts/studio_members.mjs",
         ]
         if domain == "house"
+        else [ROOT / "scripts/mount_geometry.py"]
+        if source in MOUNT_IDS
         else [library / "gvcs_geometry.py"]
     )
     recipe = {
@@ -177,6 +200,9 @@ def compile_asset(request):
         + hashlib.sha256(json.dumps(recipe, sort_keys=True).encode()).hexdigest()[:16]
     )
     labels = {
+        "nema17_motor_reference": "Stepper motor",
+        "mount_frame_rails": "Frame rails",
+        "motor_mount_plate": "Motor mounting plate",
         "wall_4x8_2x6_16oc": "Standard wall",
         "window_4x8_2x6_36x48": "Window wall",
         "door_4x8_2x6_38x83": "Door wall",
@@ -211,7 +237,11 @@ def compile_asset(request):
             ],
             "freecad_version": ".".join(App.Version()[:3]),
         },
-        "license_review": "pending" if domain == "machines" else "source_terms_apply",
+        "license_review": "original_demo_geometry"
+        if source in MOUNT_IDS
+        else "pending"
+        if domain == "machines"
+        else "source_terms_apply",
     }
     App.closeDocument(doc.Name)
     return result

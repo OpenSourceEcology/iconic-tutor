@@ -12,6 +12,7 @@ import {
   contributionFiles,
   escapeXml,
 } from "./studio-core.js";
+import { mountAlignment } from "./mount-preview.js";
 import { createStudioView } from "./studio-view.js";
 import {
   rigidTransformBrep,
@@ -40,8 +41,11 @@ let service = { generation: false, tutor: false },
   noticeTimer = null;
 const historyLimit = 20;
 const planCameras = {};
+let archivedAxis = null;
 const conversations = { house: [], machines: [] };
 const labels = {
+  width_mm: "Plate width",
+  height_mm: "Plate height",
   opening_width_in: "Opening width",
   opening_height_in: "Opening height",
   sill_height_in: "Sill height",
@@ -56,7 +60,7 @@ const asset = () =>
   project()?.assets.find((a) => a.id === (instance()?.asset_id || paletteId)) ||
   catalog.find((a) => a.id === paletteId);
 const targetSource = () =>
-  domain === "house" ? "window_4x8_2x6_36x48" : "axis_idler_spacer";
+  domain === "house" ? "window_4x8_2x6_36x48" : "motor_mount_plate";
 function notice(text, error = false) {
   $("notice").textContent = text;
   $("notice").classList.toggle("error", error);
@@ -109,7 +113,7 @@ function addChat(text, user = false, sources = [], record = true) {
   $("chat-log").scrollTop = $("chat-log").scrollHeight;
 }
 function remember() {
-  saveSession({ projects, lessons, conversations }).catch(() =>
+  saveSession({ projects, lessons, conversations, archivedAxis }).catch(() =>
     notice(
       "Browser storage is unavailable. Save a project file to keep your work.",
       true,
@@ -194,12 +198,20 @@ function setBusy(value) {
     !Object.keys(asset()?.parameters || {}).length;
   $("reset-lesson").disabled = value;
   $("open-project").disabled = value;
+  $("mount-fit").disabled = value;
+  $("edit-mount").disabled = value;
+  $("parameter-fields")
+    .querySelectorAll("input")
+    .forEach((i) => (i.disabled = value));
 }
 function icon(a) {
   const common =
     'fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"';
   let shape;
-  if (a.source_id.includes("spacer"))
+  if (a.source_id === "motor_mount_plate")
+    shape =
+      '<path d="M5 9h38v30H5z"/><circle cx="24" cy="24" r="7"/><circle cx="11" cy="15" r="2"/><circle cx="37" cy="15" r="2"/><circle cx="11" cy="33" r="2"/><circle cx="37" cy="33" r="2"/>';
+  else if (a.source_id.includes("spacer"))
     shape =
       '<ellipse cx="24" cy="27" rx="18" ry="11"/><ellipse cx="24" cy="24" rx="18" ry="11"/><ellipse cx="24" cy="24" rx="9" ry="5.5"/><path d="M6 24v3m36-3v3"/>';
   else if (a.domain === "machines")
@@ -211,9 +223,22 @@ function icon(a) {
 }
 function renderPalette() {
   const all = new Map(
-    [...catalog.filter((a) => a.domain === domain), ...project().assets].map(
-      (a) => [a.draft ? a.id : a.source_id, a],
-    ),
+    [
+      ...catalog.filter(
+        (a) =>
+          a.domain === domain &&
+          (domain !== "machines" ||
+            !project().assets.some(
+              (x) => x.source_id === "motor_mount_plate",
+            ) ||
+            [
+              "nema17_motor_reference",
+              "mount_frame_rails",
+              "motor_mount_plate",
+            ].includes(a.source_id)),
+      ),
+      ...project().assets,
+    ].map((a) => [a.draft ? a.id : a.source_id, a]),
   );
   $("asset-palette").replaceChildren();
   for (const a of all.values()) {
@@ -252,12 +277,30 @@ function renderPalette() {
 function renderInspector() {
   const a = asset();
   if (!a) return;
+  const mount =
+    domain === "machines" &&
+    project().assets.some((x) => x.source_id === "motor_mount_plate");
+  $(
+    mount && a.source_id === "motor_mount_plate"
+      ? "mount-controls-slot"
+      : "standard-controls-slot",
+  ).append($("parameter-form"));
+  $("edit-mount").hidden = a.source_id === "motor_mount_plate";
   $("selected-title").textContent = a.title;
   $("selected-summary").textContent =
     a.domain === "house"
       ? "A 48 × 96 in wall module. Openings change inside its fixed outer envelope."
-      : "A retained OSE component. Placement in this study does not establish assembly fit.";
+      : a.source_id === "motor_mount_plate"
+        ? "Your adapter joins the motor’s fixed hole pattern to the wider frame rails."
+        : a.source_id === "nema17_motor_reference"
+          ? "Motor reference: the four face holes are 31 mm apart. Edit the gold mounting plate to fit the frame."
+          : a.source_id.startsWith("axis_")
+            ? "Archived Axis reference geometry. No mating connection is established."
+            : "The frame’s hole centers are 76 mm apart across and 46 mm along the rails.";
   $("source-link").href = a.source_url;
+  $("source-link").textContent = mount
+    ? "Read the motor drawing ↗"
+    : "Read its wiki source ↗";
   $("source-revision").textContent =
     "Source revision " +
     a.source_revision.slice(0, 12) +
@@ -269,7 +312,9 @@ function renderInspector() {
     div.className = "field";
     const label = document.createElement("label");
     label.htmlFor = "param-" + key;
-    label.textContent = labels[key] || key;
+    label.textContent =
+      (labels[key] || key) +
+      (a.source_id === "motor_mount_plate" ? " (mm)" : "");
     const input = document.createElement("input");
     input.type = "number";
     input.id = "param-" + key;
@@ -280,6 +325,27 @@ function renderInspector() {
     input.step = "any";
     input.required = true;
     div.append(label, input);
+    if (a.source_id === "motor_mount_plate") {
+      const slider = document.createElement("input");
+      Object.assign(slider, {
+        type: "range",
+        id: "range-" + key,
+        min: input.min,
+        max: input.max,
+        step: key === "thickness_mm" ? "0.5" : "1",
+        value: input.value,
+      });
+      slider.setAttribute("aria-label", labels[key] || key);
+      slider.addEventListener("input", () => {
+        input.value = slider.value;
+        previewMount();
+      });
+      input.addEventListener("input", () => {
+        slider.value = input.value;
+        previewMount();
+      });
+      div.append(slider);
+    }
     $("parameter-fields").append(div);
   }
   $("parameter-units").textContent = entries.length
@@ -290,7 +356,7 @@ function renderInspector() {
   $("parameter-note").textContent = entries.length
     ? "Ranges bound this lesson. They are not fabrication-approved limits."
     : "This component retains fixed source geometry. Choose " +
-      (domain === "house" ? "Window wall" : "Idler spacer") +
+      (domain === "house" ? "Window wall" : "Motor mounting plate") +
       " to create a dimensional variant.";
   $("generate").disabled = busy || !service.generation || !entries.length;
   $("generation-status").textContent = busy
@@ -298,8 +364,96 @@ function renderInspector() {
     : service.generation
       ? "FreeCAD connected"
       : "Generation needs the local service";
+  if (mount) {
+    const placed = project()
+      .instances.map((i) => project().assets.find((a) => a.id === i.asset_id))
+      .find((a) => a.source_id === "motor_mount_plate");
+    if (placed) updateMountFeedback(placed.parameters, false);
+  }
   renderCandidate();
 }
+function updateMountFeedback(parameters, preview) {
+  const error = mountAlignment(parameters);
+  $("mount-feedback").textContent =
+    error < 0.01
+      ? "✓ All four frame-hole centers line up."
+      : `Frame holes miss by ${error.toFixed(1)} mm. Try a wider plate.`;
+  const items = project().instances.filter((i) =>
+    [
+      "motor_mount_plate",
+      "nema17_motor_reference",
+      "mount_frame_rails",
+    ].includes(project().assets.find((a) => a.id === i.asset_id)?.source_id),
+  );
+  const inPlace =
+    items.length === 3 &&
+    items.every(
+      (i) =>
+        i.rotation.every((v) => Math.abs(v % 360) < 1e-6) &&
+        i.position.every((v, k) => Math.abs(v - items[0].position[k]) < 1e-6),
+    );
+  if (!inPlace)
+    $("mount-feedback").textContent =
+      `Hole-pattern offset: ${error.toFixed(1)} mm. Parts have moved; check their placement separately.`;
+  $("mount-feedback").classList.toggle("aligned", error < 0.01 && inPlace);
+  $("mount-preview-label").textContent = preview
+    ? "Live preview · generate to create checked CAD."
+    : "Showing saved geometry. Drag a slider to try a change.";
+}
+function previewMount() {
+  if (busy || asset()?.source_id !== "motor_mount_plate") return;
+  const values = Object.fromEntries(
+    [...$("parameter-fields").querySelectorAll("input[name]")].map((i) => [
+      i.name,
+      Number(i.value),
+    ]),
+  );
+  if (
+    [...$("parameter-fields").querySelectorAll("input[name]")].some(
+      (i) => !i.checkValidity(),
+    )
+  )
+    return;
+  candidate = null;
+  reviewed = false;
+  $("comparison-panel").hidden = true;
+  renderCandidate();
+  setView(false);
+  view?.previewPlate?.(values);
+  updateMountFeedback(values, true);
+}
+$("edit-mount").addEventListener("click", selectLessonTarget);
+$("mount-fit").addEventListener("click", () => {
+  if (asset()?.source_id !== "motor_mount_plate") selectLessonTarget();
+  for (const [key, value] of Object.entries({ width_mm: 90, height_mm: 60 })) {
+    $("param-" + key).value = value;
+    $("range-" + key).value = value;
+  }
+  previewMount();
+});
+$("mount-assembly").addEventListener("click", () => {
+  setView(false);
+  view?.setExploded?.(false);
+  view?.cameraPreset?.("assembly");
+});
+$("mount-exploded").addEventListener("click", () => {
+  setView(false);
+  view?.setExploded?.(true);
+  view?.cameraPreset?.("assembly");
+});
+$("mount-top").addEventListener("click", () => {
+  setView(false);
+  view?.setExploded?.(false);
+  view?.cameraPreset?.("top");
+});
+$("download-axis").addEventListener("click", () => {
+  if (archivedAxis)
+    download(
+      JSON.stringify(archivedAxis),
+      "previous-axis-study.json",
+      "application/json",
+    );
+});
 function renderCandidate() {
   const a =
     candidate ||
@@ -327,6 +481,18 @@ function renderCandidate() {
   }
 }
 function renderLesson() {
+  if (
+    domain === "machines" &&
+    !project().assets.some((a) => a.source_id === "motor_mount_plate")
+  ) {
+    $("step-label").textContent = "ARCHIVED AXIS STUDY";
+    $("step-title").textContent = "Your earlier work is retained";
+    $("step-copy").textContent =
+      "You can arrange and export this study. The new motor mounting lesson shows a complete connection and lets you resize its plate.";
+    $("lesson-action").textContent = "Open motor mounting lesson";
+    $("lesson-action").disabled = busy;
+    return;
+  }
   if (lessons[domain] === 2 && !candidate) lessons[domain] = 1;
   const step = lessons[domain];
   $("lesson-steps").innerHTML = steps
@@ -344,10 +510,10 @@ function renderLesson() {
         "Let your new module travel",
       ]
     : [
-        "See what the spacer is for",
-        "Fill the example’s 2 mm gap",
-        "Check what changed",
-        "Give the next builder a starting point",
+        "The plate does not reach the frame",
+        "Widen the plate. Keep the motor holes.",
+        "Check the new plate",
+        "Use it on the motor",
       ];
   const copies = house
     ? [
@@ -357,10 +523,10 @@ function renderLesson() {
         "Save your variant to the palette, then use it in a second wall position. Export the design and the contribution together.",
       ]
     : [
-        "Follow the gap diagram above the 3D view. This exercise makes a spacer for an illustrative 2 mm separation. The displayed Axis parts are reference geometry, not an assembled machine.",
-        "The source is 1.016 mm thick: 0.984 mm short of our example gap. Generate a 2 mm version, keeping the 12.7 mm bore and 19.812 mm outside diameter fixed.",
-        "A valid solid is one check. Whether the spacer fits and performs in an actual assembly is a separate decision requiring interface information.",
-        "Save the 2 mm exercise spacer and place a copy. Use Move XYZ or Position & stack to practice arranging it. Finding its actual Axis mating location remains a separate task.",
+        "The black motor sits between two blue frame rails. The gold plate attaches to the motor, but its outer holes miss the rails. Pull the parts apart to see how they meet.",
+        "Drag Plate width from 60 to 90 mm. The outer holes move onto the frame. The motor’s 31 mm hole pattern stays fixed. Use Look down at holes to check alignment.",
+        "Compare the plate dimensions, inspect the holes and review the FreeCAD checks. Hole alignment does not establish strength or fastener selection.",
+        "Save the checked plate, then use it to replace the original in the assembly. Your motor and rails stay in place.",
       ];
   $("step-label").textContent =
     step >= 4 ? "LESSON COMPLETE" : `STEP ${step + 1} OF 4`;
@@ -374,9 +540,9 @@ function renderLesson() {
     step >= 4
       ? "Download contribution"
       : step === 0
-        ? "Select " + (house ? "window wall" : "spacer")
+        ? "Select " + (house ? "window wall" : "mounting plate")
         : step === 1
-          ? "Try " + (house ? "a 30 in opening" : "a 2 mm spacer")
+          ? "Try " + (house ? "a 30 in opening" : "a 90 mm plate")
           : step === 2
             ? "Inspect the comparison"
             : "Use my saved variant";
@@ -397,10 +563,23 @@ function render({ fit = false } = {}) {
   if (!project()) return;
   document.body.classList.toggle("working", lessons[domain] > 0);
   if (!instance() && !asset()) {
-    selectedId = project().instances[0]?.id || null;
+    selectedId =
+      (domain === "machines"
+        ? project().instances.find(
+            (i) =>
+              project().assets.find((a) => a.id === i.asset_id)?.source_id ===
+              "motor_mount_plate",
+          )?.id
+        : null) ||
+      project().instances[0]?.id ||
+      null;
     paletteId = project().assets[0]?.id || null;
   }
   $("project-goal").value = project().goal || "";
+  $("project-goal").placeholder =
+    domain === "house"
+      ? "e.g. A 30 in rough opening in this wall"
+      : "e.g. Mount this motor on the wider frame";
   $("workspace-title").textContent = DOMAIN_LABELS[domain];
   $("palette-title").textContent =
     domain === "house" ? "Housing library" : "Machine parts";
@@ -409,11 +588,11 @@ function render({ fit = false } = {}) {
   $("design-note").textContent =
     domain === "house"
       ? "Wall-layout study only. Corners, roof, foundation and engineering remain to be resolved."
-      : "Reference parts, not an assembled Axis. Use XYZ controls to arrange them; see the example-gap lesson above.";
+      : "Motor reference and demo frame. Slider previews are saved only after generation and review.";
   $("view-caption").textContent =
     domain === "house"
       ? "A 12-foot wall-layout study"
-      : "Universal Axis · reference parts";
+      : "Motor + mounting plate + frame";
   $("plan").innerHTML = compositionSvg(
     project(),
     selectedId,
@@ -430,12 +609,29 @@ function render({ fit = false } = {}) {
   $("rotate").disabled = busy || !instance();
   $("comparison-panel").hidden = !candidate;
   $("machine-interface").hidden = domain !== "machines";
-  $("machine-task").hidden = domain !== "machines";
+  const mount =
+    domain === "machines" &&
+    project().assets.some((a) => a.source_id === "motor_mount_plate");
+  document.body.classList.toggle("motor-lesson", mount);
+  $("machine-task").hidden = !mount;
+  $("mount-tools").hidden = !mount;
+  $("download-axis").hidden = !archivedAxis;
   renderPlacement();
   renderPalette();
   renderInspector();
   renderLesson();
   if (view) view.render(project(), selectedId, { fitView: fit });
+  if (
+    view &&
+    asset()?.source_id === "motor_mount_plate" &&
+    asset().draft &&
+    !instance()
+  ) {
+    view.previewPlate?.(asset().parameters);
+    updateMountFeedback(asset().parameters, true);
+    $("mount-preview-label").textContent =
+      "Saved draft preview · use your saved variant to update the assembly.";
+  }
 }
 function applyPlacement(id, placement) {
   if (busy) {
@@ -548,6 +744,7 @@ function selectInstance(id) {
   render();
 }
 function setView(plan) {
+  $("mount-stage").hidden = plan;
   $("plan-panel").hidden = !plan;
   $("viewport").hidden = plan;
   $("tab-plan").setAttribute("aria-selected", String(plan));
@@ -571,7 +768,7 @@ function selectLessonTarget() {
   addChat(
     domain === "house"
       ? "This window wall is our starting point. Try narrowing the rough opening from 36 to 30 inches. The outer module stays 48 × 96 inches."
-      : "The diagram shows a teaching example with a 2 mm gap. Our source spacer is 1.016 mm thick; make it 2 mm to fill that example. We have not established its mating location among the Axis reference parts.",
+      : "Resize the gold plate until its outer holes line up with the blue rails. Try 90 mm width while keeping height 60 mm. The motor holes stay fixed at 31 mm spacing.",
   );
 }
 async function jsonFetch(path, options = {}) {
@@ -587,7 +784,7 @@ async function jsonFetch(path, options = {}) {
 }
 function readParameters() {
   const out = {};
-  for (const input of $("parameter-fields").querySelectorAll("input")) {
+  for (const input of $("parameter-fields").querySelectorAll("input[name]")) {
     if (!input.reportValidity()) throw new Error("Check the parameter values.");
     out[input.name] = Number(input.value);
   }
@@ -629,12 +826,16 @@ async function generate() {
     candidate.title =
       domain === "house"
         ? `Window · ${parameters.opening_width_in} × ${parameters.opening_height_in} in`
-        : `Spacer · ${parameters.thickness_mm} mm thick`;
+        : base.source_id === "motor_mount_plate"
+          ? `Mounting plate · ${parameters.width_mm} × ${parameters.height_mm} mm`
+          : `Spacer · ${parameters.thickness_mm} mm thick`;
     lessons[domain] = Math.max(2, lessons[domain]);
     setView(false);
     renderCandidate();
     renderLesson();
     showComparison(base, candidate);
+    if (base.source_id === "motor_mount_plate")
+      updateMountFeedback(candidate.parameters, true);
     $("generation-status").textContent = "Geometry ready to inspect";
     addChat(
       "The new geometry is ready. Compare the two versions, then inspect what passed and what still needs review. Your placed design has not changed yet.",
@@ -721,7 +922,7 @@ function reuseDraft() {
     : [...project().assets].reverse().find((a) => a.draft);
   if (!a) return notice("Save a reviewed variant to your palette first.");
   let next;
-  if (domain === "house") {
+  if (domain === "house" || a.source_id === "motor_mount_plate") {
     const target = project().instances.find(
       (i) =>
         project().assets.find((x) => x.id === i.asset_id)?.source_id ===
@@ -827,7 +1028,7 @@ async function askTutor(text) {
     addChat(
       nextDomain === "house"
         ? "Here is the housing palette. The window wall has editable opening dimensions. Your machine study is retained."
-        : "Here is the machine parts palette. The spacer has editable dimensions. Your house study is retained.",
+        : "Here is the motor mounting lesson. Resize the gold plate to connect the motor to the frame rails. Your house study is retained.",
     );
     return;
   }
@@ -837,10 +1038,10 @@ async function askTutor(text) {
       text.toLowerCase().includes("check")
         ? domain === "house"
           ? "Inspect the opening dimensions and framing in the comparison. Geometry checks do not establish header sizing, structural performance, or connection details."
-          : "The example diagram puts a spacer between two contact faces around a shaft. Check that the new thickness is 2 mm and its bore and outside diameter stay fixed. The displayed Axis parts have no verified mating location for this spacer."
+          : "Use Look down at holes. The motor holes must remain on their 31 mm pattern; the four outer holes need to meet the frame’s 76 × 46 mm pattern. A 90 × 60 mm plate does that with holes 7 mm in from each edge."
         : domain === "house"
           ? "The window opening changes inside a fixed 48 × 96 inch wall module. The existing framing compiler updates the surrounding members. Use “Try a 30 in opening” to begin."
-          : "The task is to make a spacer for the diagram’s example 2 mm gap. This is a teaching dimension, not an established Axis requirement. Select a part, then use Move XYZ or Position & stack to arrange it in 3D.",
+          : "The gold plate’s outer holes miss the blue frame rails. Drag Plate width from 60 to 90 mm and watch the model grow. The motor holes stay fixed. Generate and review the new plate before saving it.",
     );
     return;
   }
@@ -876,6 +1077,7 @@ async function askTutor(text) {
         const input = $("param-" + k);
         if (input) input.value = v;
       }
+      if (source.source_id === "motor_mount_plate") previewMount();
       notice("Proposed dimensions are in the form. Generate them when ready.");
     }
   } catch (error) {
@@ -1123,7 +1325,16 @@ document.querySelectorAll("[data-domain]").forEach((b) =>
     if (busy) return;
     domain = b.dataset.domain;
     candidate = null;
-    selectedId = project().instances[0]?.id || null;
+    selectedId =
+      (domain === "machines"
+        ? project().instances.find(
+            (i) =>
+              project().assets.find((a) => a.id === i.asset_id)?.source_id ===
+              "motor_mount_plate",
+          )?.id
+        : null) ||
+      project().instances[0]?.id ||
+      null;
     paletteId = instance()?.asset_id || project().assets[0]?.id;
     document
       .querySelectorAll("[data-domain]")
@@ -1135,13 +1346,26 @@ document.querySelectorAll("[data-domain]").forEach((b) =>
   }),
 );
 $("lesson-action").addEventListener("click", () => {
+  if (
+    domain === "machines" &&
+    !project().assets.some((a) => a.source_id === "motor_mount_plate")
+  ) {
+    archivedAxis = clone(project());
+    lessons.machines = 0;
+    selectedId = null;
+    paletteId = null;
+    candidate = null;
+    change(seedProject("machines", catalog));
+    selectLessonTarget();
+    view.fit();
+    return;
+  }
   const s = lessons[domain];
   if (s === 0) selectLessonTarget();
   else if (s === 1) {
     if (asset()?.source_id !== targetSource()) selectLessonTarget();
-    $(
-      domain === "house" ? "param-opening_width_in" : "param-thickness_mm",
-    ).value = domain === "house" ? 30 : 2;
+    $(domain === "house" ? "param-opening_width_in" : "param-width_mm").value =
+      domain === "house" ? 30 : 90;
     generate();
   } else if (s === 2) reviewCandidate();
   else if (s === 3) reuseDraft();
@@ -1192,13 +1416,6 @@ $("place-selected").addEventListener("click", () => {
   candidate = null;
   change(next);
   setView(true);
-});
-$("try-source-spacer").addEventListener("click", () => {
-  selectLessonTarget();
-  $("param-thickness_mm").value = 1;
-  addChat(
-    "The wiki calls for a nominal 1 mm spacer with 6 × 10 × 3 mm flanged bearings. The retained CAD pad is 1.016 mm. This proposal changes thickness only; the 12.7 mm bore exceeds the stated bearing’s 10 mm outer diameter, so direct bearing contact is not established. Resolve the drawing and interface before assembly.",
-  );
 });
 $("fit-view").addEventListener("click", () => view.fit());
 $("rotate").addEventListener("click", () => {
@@ -1337,6 +1554,7 @@ async function init() {
     try {
       const saved = await loadSession();
       if (saved) {
+        archivedAxis = saved.archivedAxis || null;
         for (const d of ["house", "machines"]) {
           if (saved.projects?.[d])
             projects[d] = validateProject(saved.projects[d]);
@@ -1361,7 +1579,30 @@ async function init() {
         true,
       );
     }
-    selectedId = project().instances[0]?.id;
+    if (
+      !projects.machines.assets.some((a) => a.source_id === "motor_mount_plate")
+    ) {
+      archivedAxis = clone(projects.machines);
+      projects.machines = seedProject("machines", catalog);
+      lessons.machines = 0;
+      conversations.machines = [];
+      remember();
+    }
+    const requested = new URLSearchParams(location.search).get("lesson");
+    if (["house", "machines"].includes(requested)) domain = requested;
+    document
+      .querySelectorAll("[data-domain]")
+      .forEach((b) =>
+        b.setAttribute("aria-pressed", String(b.dataset.domain === domain)),
+      );
+    selectedId =
+      (domain === "machines"
+        ? project().instances.find(
+            (i) =>
+              project().assets.find((a) => a.id === i.asset_id)?.source_id ===
+              "motor_mount_plate",
+          )?.id
+        : null) || project().instances[0]?.id;
     paletteId = instance()?.asset_id;
     try {
       view = createStudioView($("viewport"), selectInstance, applyPlacement);

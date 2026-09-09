@@ -18,9 +18,12 @@ const catalog = JSON.parse(
   readFileSync(new URL("../web/data/studio/catalog.json", import.meta.url)),
 ).assets;
 catalog.forEach(validateAsset);
-assert.equal(catalog.length, 6);
+assert.equal(catalog.length, 9);
 const house = seedProject("house", catalog),
-  machines = seedProject("machines", catalog);
+  machines = seedProject(
+    "machines",
+    catalog.filter((a) => a.source_id.startsWith("axis_")),
+  );
 assert.equal(house.instances.length, 12);
 assert.equal(machines.instances.length, 3);
 const saved = JSON.stringify(machines),
@@ -125,3 +128,8 @@ assert.throws(() => stackAbove(machines, "instance_3", "instance_1", -1));
 console.log(
   "PASS rotated plan projection and stacking with preserved orientation",
 );
+
+const mount = seedProject("machines", catalog);
+assert.equal(mount.instances.length, 3);
+assert.equal(mount.assets.length, 3);
+assert(mount.assets.some((a) => a.source_id === "motor_mount_plate"));

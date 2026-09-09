@@ -1356,3 +1356,143 @@ dialog::backdrop {
   gap: 8px;
   align-items: end;
 }
+
+.motor-lesson #mount-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 190px;
+  background: #f1f4e9;
+}
+.motor-lesson #viewport {
+  min-height: 440px;
+  height: 440px;
+}
+#mount-tools {
+  padding: 16px 12px;
+  background: #fffef7;
+  border-left: 1px solid #d5dccb;
+}
+#mount-tools h3 {
+  margin: 0 0 14px;
+}
+#mount-tools #parameter-fields {
+  display: block;
+}
+#mount-tools .field {
+  margin: 12px 0;
+}
+#mount-tools input[type="range"] {
+  width: 100%;
+  padding: 0;
+  accent-color: #ad771c;
+}
+#mount-tools input[type="number"] {
+  width: 100%;
+  box-sizing: border-box;
+}
+#mount-tools .parameter-heading {
+  display: none;
+}
+#mount-tools .generate-row {
+  display: block;
+}
+#mount-tools #generation-status {
+  display: block;
+  margin-top: 6px;
+}
+#mount-tools #parameter-note {
+  display: none;
+}
+#mount-tools #generate,
+#mount-fit {
+  width: 100%;
+  margin: 8px 0;
+}
+#mount-tools p {
+  font-size: 12px;
+  line-height: 1.45;
+}
+#mount-feedback {
+  padding: 9px;
+  background: #f7e6c8;
+  border-radius: 6px;
+  font-weight: 600;
+}
+#mount-feedback.aligned {
+  background: #dcebbf;
+  color: #304c23;
+}
+.mount-view-buttons {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.mount-legend {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.mount-legend span:first-child {
+  color: #93601a;
+}
+.mount-legend span:nth-child(2) {
+  color: #486e96;
+}
+.motor-lesson .intro {
+  padding-top: 18px;
+  padding-bottom: 18px;
+}
+.motor-lesson .intro h1 {
+  font-size: 28px;
+}
+.motor-lesson .intro-copy {
+  display: none;
+}
+@media (max-width: 700px) {
+  .motor-lesson #mount-stage {
+    grid-template-columns: 1fr;
+  }
+  .motor-lesson #viewport {
+    height: 350px;
+    min-height: 350px;
+  }
+  #mount-tools {
+    border-left: 0;
+    border-top: 1px solid #d5dccb;
+  }
+  #mount-tools #parameter-fields {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+}
+
+.motor-lesson .lesson-picker button {
+  min-height: 92px;
+  padding: 14px 18px;
+}
+.motor-lesson .lesson-picker strong {
+  font-size: 20px;
+}
+.motor-lesson .lesson-picker button > span:not(.lesson-number) {
+  display: none;
+}
+#mount-tools #parameter-fields .field {
+  margin: 7px 0;
+}
+#mount-tools #parameter-fields label {
+  font-size: 11px;
+  margin: 0 0 3px;
+}
+#mount-tools #parameter-fields input[type="number"] {
+  padding: 5px 7px;
+  font-size: 13px;
+  min-height: 0;
+  height: 30px;
+}
+#mount-tools #parameter-fields input[type="range"] {
+  margin: 2px 0;
+  height: 18px;
+}
+#mount-tools #mount-preview-label {
+  color: #76531b;
+}

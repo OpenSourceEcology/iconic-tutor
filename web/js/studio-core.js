@@ -2,7 +2,7 @@ import { rotationMatrixXYZ } from "./machine-core.js";
 // Pure document operations for the two guided composition studies.
 export const DOMAIN_LABELS = {
   house: "A house, one module at a time",
-  machines: "A useful part, made your own",
+  machines: "Mount a motor to a frame",
 };
 export const SOURCES = [
   "wall_4x8_2x6_16oc",
@@ -11,6 +11,9 @@ export const SOURCES = [
   "axis_2007_carriage",
   "axis_2007_idler",
   "axis_idler_spacer",
+  "nema17_motor_reference",
+  "mount_frame_rails",
+  "motor_mount_plate",
 ];
 const finite = (v) => typeof v === "number" && Number.isFinite(v);
 const triple = (v) =>
@@ -75,7 +78,9 @@ export function validateAsset(asset) {
       ? ["outer_diameter_mm", "bore_mm", "thickness_mm"]
       : asset.source_id === "window_4x8_2x6_36x48"
         ? ["opening_width_in", "opening_height_in", "sill_height_in"]
-        : [];
+        : asset.source_id === "motor_mount_plate"
+          ? ["width_mm", "height_mm", "thickness_mm"]
+          : [];
   if (
     Object.keys(asset.parameters).sort().join() !==
       [...parameterKeys].sort().join() ||
@@ -210,7 +215,19 @@ export function validateProject(project) {
 }
 
 export function seedProject(domain, catalog) {
-  const assets = catalog.filter((a) => a.domain === domain);
+  const mount =
+    domain === "machines" &&
+    catalog.some((a) => a.source_id === "motor_mount_plate");
+  const assets = catalog.filter(
+    (a) =>
+      a.domain === domain &&
+      (!mount ||
+        [
+          "nema17_motor_reference",
+          "mount_frame_rails",
+          "motor_mount_plate",
+        ].includes(a.source_id)),
+  );
   const bySource = (source) => assets.find((a) => a.source_id === source);
   const instances = [];
   const add = (source, position, angle = 0) =>
@@ -241,6 +258,10 @@ export function seedProject(domain, catalog) {
       );
       add("wall_4x8_2x6_16oc", [-d, l + d - i * w, 0], 270);
     }
+  } else if (mount) {
+    add("nema17_motor_reference", [0, 0, 0]);
+    add("mount_frame_rails", [0, 0, 0]);
+    add("motor_mount_plate", [0, 0, 0]);
   } else {
     // A source-parts study, with separated parts. These are not mating transforms.
     add("axis_2007_carriage", [0, 0, 0]);

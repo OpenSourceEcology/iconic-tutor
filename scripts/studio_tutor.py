@@ -3,6 +3,11 @@
 import json
 
 SOURCES = {
+    "motor_drawing": {
+        "title": "SOYO SY42STH47-1206A motor mounting drawing",
+        "url": "https://www.pololu.com/file/0J685/SY42STH47-1206A.pdf",
+        "fact": "Drawing 060047000 shows 42.3 mm body width, 47 mm nominal length, 31 mm bolt pitch, four M3 mounting holes, 22 mm boss diameter, 2 mm boss height, 5 mm shaft diameter and 24 mm shaft projection. Our motor is a simplified reference envelope; no supplier CAD is claimed.",
+    },
     "axis_build": {
         "title": "Universal CNC Axis: bearing and spacer source note",
         "url": "https://wiki.opensourceecology.org/wiki/Universal_CNC_Axis#Universal_Axis_with_Magnet_Holes_2017",
@@ -51,6 +56,9 @@ def tutor_context(body, source_id):
     keys = (
         ["window_schema"]
         if source_id.startswith(("window", "wall", "door"))
+        else ["motor_drawing"]
+        if source_id
+        in ("nema17_motor_reference", "mount_frame_rails", "motor_mount_plate")
         else ["axis_build", "spacer_recipe"]
     )
     return messages, project, {key: SOURCES[key] for key in keys}

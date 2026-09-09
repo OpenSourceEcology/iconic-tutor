@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "motor": {
+    "source": "https://www.pololu.com/file/0J685/SY42STH47-1206A.pdf",
+    "drawing": "SY42STH47-1206A, 060047000, 2010-06-29",
+    "body_width_mm": 42.3,
+    "body_length_mm": 47,
+    "bolt_pitch_mm": 31,
+    "thread": "M3",
+    "thread_depth_min_mm": 4.5,
+    "boss_diameter_mm": 22,
+    "boss_height_mm": 2,
+    "shaft_diameter_mm": 5,
+    "shaft_projection_mm": 24,
+    "note": "Simplified reference envelope; threads, wires, internal geometry and manufacturing tolerances are omitted. Cosmetic cap divisions are illustrative."
+  },
+  "fixture": {
+    "rail_center_spacing_mm": 76,
+    "rail_hole_pitch_mm": 46,
+    "rail_width_mm": 10,
+    "rail_length_mm": 70,
+    "rail_thickness_mm": 8,
+    "rail_hole_diameter_mm": 5.5,
+    "note": "Original teaching fixture, not an OSE machine or supplier product."
+  },
+  "plate": {
+    "motor_clearance_hole_mm": 3.4,
+    "boss_clearance_hole_mm": 23,
+    "frame_clearance_hole_mm": 5.5,
+    "frame_hole_edge_offset_mm": 7,
+    "note": "Original adapter plate. Clearances and parameter limits are design choices for this exercise; fasteners, material, tolerances and loads need review."
+  }
+}

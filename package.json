@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "node tests/studio_core.mjs",
-    "test:browser": "node scripts/verify_studio_browser.mjs && node scripts/verify_studio_interaction.mjs && node scripts/verify_studio_placement.mjs"
+    "test:browser": "node scripts/verify_studio_browser.mjs && node scripts/verify_studio_interaction.mjs && node scripts/verify_studio_placement.mjs && node scripts/verify_mount_preview.mjs"
   },
   "devDependencies": {
     "playwright": "1.63.0"

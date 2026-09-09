@@ -57,17 +57,37 @@ def check_domain(domain):
     if domain == "machines":
         p = variant["parameters"]
         expected_volume = (
-            math.pi
-            / 4
-            * (p["outer_diameter_mm"] ** 2 - p["bore_mm"] ** 2)
-            * p["thickness_mm"]
-        )
+            p["width_mm"] * p["height_mm"]
+            - math.pi * (11.5**2 + 4 * 1.7**2 + 4 * 2.75**2)
+        ) * p["thickness_mm"]
         assert math.isclose(
             variant["validation"]["volume_mm3"], expected_volume, rel_tol=1e-10
         )
         assert math.isclose(
-            variant["bounds"][5] - variant["bounds"][2], 2, abs_tol=1e-8
+            variant["bounds"][3] - variant["bounds"][0], 90, abs_tol=1e-8
         )
+        plate = Part.Shape()
+        plate.importBrepFromString(variant["parts"][0]["brep"])
+        for spacing, radius in ((15.5, 1.7), (38, 2.75)):
+            for x in (-spacing, spacing):
+                for y in (-15.5, 15.5) if spacing == 15.5 else (-23, 23):
+                    void = Part.makeCylinder(
+                        radius - 0.001, p["thickness_mm"] + 2, App.Vector(x, y, -1)
+                    )
+                    assert plate.common(void).Volume < 1e-7
+                    rim = Part.makeCylinder(
+                        radius + 0.3, p["thickness_mm"], App.Vector(x, y, 0)
+                    )
+                    assert plate.common(rim).Volume > 0.1
+        for reference in project["assets"]:
+            if reference["source_id"] in (
+                "nema17_motor_reference",
+                "mount_frame_rails",
+            ):
+                for part in reference["parts"]:
+                    shape = Part.Shape()
+                    shape.importBrepFromString(part["brep"])
+                    assert plate.common(shape).Volume < 1e-6
     else:
         assert variant["parameters"]["opening_width_in"] == 30
         assert math.isclose(

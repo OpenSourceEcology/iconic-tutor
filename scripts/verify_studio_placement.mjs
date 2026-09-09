@@ -29,7 +29,7 @@ try {
   // Undo chooses the first part; select the spacer again.
   await page
     .locator("#asset-palette button")
-    .filter({ hasText: "Idler spacer" })
+    .filter({ hasText: "Motor mounting plate" })
     .click();
   assert.equal(await page.locator("#place-position-2").inputValue(), before);
   await page.locator('[data-transform="translate"]').click();
@@ -82,7 +82,7 @@ try {
   await page.locator("#undo").click();
   await page
     .locator("#asset-palette button")
-    .filter({ hasText: "Idler spacer" })
+    .filter({ hasText: "Motor mounting plate" })
     .click();
   assert.equal(
     await page.locator("#place-position-2").inputValue(),
@@ -129,7 +129,7 @@ try {
   await page.locator("#project-file").setInputFiles(out + "/placed.json");
   await page
     .locator("#asset-palette button")
-    .filter({ hasText: "Idler spacer" })
+    .filter({ hasText: "Motor mounting plate" })
     .click();
   assert.equal(await page.locator("#place-rotation-0").inputValue(), "35");
   await page.screenshot({

@@ -3,8 +3,14 @@
 import math
 
 HOUSE_IDS = ("wall_4x8_2x6_16oc", "window_4x8_2x6_36x48", "door_4x8_2x6_38x83")
-MACHINE_IDS = ("axis_2007_carriage", "axis_2007_idler", "axis_idler_spacer")
+MOUNT_IDS = ("nema17_motor_reference", "mount_frame_rails", "motor_mount_plate")
+MACHINE_IDS = ("axis_2007_carriage", "axis_2007_idler", "axis_idler_spacer") + MOUNT_IDS
 PARAMETERS = {
+    "motor_mount_plate": {
+        "width_mm": (60, 110, 60),
+        "height_mm": (60, 90, 60),
+        "thickness_mm": (3, 8, 3),
+    },
     "window_4x8_2x6_36x48": {
         "opening_width_in": (12, 36, 36),
         "opening_height_in": (12, 48, 48),

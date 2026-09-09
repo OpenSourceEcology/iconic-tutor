@@ -55,7 +55,7 @@ try {
       fullPage: true,
     });
     await page.locator("#lesson-action").click();
-    const param = domain === "house" ? "opening_width_in" : "thickness_mm";
+    const param = domain === "house" ? "opening_width_in" : "width_mm";
     await page.locator("#lesson-action").click();
     await page.waitForFunction(
       () =>
@@ -83,7 +83,7 @@ try {
     await page.locator("#ack-review").click();
     await page
       .locator("#draft-name")
-      .fill(domain === "house" ? "My 30 inch window" : "My 2 mm spacer");
+      .fill(domain === "house" ? "My 30 inch window" : "My 90 mm plate");
     await page.locator("#save-draft").click();
     assert.equal(await page.locator("#asset-palette button").count(), 4);
     await page.locator("#lesson-action").click();
@@ -94,7 +94,7 @@ try {
     const projectPath = await save("save-project", domain + ".json");
     const doc = JSON.parse(await readFile(projectPath, "utf8"));
     const variant = doc.assets.find((a) => a.draft);
-    assert.equal(variant.parameters[param], domain === "house" ? 30 : 2);
+    assert.equal(variant.parameters[param], domain === "house" ? 30 : 90);
     assert(doc.instances.some((i) => i.asset_id === variant.id));
     await save("export-cad", domain + ".FCStd");
     await save("export-contribution", domain + "-contribution.zip");
@@ -141,14 +141,20 @@ try {
         .querySelector("#notice")
         .textContent.startsWith("Opened the project"),
     );
-    // A bad generation request must preserve the saved design.
+    // An unavailable generation service must preserve the saved design.
     await page.locator("#tab-3d").click();
     if (domain === "machines") {
       await page
         .locator("#asset-palette button")
-        .filter({ hasText: "My 2 mm spacer" })
+        .filter({ hasText: "My 90 mm plate" })
         .click();
-      await page.locator("#param-bore_mm").fill("30");
+      await page.locator("#param-width_mm").fill("100");
+      await page.route("**/api/studio/generate", (route) =>
+        route.fulfill({
+          status: 503,
+          json: { error: "Generation service unavailable (test)" },
+        }),
+      );
       await page.locator("#generate").click();
       await page.waitForFunction(() =>
         document
@@ -162,6 +168,7 @@ try {
         ),
       );
       assert.deepEqual(after, doc);
+      await page.unroute("**/api/studio/generate");
     }
     await page.reload();
     await page.waitForFunction(
@@ -180,16 +187,16 @@ try {
   if ((await page.locator("#tutor-mode").textContent()).includes("Local AI")) {
     await page
       .locator("#asset-palette button")
-      .filter({ hasText: "My 2 mm spacer" })
+      .filter({ hasText: "My 90 mm plate" })
       .click();
     await page
       .locator("#chat-input")
       .fill(
-        "Please propose a 3 mm thickness, keeping the current bore and outer diameter.",
+        "Please propose 100 mm width, keeping the current height and thickness.",
       );
     await page.locator("#send-chat").click();
     await page.waitForFunction(
-      () => document.querySelector("#param-thickness_mm")?.value === "3",
+      () => document.querySelector("#param-width_mm")?.value === "100",
       null,
       { timeout: 60000 },
     );
@@ -200,15 +207,15 @@ try {
       ),
     );
     assert.equal(
-      after.assets.find((a) => a.draft).parameters.thickness_mm,
-      2,
+      after.assets.find((a) => a.draft).parameters.width_mm,
+      90,
       "a tutor proposal does not mutate geometry",
     );
   }
   // Diagram annotations survive project serialization and SVG export. They
   // remain separate from CAD placements and engineering interfaces.
   await page.locator("#tab-plan").click();
-  await page.locator("#annotation-text").fill("Review spacer interface");
+  await page.locator("#annotation-text").fill("Review mounting holes");
   await page.locator("#add-note").click();
   await page.locator("#plan").click({ position: { x: 60, y: 50 } });
   await page.locator("#add-arrow").click();
@@ -218,14 +225,13 @@ try {
     await readFile(await save("save-project", "annotated.json"), "utf8"),
   );
   assert.equal(annotated.annotations.length, 2);
-  assert.equal(annotated.annotations[0].text, "Review spacer interface");
+  assert.equal(annotated.annotations[0].text, "Review mounting holes");
   const diagram = await readFile(
     await save("export-svg", "annotated.svg"),
     "utf8",
   );
   assert(
-    diagram.includes("Review spacer interface") &&
-      diagram.includes("marker-end"),
+    diagram.includes("Review mounting holes") && diagram.includes("marker-end"),
   );
   await page.locator("#clear-notes").click();
   await page.locator("#undo").click();

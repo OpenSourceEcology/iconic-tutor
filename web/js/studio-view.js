@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { platePreview, mountSpec } from "./mount-preview.js";
 import { TransformControls } from "three/addons/controls/TransformControls.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
@@ -23,12 +24,16 @@ export function createStudioView(element, onSelect, onTransform = null) {
   scene.add(light);
   const root = new THREE.Group();
   scene.add(root);
+  const guides = new THREE.Group();
+  scene.add(guides);
   const grid = new THREE.GridHelper(1000, 20, 0xc8d1b9, 0xdce2d2);
   grid.rotation.x = Math.PI / 2;
   scene.add(grid);
   let highlight = null,
     selected = null,
     comparing = false;
+  let mountExploded = false,
+    mountProject = false;
   const ray = new THREE.Raycaster(),
     pointer = new THREE.Vector2();
   let down = null,
@@ -94,6 +99,7 @@ export function createStudioView(element, onSelect, onTransform = null) {
   }
   function setTransformMode(mode) {
     cancelTransform();
+    if (mode !== "orbit") setExploded(false);
     transformMode = mode;
     if (!transform) return;
     transform.detach();
@@ -132,6 +138,7 @@ export function createStudioView(element, onSelect, onTransform = null) {
       }
     });
     root.clear();
+    clearGuides();
     if (highlight) {
       scene.remove(highlight);
       highlight.dispose();
@@ -208,6 +215,8 @@ export function createStudioView(element, onSelect, onTransform = null) {
     for (const inst of project.instances) {
       const asset = project.assets.find((a) => a.id === inst.asset_id),
         group = meshAsset(asset, inst.id);
+      group.userData.sourceId = asset.source_id;
+      group.userData.basePosition = [...inst.position];
       group.position.fromArray(inst.position);
       group.rotation.set(
         ...inst.rotation.map((v) => THREE.MathUtils.degToRad(v)),
@@ -215,11 +224,113 @@ export function createStudioView(element, onSelect, onTransform = null) {
       );
       root.add(group);
     }
+    mountProject = project.assets.some(
+      (a) => a.source_id === "motor_mount_plate",
+    );
+    applyExploded();
     select(id);
     element.dataset.previewState = project.instances.length ? "ready" : "empty";
     element.dataset.renderedInstances = String(project.instances.length);
     resize();
-    if (fitView) fit();
+    if (fitView) {
+      fit();
+      if (mountProject) cameraPreset("assembly");
+    }
+  }
+  function clearGuides() {
+    guides.traverse((n) => {
+      if (n.isLine) {
+        n.geometry.dispose();
+        n.material.dispose();
+      }
+    });
+    guides.clear();
+  }
+  function applyExploded() {
+    clearGuides();
+    if (mountProject && mountExploded) {
+      const lines = [];
+      for (const [x, y] of [
+        [15.5, 15.5],
+        [15.5, -15.5],
+        [-15.5, 15.5],
+        [-15.5, -15.5],
+        [38, 23],
+        [38, -23],
+        [-38, 23],
+        [-38, -23],
+      ])
+        lines.push(x, y, 0, x, y, 28);
+      const geometry = new THREE.BufferGeometry();
+      geometry.setAttribute(
+        "position",
+        new THREE.Float32BufferAttribute(lines, 3),
+      );
+      const guide = new THREE.LineSegments(
+        geometry,
+        new THREE.LineDashedMaterial({
+          color: 0x647d96,
+          dashSize: 2,
+          gapSize: 1,
+          transparent: true,
+          opacity: 0.7,
+        }),
+      );
+      guide.computeLineDistances();
+      guides.add(guide);
+    }
+    for (const group of root.children) {
+      if (group.userData.basePosition)
+        group.position.fromArray(group.userData.basePosition);
+      if (
+        mountProject &&
+        mountExploded &&
+        group.userData.sourceId === "motor_mount_plate"
+      )
+        group.position.z += 28;
+    }
+    highlight?.update();
+    element.dataset.exploded = String(mountExploded && mountProject);
+  }
+  function setExploded(value) {
+    cancelTransform();
+    mountExploded = value;
+    if (value && transform) {
+      transformMode = "orbit";
+      transform.detach();
+    }
+    applyExploded();
+  }
+  function cameraPreset(preset) {
+    if (preset === "top") {
+      camera.position.set(0, -0.001, 210);
+      controls.target.set(0, 0, 0);
+    } else {
+      camera.position.set(105, -130, 120);
+      controls.target.set(0, 0, -9);
+    }
+    camera.near = 0.01;
+    camera.far = 10000;
+    camera.updateProjectionMatrix();
+    controls.update();
+    resize();
+  }
+  function previewPlate(parameters) {
+    const group = root.children.find(
+      (g) => g.userData.sourceId === "motor_mount_plate",
+    );
+    if (!group) return;
+    group.traverse((n) => {
+      if (n.isMesh) {
+        n.geometry.dispose();
+        n.material.dispose();
+      }
+    });
+    group.clear();
+    group.add(platePreview(parameters, group.userData.instanceId));
+    highlight?.update();
+    element.dataset.livePlateWidth = String(parameters.width_mm);
+    element.dataset.previewState = "proposal";
   }
   function compare(original, candidate) {
     comparing = true;
@@ -271,5 +382,8 @@ export function createStudioView(element, onSelect, onTransform = null) {
     resize,
     setTransformMode,
     focusSelected,
+    previewPlate,
+    setExploded,
+    cameraPreset,
   };
 }

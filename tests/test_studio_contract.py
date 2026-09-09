@@ -52,6 +52,7 @@ def test_baked_catalog_matches_current_compiler_files():
         p.name: p
         for p in [
             root / "scripts/studio_compile.py",
+            root / "scripts/mount_geometry.py",
             root / "scripts/studio_contract.py",
             root / "scripts/studio_members.mjs",
             root / "upstream/iconic-cad/seh_lib/wall_builder.py",
@@ -67,3 +68,10 @@ def test_baked_catalog_matches_current_compiler_files():
                 assert (
                     hashlib.sha256(locations[name].read_bytes()).hexdigest() == digest
                 ), f"Rebake studio catalog: {name} changed"
+
+
+def test_mount_plate_contract():
+    params = dict(defaults("motor_mount_plate"), width_mm=90)
+    assert validate_parameters("motor_mount_plate", params) == params
+    with pytest.raises(ValueError):
+        validate_parameters("motor_mount_plate", dict(params, width_mm=45))

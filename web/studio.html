@@ -50,8 +50,8 @@
             ><b aria-hidden="true">↗</b></button
           ><button data-domain="machines" aria-pressed="false">
             <span class="lesson-number">02 / MACHINES</span
-            ><strong>A useful part, made your own</strong
-            ><span>Create a spacer. Grow the parts library.</span
+            ><strong>Mount a motor to a frame</strong
+            ><span>Resize a plate. Line up the bolt holes.</span
             ><b aria-hidden="true">↗</b>
           </button>
         </div>
@@ -100,51 +100,25 @@
                 Icon composition</button
               ><span id="instance-count"></span>
             </div>
-            <section id="machine-task" hidden aria-label="Machine lesson task">
-              <p class="eyebrow">EXERCISE · A SPACER FOR AN EXAMPLE GAP</p>
-              <h3>Fill a 2 mm gap between two faces</h3>
+            <section id="machine-task" hidden>
+              <p class="eyebrow">MAKE A PART THAT FITS</p>
+              <h3>Connect this motor to these frame rails</h3>
               <p>
-                A spacer sits between contact faces, often around a shaft, to
-                set their separation. Make a 2 mm-thick version while keeping
-                this part’s bore and outside diameter fixed.
+                The gold plate fits the motor. Its outer bolt holes miss the
+                blue rails. Widen it until all four holes line up.
               </p>
-              <svg
-                viewBox="0 0 600 175"
-                role="img"
-                aria-label="Illustrative side section: a spacer around a shaft fills the gap between two contact faces"
-              >
-                <path
-                  d="M80 53h120v97H80zM400 53h120v97H400z"
-                  fill="#d8dfd0"
-                  stroke="#617653"
-                />
-                <path
-                  d="M200 53h200v97H200z"
-                  fill="none"
-                  stroke="#8da27b"
-                  stroke-dasharray="5 5"
-                />
-                <path d="M200 53h200v97H200z" fill="#d8b765" stroke="#957526" />
-                <path d="M45 88h510v28H45z" fill="#f5f6ef" stroke="#6c7c64" />
-                <path d="M200 36h200m-200-6v12m200-12v12" stroke="#38532c" />
-                <g
-                  fill="#2e462b"
-                  font-family="system-ui"
-                  font-size="14"
-                  text-anchor="middle"
-                >
-                  <text x="300" y="23">Example gap: 2 mm</text>
-                  <text x="140" y="168">Contact face</text>
-                  <text x="300" y="73">Spacer</text>
-                  <text x="460" y="168">Contact face</text>
-                  <text x="300" y="107">Shaft through the bore</text>
-                </g>
-              </svg>
-              <p class="muted">
-                Concept diagram, not to scale. The faces and shaft are
-                illustrative. The Axis parts below are reference parts; we have
-                not established where this spacer fits in that assembly.
+              <div class="mount-view-buttons">
+                <button id="mount-assembly">Assembled</button
+                ><button id="mount-exploded">Pull apart</button
+                ><button id="mount-top">Look down at holes</button>
+              </div>
+              <p class="mount-legend">
+                <span>● Gold: your plate</span><span>● Blue: frame rails</span
+                ><span>● Black: motor</span>
               </p>
+              <button id="download-axis" hidden>
+                Download my previous Axis study
+              </button>
             </section>
             <div class="placement-modes" aria-label="3D manipulation">
               <button data-transform="orbit" aria-pressed="true">Orbit</button
@@ -154,17 +128,35 @@
                 Rotate XYZ</button
               ><button id="focus-selected">Focus selected</button>
             </div>
-            <div id="viewport" role="tabpanel" aria-label="3D design preview">
-              <div id="render-status" role="status">
-                Loading source geometry…
+            <div id="mount-stage">
+              <div id="viewport" role="tabpanel" aria-label="3D design preview">
+                <div id="render-status" role="status">
+                  Loading source geometry…
+                </div>
+                <div class="view-caption">
+                  <span id="view-caption">A wall-layout study</span
+                  ><span id="manipulation-help"
+                    >Drag to orbit · scroll to zoom</span
+                  >
+                </div>
+                <button id="fit-view" class="fit-button">Fit view ⤢</button>
               </div>
-              <div class="view-caption">
-                <span id="view-caption">A wall-layout study</span
-                ><span id="manipulation-help"
-                  >Drag to orbit · scroll to zoom</span
-                >
-              </div>
-              <button id="fit-view" class="fit-button">Fit view ⤢</button>
+              <aside
+                id="mount-tools"
+                hidden
+                aria-label="Resize the mounting plate"
+              >
+                <h3>Size your plate</h3>
+                <button id="edit-mount">Edit gold plate</button>
+                <div id="mount-controls-slot"></div>
+                <button id="mount-fit">Fit these rails · 90 × 60 mm</button>
+                <p id="mount-feedback" role="status"></p>
+                <p id="mount-preview-label" class="muted"></p>
+                <p class="muted">
+                  Motor holes stay 31 mm apart. Frame holes move with the plate
+                  edges.
+                </p>
+              </aside>
             </div>
             <div id="plan-panel" role="tabpanel" hidden>
               <div class="annotation-bar">
@@ -254,30 +246,22 @@
               <div id="comparison-details"></div>
             </section>
             <details id="machine-interface" hidden>
-              <summary>Why would this machine need a spacer?</summary>
+              <summary>What is this based on?</summary>
               <p>
-                The Universal CNC Axis wiki names 6 × 12 × 4 mm flanged bearings
-                in its build list. Its 2017 parts section calls for a nominal 1
-                mm spacer when using 6 × 10 × 3 mm bearings.
-              </p>
-              <p>
-                <strong>Check the source:</strong> our retained spacer has a
-                1.016 mm pad and a 12.7 mm bore. That bore is larger than the
-                named 10 mm bearing, so these records alone do not establish a
-                contacting pair. The 2020 idler is a different revision.
+                The simplified motor follows the SOYO SY42STH47-1206A drawing:
+                42.3 mm body, 31 mm mounting-hole spacing, 22 mm locating boss
+                and 5 mm shaft.
               </p>
               <a
-                href="https://wiki.opensourceecology.org/wiki/Universal_CNC_Axis#Universal_Axis_with_Magnet_Holes_2017"
+                href="https://www.pololu.com/file/0J685/SY42STH47-1206A.pdf"
                 target="_blank"
                 rel="noopener"
-                >Read the bearing / spacer note ↗</a
+                >Read the motor drawing ↗</a
               >
-              <button id="try-source-spacer">
-                Propose the wiki’s 1 mm thickness
-              </button>
-              <p class="muted">
-                Next evidence needed: the matching assembly drawing, contact
-                surfaces and tolerances.
+              <p>
+                The rails and plate are original demo designs. Hole-center
+                alignment is checked here; material, tolerances, fastener length
+                and strength still need review.
               </p>
             </details>
           </section>
@@ -337,19 +321,21 @@
             >
             <p id="source-revision" class="source-revision"></p>
           </div>
-          <form id="parameter-form">
-            <div class="parameter-heading">
-              <h3>Make a variant</h3>
-              <span id="parameter-units"></span>
-            </div>
-            <div id="parameter-fields"></div>
-            <div class="generate-row">
-              <button id="generate" class="primary" type="submit">
-                Generate & compare</button
-              ><span id="generation-status" role="status"></span>
-            </div>
-            <p id="parameter-note" class="muted"></p>
-          </form>
+          <div id="standard-controls-slot">
+            <form id="parameter-form">
+              <div class="parameter-heading">
+                <h3>Make a variant</h3>
+                <span id="parameter-units"></span>
+              </div>
+              <div id="parameter-fields"></div>
+              <div class="generate-row">
+                <button id="generate" class="primary" type="submit">
+                  Generate & compare</button
+                ><span id="generation-status" role="status"></span>
+              </div>
+              <p id="parameter-note" class="muted"></p>
+            </form>
+          </div>
           <div class="review-panel">
             <p class="eyebrow">A CONTRIBUTION IN THE MAKING</p>
             <div id="candidate-summary">

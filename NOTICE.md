@@ -17,3 +17,9 @@ Machine sources come from OpenSourceEcology/vcs-library at
 provenance and pending license review: wiki site terms and embedded CAD notices
 have not been reconciled. The application license does not resolve those geometry
 rights. All geometry carries engineering status `unreviewed`.
+
+The motor-mount lesson's adapter, frame and simplified motor envelope are original
+demo geometry. Nominal motor interface facts come from SOYO drawing 060047000
+(SY42STH47-1206A), linked through Pololu. The supplier PDF/CAD is not bundled.
+The recipe and browser preview are AGPL-3.0 software; these new assets are marked
+`original_demo_geometry`, with engineering status still unreviewed.

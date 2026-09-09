@@ -144,6 +144,11 @@ try {
   await page.waitForFunction(() =>
     document.querySelector("#project-goal").value.includes("garden room"),
   );
+  await page.waitForFunction(() =>
+    document
+      .querySelector("#chat-log")
+      .textContent.includes("Remember the garden room"),
+  );
   assert.match(
     await page.locator("#chat-log").textContent(),
     /Remember the garden room/,

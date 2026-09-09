@@ -35,3 +35,18 @@ stacking already-rotated parts. Desktop/mobile screenshots were inspected.
 
 The machine task now explicitly uses an illustrative 2 mm gap. No new Axis
 mating evidence or engineering-fit claim was introduced.
+
+## Motor mounting replacement
+
+The default machine lesson now uses an original adapter plate and frame rails
+with a simplified, dimensioned stepper-motor reference. The full house and new
+motor generation journeys passed. FreeCAD independently checked 114 house solids
+and 8 motor/frame/plate solids, including placement, analytic plate volume,
+actual mounting-hole voids and surrounding material, no plate/reference solid
+interference, and both restoring contribution compilers.
+
+Browser checks passed for live 60→90 mm resizing, preserved saved geometry,
+assembled/exploded display without export changes, nominal hole alignment,
+legacy Axis download preservation, responsive layouts, 3D manipulation and
+persisted tutor context. The live tutor proposed a 100 mm plate width while the
+saved geometry stayed at 90 mm. JavaScript core checks and 22 Python tests passed.
