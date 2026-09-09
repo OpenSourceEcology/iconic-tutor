@@ -1,0 +1,3 @@
+# Preserve upstream and vendor source bytes as recorded.
+web/vendor/** -whitespace
+upstream/** -whitespace

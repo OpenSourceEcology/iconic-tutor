@@ -1,0 +1,26 @@
+{
+  "repository": "https://github.com/OpenSourceEcology/iconic-cad",
+  "revision": "54fb9503c10f6cd3eabcc5e8ead30f7ebb26ba75",
+  "files_sha256": {
+    "LICENSE": "0d96a4ff68ad6d4b6f1f30f713b18d5184912ba8dd389f86aa7710db079abcb0",
+    "AUTHORS.md": "9b0a2caa7209c82978dad79e5c4ed80beb14e4a7d2768b398ecaf9a7d500ecfe",
+    "seh_lib/__init__.py": "a00cfaaf1dda6798e8170ba56cef27dbcd91b84741869ab6d90dc4255491fe18",
+    "seh_lib/wall_builder.py": "c9ab87f281435d3fad4490b744352b2993d2fe63cfffe5886a24a2ef5ce85275",
+    "web/js/constants.js": "fb542685b267c98b1952ea9f82078ad6a68db5505b2a709e25458ab42a95adbf",
+    "web/js/members.js": "75bedf558022f16082b8198af82cec377d74953d0bc039e0bf7b981737cc8432",
+    "web/js/systems.js": "a22a838c2741ceb4689c9f9f3934135ca74684449ea04fe68f8ec6c70c9d5aec",
+    "web/assets/lib/members.json": "a1d4ffd8e2f4cce9fe398ef1ae0ec48f458ef82056bac7f900a62739cb45bcc0",
+    "library/modules/wall_4x8_2x6_16oc/compiler.py": "f77cd104cd141a4a9a4471901f30150a5f797fcaf02de7026b3244a7515559b8",
+    "library/modules/wall_4x8_2x6_16oc/expect.yaml": "4735b8b317f9c7031b7de590a4a67b03b1fefa33fe2e79acb0a5b359035b989b",
+    "library/modules/wall_4x8_2x6_16oc/meta.yaml": "002c569432d13bd9b68d55603c6a2e0eb97c10cc7fdea10e9460f3be86e54364",
+    "library/modules/wall_4x8_2x6_16oc/schema.py": "c8e8c4ada7800c43a5574fe7a0654eaf2c16d34789a81f7a9581288e9edb7c9c",
+    "library/modules/window_4x8_2x6_36x48/compiler.py": "f77cd104cd141a4a9a4471901f30150a5f797fcaf02de7026b3244a7515559b8",
+    "library/modules/window_4x8_2x6_36x48/expect.yaml": "9d931891f92afcd7ecea115b2cdea765cf3f42c390b52249de4e1f30ca92b3bc",
+    "library/modules/window_4x8_2x6_36x48/meta.yaml": "ef6126bd0251cb5a6b3f7da978907c3317ac2204880dbefc84137f0f98501cbe",
+    "library/modules/window_4x8_2x6_36x48/schema.py": "b70523967de8f8f27b6d1b413fe3ea795c6a79aec51e2c200a55362127bc685d",
+    "library/modules/door_4x8_2x6_38x83/compiler.py": "f77cd104cd141a4a9a4471901f30150a5f797fcaf02de7026b3244a7515559b8",
+    "library/modules/door_4x8_2x6_38x83/expect.yaml": "174170f2d9c555525510e2f50faf8fe39bad7d7b5c6641d3801af0229b349b89",
+    "library/modules/door_4x8_2x6_38x83/meta.yaml": "a83b711f21ec428e53612df9e45368dc951d6e0f29893fe9d52cebc9c22d9839",
+    "library/modules/door_4x8_2x6_38x83/schema.py": "1d7b161384f66e5d8fd5474fe09343c0009e25ec319d0284b75631f03f6ad262"
+  }
+}

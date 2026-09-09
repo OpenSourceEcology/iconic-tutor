@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Iconic Tutor · Learn by making</title>
+    <link rel="stylesheet" href="css/studio.css" />
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./vendor/three/three.module.js",
+          "three/addons/": "./vendor/three/addons/"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <header class="masthead">
+      <a class="wordmark" href="studio.html"
+        ><span class="mark" aria-hidden="true">✳</span> OPEN SOURCE ECOLOGY</a
+      ><span class="edition"
+        >ICONIC TUTOR <span class="pill">EARLY DEMO</span></span
+      >
+      <nav>
+        <a href="https://opensourceecology.github.io/iconic-cad/">House editor ↗</a
+        ><a href="https://opensourceecology.github.io/iconic-cad/machines.html">Machine workbench ↗</a>
+      </nav>
+    </header>
+    <main>
+      <section class="intro">
+        <div>
+          <p class="eyebrow">LEARN BY MAKING SOMETHING USEFUL</p>
+          <h1>
+            Small pieces.<br />
+            <em>Shared possibilities.</em>
+          </h1>
+          <p class="intro-copy">
+            Explore a design. Make a part your own.<br />Leave something the
+            next person can use.
+          </p>
+        </div>
+        <div class="lesson-picker" aria-label="Choose your lesson">
+          <button data-domain="house" aria-pressed="true">
+            <span class="lesson-number">01 / HOUSING</span
+            ><strong>A house, one module at a time</strong
+            ><span>Change a window. Keep the building block.</span
+            ><b aria-hidden="true">↗</b></button
+          ><button data-domain="machines" aria-pressed="false">
+            <span class="lesson-number">02 / MACHINES</span
+            ><strong>A useful part, made your own</strong
+            ><span>Create a spacer. Grow the parts library.</span
+            ><b aria-hidden="true">↗</b>
+          </button>
+        </div>
+      </section>
+      <section class="workspace" aria-label="Guided composition workspace">
+        <div class="workspace-heading">
+          <div>
+            <span class="live-dot" aria-hidden="true"></span>
+            <h2 id="workspace-title">A house, one module at a time</h2>
+          </div>
+          <div class="file-actions">
+            <button id="save-project">Save project ↓</button
+            ><button id="open-project">Open project</button
+            ><input
+              id="project-file"
+              type="file"
+              accept=".json,application/json"
+              hidden
+            /><button
+              id="reset-lesson"
+              title="Restore this lesson's starter design"
+            >
+              Reset lesson
+            </button>
+          </div>
+        </div>
+        <div class="work-grid">
+          <aside class="palette">
+            <p class="eyebrow">YOUR BUILDING BLOCKS</p>
+            <h3 id="palette-title">Housing library</h3>
+            <p class="muted">Select to explore. Drag into the plan to place.</p>
+            <div id="asset-palette"></div>
+            <div class="palette-note">
+              <span>↳</span>
+              <p>
+                A new variant starts here too.<br />Your saved drafts join this
+                palette.
+              </p>
+            </div>
+          </aside>
+          <section class="design-area">
+            <div class="view-tabs" role="tablist" aria-label="Design view">
+              <button id="tab-3d" role="tab" aria-selected="true">
+                3D design</button
+              ><button id="tab-plan" role="tab" aria-selected="false">
+                Icon composition</button
+              ><span id="instance-count"></span>
+            </div>
+            <div id="viewport" role="tabpanel" aria-label="3D design preview">
+              <div id="render-status" role="status">
+                Loading source geometry…
+              </div>
+              <div class="view-caption">
+                <span id="view-caption">A wall-layout study</span
+                ><span>Drag to orbit · scroll to zoom</span>
+              </div>
+              <button id="fit-view" class="fit-button">Fit view ⤢</button>
+            </div>
+            <div id="plan-panel" role="tabpanel" hidden>
+              <div class="annotation-bar">
+                <input
+                  id="annotation-text"
+                  maxlength="120"
+                  aria-label="Diagram label"
+                  placeholder="A note for the next builder…"
+                /><button id="add-note">Add text</button
+                ><button id="add-arrow">Draw arrow</button
+                ><button id="clear-notes">Clear notes</button>
+              </div>
+              <div class="plan-controls">
+                <button id="fit-plan">Fit plan ⤢</button
+                ><label
+                  ><input id="snap-plan" type="checkbox" checked /> Snap on
+                  drop</label
+                >
+              </div>
+              <div id="plan"></div>
+              <p class="plan-help">
+                Drag icons to arrange · drag background to pan · scroll to zoom
+                · Alt drops freely · Esc cancels · arrow keys move · R rotates
+              </p>
+            </div>
+            <div class="design-toolbar">
+              <div>
+                <button id="undo" title="Undo">↶ Undo</button
+                ><button id="redo" title="Redo">↷ Redo</button
+                ><button id="rotate">Rotate 90°</button
+                ><button id="remove">Remove</button
+                ><button id="place-selected">Place selected</button>
+              </div>
+              <button id="export-svg">Diagram SVG ↓</button>
+            </div>
+            <div class="design-note">
+              <span id="design-note"></span
+              ><button id="export-cad">Export FreeCAD ↗</button>
+            </div>
+            <section
+              id="comparison-panel"
+              hidden
+              aria-label="Variant comparison"
+            >
+              <h3>Original → your variant</h3>
+              <p class="muted">
+                Your placed design stays above. Original on the left, variant on
+                the right.
+              </p>
+              <div
+                id="comparison-viewport"
+                aria-label="Original and variant 3D comparison"
+              ></div>
+              <div id="comparison-details"></div>
+            </section>
+            <details id="machine-interface" hidden>
+              <summary>Why would this machine need a spacer?</summary>
+              <p>
+                The Universal CNC Axis wiki names 6 × 12 × 4 mm flanged bearings
+                in its build list. Its 2017 parts section calls for a nominal 1
+                mm spacer when using 6 × 10 × 3 mm bearings.
+              </p>
+              <p>
+                <strong>Check the source:</strong> our retained spacer has a
+                1.016 mm pad and a 12.7 mm bore. That bore is larger than the
+                named 10 mm bearing, so these records alone do not establish a
+                contacting pair. The 2020 idler is a different revision.
+              </p>
+              <a
+                href="https://wiki.opensourceecology.org/wiki/Universal_CNC_Axis#Universal_Axis_with_Magnet_Holes_2017"
+                target="_blank"
+                rel="noopener"
+                >Read the bearing / spacer note ↗</a
+              >
+              <button id="try-source-spacer">
+                Propose the wiki’s 1 mm thickness
+              </button>
+              <p class="muted">
+                Next evidence needed: the matching assembly drawing, contact
+                surfaces and tolerances.
+              </p>
+            </details>
+          </section>
+          <aside class="tutor">
+            <div class="tutor-heading">
+              <div class="tutor-avatar" aria-hidden="true">✳</div>
+              <div>
+                <h3>Your OSE tutor</h3>
+                <span id="tutor-mode">Guided lesson</span>
+              </div>
+            </div>
+            <ol
+              id="lesson-steps"
+              class="steps"
+              aria-label="Lesson progress"
+            ></ol>
+            <div class="lesson-card">
+              <p id="step-label" class="eyebrow"></p>
+              <h3 id="step-title"></h3>
+              <p id="step-copy"></p>
+              <button id="lesson-action" class="primary"></button>
+            </div>
+            <label class="goal-label" for="project-goal"
+              >What are you trying to make?</label
+            ><textarea
+              id="project-goal"
+              maxlength="500"
+              rows="2"
+              placeholder="e.g. A 30 in rough opening in this wall"
+            ></textarea>
+            <div id="chat-log" class="chat-log" aria-live="polite"></div>
+            <div id="chat-suggestions" class="suggestions"></div>
+            <form id="chat-form">
+              <label class="sr-only" for="chat-input">Ask your tutor</label
+              ><textarea
+                id="chat-input"
+                rows="2"
+                maxlength="4000"
+                placeholder="Ask about this component…"
+              ></textarea
+              ><button id="send-chat" type="submit" aria-label="Send to tutor">
+                ↑
+              </button>
+            </form>
+            <p class="tutor-footnote">
+              You make the decisions. The tutor helps with the next step.
+            </p>
+          </aside>
+        </div>
+        <section class="inspector" aria-label="Selected component">
+          <div class="component-info">
+            <p class="eyebrow">SELECTED COMPONENT</p>
+            <h3 id="selected-title">Loading…</h3>
+            <p id="selected-summary"></p>
+            <a id="source-link" target="_blank" rel="noopener noreferrer"
+              >Read its wiki source ↗</a
+            >
+            <p id="source-revision" class="source-revision"></p>
+          </div>
+          <form id="parameter-form">
+            <div class="parameter-heading">
+              <h3>Make a variant</h3>
+              <span id="parameter-units"></span>
+            </div>
+            <div id="parameter-fields"></div>
+            <div class="generate-row">
+              <button id="generate" class="primary" type="submit">
+                Generate & compare</button
+              ><span id="generation-status" role="status"></span>
+            </div>
+            <p id="parameter-note" class="muted"></p>
+          </form>
+          <div class="review-panel">
+            <p class="eyebrow">A CONTRIBUTION IN THE MAKING</p>
+            <div id="candidate-summary">
+              <p>
+                Change a supported parameter to create your first reusable
+                variant.
+              </p>
+            </div>
+            <div id="candidate-actions" hidden>
+              <label for="draft-name">Name your variant</label
+              ><input id="draft-name" maxlength="120" />
+              <div class="review-actions">
+                <button id="review-candidate">Inspect checks</button
+                ><button id="save-draft" class="primary" disabled>
+                  Save to my palette
+                </button>
+              </div>
+            </div>
+            <button id="export-contribution" disabled>
+              Download contribution ↓
+            </button>
+          </div>
+        </section>
+      </section>
+      <section class="learning-note">
+        <span class="eyebrow">THE IDEA BEHIND THE TOOLS</span>
+        <p>
+          A design is also a contribution.<br /><span
+            >Every useful variation can become someone else’s starting
+            point.</span
+          >
+        </p>
+        <div>01 Choose → 02 Change → 03 Check → 04 Reuse</div>
+      </section>
+    </main>
+    <footer>
+      <span>OPEN SOURCE ECOLOGY / DESIGN TOGETHER</span
+      ><span
+        >Geometry is a starting point. Engineering review remains part of the
+        work.</span
+      >
+    </footer>
+    <div id="notice" role="status" aria-live="polite"></div>
+    <dialog id="review-dialog">
+      <div class="dialog-heading">
+        <div>
+          <p class="eyebrow">BEFORE THIS JOINS YOUR LIBRARY</p>
+          <h2>What did we check?</h2>
+        </div>
+        <button id="close-review" aria-label="Close review">×</button>
+      </div>
+      <div id="review-content"></div>
+      <button id="ack-review" class="primary">I’ve inspected the checks</button>
+    </dialog>
+    <script type="module" src="js/studio.js"></script>
+  </body>
+</html>
