@@ -8,12 +8,12 @@ try{
   const page=await browser.newPage({viewport:{width:1440,height:1100}}),errors=[],viewRequests=[];
   page.on('pageerror',e=>errors.push(e.message));
   page.on('request',r=>{if(r.url().includes('/js/studio-view.js'))viewRequests.push(r.url());});
-  await page.goto(base+'/studio.html');await page.locator('.village-lesson-link').waitFor();
+  await page.goto(base+'/studio.html');await page.locator('.village-lesson-link[href="village.html"]').waitFor();
   assert.equal(await page.locator('.site-credit a').getAttribute('href'),'https://www.goodancestor.com');
   assert.match(await page.locator('.site-credit').textContent(),/Designed by GoodAncestor Foundation/);
   await page.setViewportSize({width:390,height:1000});assert(await page.locator('.village-nav-link').isVisible());
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'main page mobile overflow');
-  await page.locator('.village-lesson-link').click();await page.locator('#cabin-icon').waitFor();
+  await page.locator('.village-lesson-link[href="village.html"]').click();await page.locator('#cabin-icon').waitFor();
   assert.equal(await page.locator('.site-credit a').getAttribute('href'),'https://www.goodancestor.com');
   await page.setViewportSize({width:1440,height:1100});await page.locator('#courtyard').click();await page.locator('#tab-3d').click();
   await page.waitForFunction(()=>document.querySelector('#village-3d').dataset.renderedInstances==='12');

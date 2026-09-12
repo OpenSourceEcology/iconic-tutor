@@ -127,3 +127,23 @@ supplied FreeCAD model, guided site planning, dynamic icon palettes and plan/3D
 views. The 31 VCS assembly icons and 301 ICHL registry icons are loaded with
 search and project filters, and are visible but disabled until models are available.
 See [village walkthrough and source notes](docs/village-tutor.md).
+
+## Wiki and FreeCAD learning paths
+
+The main page now links two browser-only guided paths:
+
+- [Wiki cleanup and design sharing](https://opensourceecology.github.io/iconic-tutor/learn.html?track=wiki): careful manual edits, wikibot mission selection and proposal review, wiki-page drafts and VCS inclusion requests.
+- [FreeCAD and OSE Library Workbench](https://opensourceecology.github.io/iconic-tutor/learn.html?track=freecad): desktop orientation, installation, compiling an entry, applying exposed parameters, validation and schema export.
+
+Both include understanding checks, contextual questions and locally saved progress.
+The contribution workspace downloads wikitext/Markdown and opens an unsubmitted
+GitHub issue form. It never posts edits, uploads files, runs CAD or installs entries.
+Wikibot access may require operator assistance; the lessons remain usable offline
+after loading even when that service is unavailable. Draft storage is browser-local,
+not account-synced. Download drafts for backup.
+
+Guidance was checked against the wikibot mission/review implementation and the
+workbench and VCS contribution guides on 2026-09-12. The workbench's manual install,
+document binding and schema export behavior are intentional parts of the lessons.
+Run `node scripts/verify_learning.mjs` against the static Pages preview to test both
+paths, persistence, safe drafts, downloads, mobile layout and main-page links.

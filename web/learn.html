@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Learning paths · Iconic Tutor</title><link rel="stylesheet" href="css/studio.css?v=20260912-village-4"><link rel="stylesheet" href="css/learn.css?v=1"></head>
+<body>
+<header class="masthead"><a class="wordmark" href="studio.html"><span class="mark" aria-hidden="true">✳</span> OPEN SOURCE ECOLOGY</a><span class="edition">ICONIC TUTOR</span><nav><a href="studio.html">All lessons</a><a href="village.html">Village design</a></nav></header>
+<main class="learn-main">
+<p class="eyebrow">LEARN → PRACTICE → CONTRIBUTE</p><h1 id="title"></h1><p id="intro" class="lead"></p>
+<nav class="track-tabs" aria-label="Learning paths"><a href="?track=wiki" data-track="wiki">04 · Wiki & design sharing</a><a href="?track=freecad" data-track="freecad">05 · FreeCAD & assistance</a></nav>
+<p class="boundary">Guided practice, not a live AI connection. Progress and drafts stay in this browser. Nothing is posted to the wiki or GitHub automatically, and this page does not run FreeCAD.</p>
+<div class="learning-grid"><aside class="path-panel"><p class="eyebrow">YOUR PATH</p><p id="progress" role="status"></p><nav id="steps" aria-label="Lesson steps"></nav><button id="reset-progress" type="button">Reset this path’s progress</button></aside>
+<section class="lesson-panel" aria-label="Current lesson"><p id="step-number" class="eyebrow"></p><h2 id="step-title" tabindex="-1"></h2><div id="instruction"></div><div id="exercise"></div><div id="feedback" role="status"></div><div class="lesson-actions"><button id="back" type="button">← Previous</button><button id="next" type="button">Next step →</button></div></section>
+<aside class="guide-panel"><p class="eyebrow">ASK THE GUIDE</p><h2>A little help, right here.</h2><p>Choose a question for this step. Answers are written guidance, not generated advice.</p><div id="questions"></div><p id="answer" role="status"></p><h3>Go deeper</h3><div id="sources"></div></aside></div>
+<section id="draft-section" class="draft-panel" hidden><p class="eyebrow">YOUR CONTRIBUTION WORKSPACE</p><h2>Prepare a design for other people</h2><p>Create a starter wiki page and a VCS review request from the same information. These are drafts, not accepted library entries. Don’t include private information. Download a backup before clearing browser data.</p>
+<form id="design-form"><div class="field-grid">
+<label>Design name<input name="name" maxlength="120" placeholder="Two-story cabin variant" required></label>
+<label>Author / attribution<input name="author" maxlength="180" required></label>
+<label>Proposed entry ID<input name="id" maxlength="80" placeholder="two_story_cabin" pattern="[a-z][a-z0-9_]*" required></label>
+<label>Layer<select name="layer"><option>part</option><option>module</option><option>assembly</option><option>unit</option><option>other / discuss with maintainer</option></select></label>
+<label>Source wiki page URL<input name="wiki" type="url" placeholder="https://wiki.opensourceecology.org/wiki/…" required></label>
+<label>Editable CAD / source URL<input name="cad" type="url" placeholder="https://…" required></label>
+<label>License and permission evidence<input name="license" maxlength="500" placeholder="Exact license + where it is recorded; unknown if unconfirmed" required></label>
+<label>Dimensions, units & interfaces<input name="dimensions" maxlength="600" placeholder="Width × depth × height; attachment points; clearance" required></label>
+<label class="wide">Purpose and what changed<textarea name="description" maxlength="2500" required></textarea></label>
+<label>Validation evidence<textarea name="validation" maxlength="2000" placeholder="Tests, reports and revisions; explicitly say if not tested" required></textarea></label>
+<label>Known limitations / review needed<textarea name="limitations" maxlength="2000" placeholder="Safety, fit, missing files, license questions…" required></textarea></label>
+</div><button type="submit">Build my review drafts</button></form>
+<p id="draft-status" role="status"></p><div id="draft-output" hidden><label>Wiki page starter · wikitext<textarea id="wiki-draft" readonly rows="14"></textarea></label><label>VCS inclusion request · Markdown<textarea id="review-draft" readonly rows="14"></textarea></label><div class="lesson-actions"><button id="download-wiki">Download wikitext</button><button id="download-review">Download review request</button><a id="wiki-open" target="_blank" rel="noopener">Open proposed wiki title ↗</a><a id="review-open" target="_blank" rel="noopener">Open GitHub review form ↗</a></div><p>On the wiki, search for an existing page first; use Edit / Create, paste your draft, preview, add an edit summary and save only when ready. Existing page? Merge carefully, never replace it wholesale. On GitHub, review the prefilled issue before submitting. For long drafts, paste the downloaded text. Maintainers decide inclusion; a request does not add a selectable VCS icon.</p></div>
+</section></main><p class="site-credit">Designed by <a href="https://www.goodancestor.com" target="_blank" rel="noopener">GoodAncestor Foundation</a></p><script type="module" src="js/learn.js?v=1"></script></body></html>
