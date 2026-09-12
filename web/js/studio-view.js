@@ -18,6 +18,22 @@ export function createStudioView(element, onSelect, onTransform = null) {
   element.prepend(renderer.domElement);
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enableDamping = true;
+  function setNavigationMode(mode) {
+    if (!["pan", "orbit"].includes(mode)) throw new Error("Unknown view navigation mode.");
+    controls.mouseButtons.LEFT = mode === "pan" ? THREE.MOUSE.PAN : THREE.MOUSE.ROTATE;
+    controls.touches.ONE = mode === "pan" ? THREE.TOUCH.PAN : THREE.TOUCH.ROTATE;
+    controls.touches.TWO = THREE.TOUCH.DOLLY_PAN;
+    // Direct village navigation stops with the gesture, including when switching
+    // from panning to orbiting. Other studio views keep their default damping.
+    controls.enableDamping = false;
+    controls.update();
+    element.dataset.navigationMode = mode;
+    renderer.domElement.style.cursor = "grab";
+  }
+  controls.addEventListener("change", () => {
+    element.dataset.cameraPosition = camera.position.toArray().join(",");
+    element.dataset.cameraTarget = controls.target.toArray().join(",");
+  });
   scene.add(new THREE.HemisphereLight(0xffffff, 0x9fae89, 2.5));
   const light = new THREE.DirectionalLight(0xffffff, 2.3);
   light.position.set(2000, -3000, 5000);
@@ -385,5 +401,6 @@ export function createStudioView(element, onSelect, onTransform = null) {
     previewPlate,
     setExploded,
     cameraPreset,
+    setNavigationMode,
   };
 }

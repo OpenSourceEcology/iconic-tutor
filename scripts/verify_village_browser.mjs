@@ -1,0 +1,46 @@
+import {chromium} from 'playwright';
+import assert from 'node:assert/strict';
+import fs from 'node:fs/promises';
+const browser=await chromium.launch({args:['--use-angle=swiftshader','--enable-webgl']});
+const page=await browser.newPage({viewport:{width:1500,height:1100}}),errors=[];
+page.on('pageerror',e=>errors.push(e.message));
+const base=process.env.STUDIO_URL||'http://127.0.0.1:8766';
+const out=new URL('../reports/village-browser/',import.meta.url);await fs.mkdir(out,{recursive:true});
+try{
+  await page.goto(base+'/village.html');await page.locator('#cabin-icon').waitFor();
+  assert.equal(await page.locator('.icon-card:disabled').count(),332);
+  await page.locator('#palette-set').selectOption('ichl');assert.equal(await page.locator('[data-registry-id]').count(),301);
+  await page.locator('#search').fill('ICHL-301');assert.equal(await page.locator('[data-registry-id]').count(),1);assert.match(await page.locator('#palette').textContent(),/Mailbox/);
+  await page.waitForFunction(()=>{const img=document.querySelector('#palette img');return img?.complete&&img.naturalWidth>0;});
+  assert(await page.locator('[data-registry-id]').isDisabled());
+  await page.locator('#search').fill('');await page.locator('#palette-set').selectOption('all');
+  await page.locator('#courtyard').click();assert.equal(await page.locator('[data-cabin]').count(),12);
+  assert.equal(await page.locator('#cabin-icon').isDisabled(),true);
+  assert.match(await page.locator('#review-summary').textContent(),/0 flags/);
+  await page.locator('#steps [data-step="1"]').click();
+  const first=page.locator('[data-cabin]').first();const before=await first.locator('rect').getAttribute('x');
+  const b=await first.boundingBox();await page.mouse.move(b.x+b.width/2,b.y+b.height/2);await page.mouse.down();await page.mouse.move(b.x+b.width/2+30,b.y+b.height/2+16,{steps:8});await page.mouse.up();
+  assert.notEqual(await first.locator('rect').getAttribute('x'),before);
+  await page.locator('#undo').click();assert.equal(await first.locator('rect').getAttribute('x'),before);
+  await first.click();await page.locator('#rotate').click();assert.match(await page.locator('#rotate').textContent(),/90/);
+  await page.locator('#undo').click();
+  await page.locator('#question').fill('show water icons');await page.locator('#chat-form button').click();assert.equal(await page.locator('#palette-set').inputValue(),'water');assert.equal(await page.locator('#palette .icon-card:not(:disabled)').count(),0);
+  await page.locator('#question').fill('show all icons');await page.locator('#chat-form button').click();
+  await page.locator('#question').fill('show framing icons');await page.locator('#chat-form button').click();assert.equal(await page.locator('#palette-set').inputValue(),'framing');assert((await page.locator('[data-registry-id]').count())>0);
+  await page.locator('#question').fill('show all icons');await page.locator('#chat-form button').click();
+  await page.locator('#site-notes').fill('Entrance on south; retain existing trees.');await page.locator('#site-notes').blur();
+  await page.locator('#shared-notes').fill('Shared kitchen east. Sheltered routes and upper-floor stairs to be designed.');await page.locator('#shared-notes').blur();
+  await page.locator('#steps [data-step="3"]').click();await page.locator('#next').click();assert.match(await page.locator('#chat-log').textContent(),/12\/12/);
+  const download=page.waitForEvent('download');await page.locator('#save').click();const file=await download;const saved=JSON.parse(await fs.readFile(await file.path(),'utf8'));assert.equal(saved.instances.length,12);
+  await page.locator('#file').setInputFiles({name:'bad.json',mimeType:'application/json',buffer:Buffer.from('{"format":"wrong"}')});await page.waitForFunction(()=>document.querySelector('#notice').textContent.includes('retained'));assert.equal(await page.locator('[data-cabin]').count(),12);
+  await page.locator('#file').setInputFiles({name:'village.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify(saved))});
+  await page.waitForFunction(()=>document.querySelector('#notice').textContent==='Village project opened.');
+  await page.reload();await page.locator('[data-cabin]').first().waitFor();assert.equal(await page.locator('[data-cabin]').count(),12);assert.match(await page.locator('#shared-notes').inputValue(),/Shared kitchen/);
+  await page.screenshot({path:new URL('desktop.png',out).pathname,fullPage:true});
+  await page.locator('#palette-set').selectOption('ichl');await page.screenshot({path:new URL('ichl-library.png',out).pathname,fullPage:true});await page.locator('#palette-set').selectOption('all');
+  await page.locator('#tab-3d').click();await page.waitForFunction(()=>document.querySelector('#village-3d').dataset.renderedInstances==='12');await page.waitForTimeout(1400);
+  await page.screenshot({path:new URL('village-3d.png',out).pathname,fullPage:true});
+  await page.locator('#tab-plan').click();const svgDownload=page.waitForEvent('download');await page.locator('#export').click();const svg=await fs.readFile(await (await svgDownload).path(),'utf8');assert.match(svg,/12\/12/);assert.match(svg,/engineering review pending/);
+  for(const width of [768,390]){await page.setViewportSize({width,height:1000});assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),`overflow at ${width}`);await page.screenshot({path:new URL(`width-${width}.png`,out).pathname,fullPage:true});}
+  assert.deepEqual(errors,[]);await fs.writeFile(new URL('receipt.json',out),JSON.stringify({passed:true,errors,source:saved.source_revision},null,2));console.log('Village browser journey passed.');
+}finally{await browser.close();}

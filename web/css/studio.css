@@ -16,6 +16,14 @@
   background: var(--paper);
   font-synthesis: none;
 }
+.village-lesson-link { display: flex; flex-direction: column; grid-column: 1 / -1; gap: 5px; position: relative; padding: 14px 20px; border: 1px solid var(--line); border-radius: 8px; text-decoration: none; background: #edf2df; }
+.village-lesson-link strong { font-size: 16px; }
+.village-lesson-link > span { font-size: 12px; }
+.village-lesson-link b { position: absolute; right: 15px; top: 15px; }
+.site-credit { margin: 12px auto 22px; padding: 0 16px; text-align: center; font-size: 10px; line-height: 1.5; color: var(--muted); }
+.site-credit a { color: inherit; }
+header.masthead nav a.village-nav-link { display: inline; }
+.lesson-picker .village-lesson-link strong { max-width: none; font-size: 19px; }
 * {
   box-sizing: border-box;
 }

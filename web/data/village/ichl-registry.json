@@ -1,0 +1,4698 @@
+{
+  "version": 1,
+  "title": "301 ICHL icon registry",
+  "registry_url": "https://wiki.opensourceecology.org/wiki/Registry_for_the_301_ICHL_Icons",
+  "gallery_url": "https://wiki.opensourceecology.org/wiki/301_ICHL_Icons",
+  "retrieved_at": "2026-09-12T22:17:02.388662+00:00",
+  "registry_sha256": "003e817cebd35a931c371685d0153c866a96b05a7b3e1f253b745cc1cc31fef3",
+  "gallery_sha256": "7663a029b8c1289749a989a6da3e1c8c08ed70c3e23961931c241a827e5ea302",
+  "registry_count": 301,
+  "gallery_image_count": 301,
+  "note": "Registry IDs do not always equal image filename numbers. Explicit mappings and duplicate wiki targets are retained. Registry scope notes are draft hypotheses, not specifications; they are not imported as engineering facts. Filter tags are local navigation aids.",
+  "icons": [
+    {
+      "id": "ICHL-001",
+      "name": "Site Plan",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "Iconic Site Plan",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_Site_Plan",
+      "image_file": "001_site_plan.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/bf/001_site_plan.webp/120px-001_site_plan.webp.png",
+      "image": "data/village/ichl/ICHL-001.png",
+      "image_sha256": "7eb42306e989177da5c77f6ead4c8f17bfb454e6912667d9ce4d8c34ea0d86d5"
+    },
+    {
+      "id": "ICHL-002",
+      "name": "Site Grading",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "1_Grading_+_Site_Prep",
+      "source_url": "https://wiki.opensourceecology.org/wiki/1_Grading_%2B_Site_Prep",
+      "image_file": "002_site_grading.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/eb/002_site_grading.webp/120px-002_site_grading.webp.png",
+      "image": "data/village/ichl/ICHL-002.png",
+      "image_sha256": "f212e7a17752e94778b6644578dbff18414f56a4473b27a84da4aa322ae6c29d"
+    },
+    {
+      "id": "ICHL-003",
+      "name": "Foundation Plumbing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "water"
+      ],
+      "wiki_target": "2_Foundation_Plumbing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/2_Foundation_Plumbing",
+      "image_file": "003_foundation_plumbing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/93/003_foundation_plumbing.webp/120px-003_foundation_plumbing.webp.png",
+      "image": "data/village/ichl/ICHL-003.png",
+      "image_sha256": "7166621e26613bd169fa7238edd8b216f79c069b52b54e399954ad45b9aaf7d9"
+    },
+    {
+      "id": "ICHL-004",
+      "name": "Foundation",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "3_Foundation_(Slab_or_Portable)",
+      "source_url": "https://wiki.opensourceecology.org/wiki/3_Foundation_%28Slab_or_Portable%29",
+      "image_file": "004_foundation.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/73/004_foundation.webp/120px-004_foundation.webp.png",
+      "image": "data/village/ichl/ICHL-004.png",
+      "image_sha256": "3005b94224e5cf66d04aa53c15443c7f80fda5364913a5b7a62cba82a3268017"
+    },
+    {
+      "id": "ICHL-005",
+      "name": "Slab Foundation Forms",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "Slab Foundation Forms",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Slab_Foundation_Forms",
+      "image_file": "005_slab_foundation_forms.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/30/005_slab_foundation_forms.webp/120px-005_slab_foundation_forms.webp.png",
+      "image": "data/village/ichl/ICHL-005.png",
+      "image_sha256": "123c402e21484d2b47afabfb77fb6218e4940ac6b8ff4a20cf3a79ba7b4e5eae"
+    },
+    {
+      "id": "ICHL-006",
+      "name": "Slab Foundation Frost Protected Footer",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "Slab Foundation Frost Protected Footer",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Slab_Foundation_Frost_Protected_Footer",
+      "image_file": "006_slab_foundation_frost_protected_footer.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b7/006_slab_foundation_frost_protected_footer.webp/120px-006_slab_foundation_frost_protected_footer.webp.png",
+      "image": "data/village/ichl/ICHL-006.png",
+      "image_sha256": "c98333842278e02bd26114aa3fa6d671e920a5af1d99835e97ff742d0dea3312"
+    },
+    {
+      "id": "ICHL-007",
+      "name": "Universal Stabilized Subgrade Foundation",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "Universal Stabilized Subgrade Foundation",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Universal_Stabilized_Subgrade_Foundation",
+      "image_file": "007_universal_stabilized_subgrade_foundation.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/10/007_universal_stabilized_subgrade_foundation.webp/120px-007_universal_stabilized_subgrade_foundation.webp.png",
+      "image": "data/village/ichl/ICHL-007.png",
+      "image_sha256": "45c8407afbc45a264d8411ba3ebf136b4ab18dec778fa41cf0dea4d7adf61339"
+    },
+    {
+      "id": "ICHL-008",
+      "name": "Foundation Base Cover",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "3.5_Foundation_Base_Cover",
+      "source_url": "https://wiki.opensourceecology.org/wiki/3.5_Foundation_Base_Cover",
+      "image_file": "008_foundation_base_cover.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/71/008_foundation_base_cover.webp/120px-008_foundation_base_cover.webp.png",
+      "image": "data/village/ichl/ICHL-008.png",
+      "image_sha256": "667426991d20029560dc902a8b43d7a5e8e0ef06b90fb76407e4a67f1aec2a38"
+    },
+    {
+      "id": "ICHL-009",
+      "name": "Electrical Trenching",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "energy"
+      ],
+      "wiki_target": "Electrical Trenching",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Electrical_Trenching",
+      "image_file": "009_electrical_trenching.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/07/009_electrical_trenching.webp/120px-009_electrical_trenching.webp.png",
+      "image": "data/village/ichl/ICHL-009.png",
+      "image_sha256": "51ce85d5c8a901031f528a8c8dace17d85edc9a6b1008f7ba2b9aec4c43e40c8"
+    },
+    {
+      "id": "ICHL-010",
+      "name": "Water Trenching",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "water"
+      ],
+      "wiki_target": "Water Trenching",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Water_Trenching",
+      "image_file": "010_water_trenching.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/be/010_water_trenching.webp/120px-010_water_trenching.webp.png",
+      "image": "data/village/ichl/ICHL-010.png",
+      "image_sha256": "0fbe886c589f7a96ef277ad0a69d954088b20941817f489af5715847bc44a5b5"
+    },
+    {
+      "id": "ICHL-011",
+      "name": "Water Meter",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "energy"
+      ],
+      "wiki_target": "Water Meter",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Water_Meter",
+      "image_file": "011_water_meter.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/a6/011_water_meter.webp/120px-011_water_meter.webp.png",
+      "image": "data/village/ichl/ICHL-011.png",
+      "image_sha256": "208472f0b062c80947d8ff5ccb8018fc38744a9e7b948ff12d825ea302427902"
+    },
+    {
+      "id": "ICHL-012",
+      "name": "Ufer Ground",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Ufer Ground",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Ufer_Ground",
+      "image_file": "012_ufer_ground.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/9d/012_ufer_ground.webp/120px-012_ufer_ground.webp.png",
+      "image": "data/village/ichl/ICHL-012.png",
+      "image_sha256": "519f6939e9705895008da2ab4dce421154ab65a68a087c0d8f937210603871b6"
+    },
+    {
+      "id": "ICHL-013",
+      "name": "Sewer Trenching",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "water"
+      ],
+      "wiki_target": "Sewer Trenching",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Sewer_Trenching",
+      "image_file": "013_sewer_trenching.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/02/013_sewer_trenching.webp/120px-013_sewer_trenching.webp.png",
+      "image": "data/village/ichl/ICHL-013.png",
+      "image_sha256": "369cd9f5ed07823360307a956a4a4650a35134771378f112295595f7cc21d0b9"
+    },
+    {
+      "id": "ICHL-014",
+      "name": "Sewer Pipe And Connection",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "water"
+      ],
+      "wiki_target": "Sewer Pipe and Connection",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Sewer_Pipe_and_Connection",
+      "image_file": "014_sewer_pipe_and_connection.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/af/014_sewer_pipe_and_connection.webp/120px-014_sewer_pipe_and_connection.webp.png",
+      "image": "data/village/ichl/ICHL-014.png",
+      "image_sha256": "7208326e9a1e5d0bdb53d599f29833949f199c8b9b140352c48f261dbe63bc3b"
+    },
+    {
+      "id": "ICHL-015",
+      "name": "Wall Framing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Wall Framing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Wall_Framing",
+      "image_file": "015_wall_framing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/02/015_wall_framing.webp/120px-015_wall_framing.webp.png",
+      "image": "data/village/ichl/ICHL-015.png",
+      "image_sha256": "51c99141bf36b741e760741e49b5e7c829eb35770176203471cf2bfe2768d58d"
+    },
+    {
+      "id": "ICHL-016",
+      "name": "Window Framing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Window Framing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Window_Framing",
+      "image_file": "016_window_framing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0d/016_window_framing.webp/120px-016_window_framing.webp.png",
+      "image": "data/village/ichl/ICHL-016.png",
+      "image_sha256": "d6af0abeb850c45d8f3637fc28ab9b7199d38208105485ec57f663836e850058"
+    },
+    {
+      "id": "ICHL-017",
+      "name": "Roof Framing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Roof Framing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Roof_Framing",
+      "image_file": "017_roof_framing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/c1/017_roof_framing.webp/120px-017_roof_framing.webp.png",
+      "image": "data/village/ichl/ICHL-017.png",
+      "image_sha256": "1020108aff079b2cf290a3134ef7611e14b51baa63f9b46f904b699d83235869"
+    },
+    {
+      "id": "ICHL-018",
+      "name": "Terrace Framing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Terrace Framing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Terrace_Framing",
+      "image_file": "018_terrace_framing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5a/018_terrace_framing.webp/120px-018_terrace_framing.webp.png",
+      "image": "data/village/ichl/ICHL-018.png",
+      "image_sha256": "c89e1d0ce9e454b1b1c1dde4209deb884ff188f6b9365e04b9bb7458f843fe1c"
+    },
+    {
+      "id": "ICHL-019",
+      "name": "Deck Framing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Deck Framing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Deck_Framing",
+      "image_file": "019_deck_framing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/df/019_deck_framing.webp/120px-019_deck_framing.webp.png",
+      "image": "data/village/ichl/ICHL-019.png",
+      "image_sha256": "e3d73eef10d223399a662dcf19529c748ef34785c820f77ac583341dae593f88"
+    },
+    {
+      "id": "ICHL-020",
+      "name": "Canopy Framing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Canopy Framing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Canopy_Framing",
+      "image_file": "020_canopy_framing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/92/020_canopy_framing.webp/120px-020_canopy_framing.webp.png",
+      "image": "data/village/ichl/ICHL-020.png",
+      "image_sha256": "7f7232841222904950c280882baee3f4d7ebae3d4440f95aecf041fd1ce4212e"
+    },
+    {
+      "id": "ICHL-021",
+      "name": "Enclosed Porch Framing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Enclosed Porch Framing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Enclosed_Porch_Framing",
+      "image_file": "021_enclosed_porch_framing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/d6/021_enclosed_porch_framing.webp/120px-021_enclosed_porch_framing.webp.png",
+      "image": "data/village/ichl/ICHL-021.png",
+      "image_sha256": "a0ab35af5d2a2b8a70f0ceb66de29475154a807aec091749f99c611e52e82ec4"
+    },
+    {
+      "id": "ICHL-022",
+      "name": "Stairs",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "5_Stairs",
+      "source_url": "https://wiki.opensourceecology.org/wiki/5_Stairs",
+      "image_file": "022_stairs.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/7a/022_stairs.webp/120px-022_stairs.webp.png",
+      "image": "data/village/ichl/ICHL-022.png",
+      "image_sha256": "17000778b8dc2d6709bf7144f8c2b87a54d0bcd8ac18f40ab92236933a4b783b"
+    },
+    {
+      "id": "ICHL-023",
+      "name": "Interior Walls",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Interior Walls",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Interior_Walls",
+      "image_file": "023_interior_walls.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0d/023_interior_walls.webp/120px-023_interior_walls.webp.png",
+      "image": "data/village/ichl/ICHL-023.png",
+      "image_sha256": "17c9ba9811db0ab79bc36552807369bf76503777c379286b52d9fceca3aafed6"
+    },
+    {
+      "id": "ICHL-024",
+      "name": "Second Floor Platform",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Second Floor Platform",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Second_Floor_Platform",
+      "image_file": "024_second_floor_platform.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/3e/024_second_floor_platform.webp/120px-024_second_floor_platform.webp.png",
+      "image": "data/village/ichl/ICHL-024.png",
+      "image_sha256": "edb3e0e7ec57e4b9ca4633ead71872646bfb4f753d2071d172bef638dbbeb5f5"
+    },
+    {
+      "id": "ICHL-025",
+      "name": "Deck",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "22_Deck",
+      "source_url": "https://wiki.opensourceecology.org/wiki/22_Deck",
+      "image_file": "025_deck.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/82/025_deck.webp/120px-025_deck.webp.png",
+      "image": "data/village/ichl/ICHL-025.png",
+      "image_sha256": "601ce434e8defb22737f055be8762fdddf80b0b4862b40b33010369db859a463"
+    },
+    {
+      "id": "ICHL-026",
+      "name": "Garage Framing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Garage Framing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Garage_Framing",
+      "image_file": "026_garage_framing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/92/026_garage_framing.webp/120px-026_garage_framing.webp.png",
+      "image": "data/village/ichl/ICHL-026.png",
+      "image_sha256": "d6341f341ee57dfe3fe1b4e4bdae33b839f4d99128157eb842b6e8f430487431"
+    },
+    {
+      "id": "ICHL-027",
+      "name": "Enclosed Back Porch Framing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Enclosed Back Porch Framing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Enclosed_Back_Porch_Framing",
+      "image_file": "027_enclosed_back_porch_framing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/99/027_enclosed_back_porch_framing.webp/120px-027_enclosed_back_porch_framing.webp.png",
+      "image": "data/village/ichl/ICHL-027.png",
+      "image_sha256": "a1c1409c25b4d9d4d3d2ccd66739812a8e77ff3fe62c25e8774ec3d6cb89af44"
+    },
+    {
+      "id": "ICHL-028",
+      "name": "Quad Modules",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Quad Modules",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Quad_Modules",
+      "image_file": "028_quad_modules.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/c7/028_quad_modules.webp/120px-028_quad_modules.webp.png",
+      "image": "data/village/ichl/ICHL-028.png",
+      "image_sha256": "1b6687acd659c87373ef2d5b922beb4170510f33301ababa8010ec1fc163bb72"
+    },
+    {
+      "id": "ICHL-029",
+      "name": "Penetrations",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Penetrations",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Penetrations",
+      "image_file": "029_penetrations.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/57/029_penetrations.webp/120px-029_penetrations.webp.png",
+      "image": "data/village/ichl/ICHL-029.png",
+      "image_sha256": "5b9c7b811c3c2535227bc95447ac3e4eab39cd075970de41b57ac31729a1038e"
+    },
+    {
+      "id": "ICHL-030",
+      "name": "Roof Insulation",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Roof Insulation",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Roof_Insulation",
+      "image_file": "030_roof_insulation.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/64/030_roof_insulation.webp/120px-030_roof_insulation.webp.png",
+      "image": "data/village/ichl/ICHL-030.png",
+      "image_sha256": "2019bf5572378cf8b491004c84788836df3f4c4f1a2e40363a4c62d3e0718730"
+    },
+    {
+      "id": "ICHL-031",
+      "name": "Hangar",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Iconic Hangar",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_Hangar",
+      "image_file": "031_Hangar.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b0/031_Hangar.webp/120px-031_Hangar.webp.png",
+      "image": "data/village/ichl/ICHL-031.png",
+      "image_sha256": "01ad6746ab248c33516fd4cc087c27681266980885518805723c29eb8b9dae33"
+    },
+    {
+      "id": "ICHL-032",
+      "name": "Cabins",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Cabins",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Cabins",
+      "image_file": "032_Cabins.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/eb/032_Cabins.webp/120px-032_Cabins.webp.png",
+      "image": "data/village/ichl/ICHL-032.png",
+      "image_sha256": "d20c28a21e9d1d602ec83afcd0e87cc467d80bee5ba04456a3aa3c5246789c3c"
+    },
+    {
+      "id": "ICHL-033",
+      "name": "Bamboo",
+      "available": false,
+      "sets": [
+        "ichl",
+        "landscape"
+      ],
+      "wiki_target": "Iconic Bamboo",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_Bamboo",
+      "image_file": "033_Bamboo.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/a8/033_Bamboo.webp/120px-033_Bamboo.webp.png",
+      "image": "data/village/ichl/ICHL-033.png",
+      "image_sha256": "b6b4730b9ea714d33b009a434b30aa388107067a2b6f3c1c783dc167248511e5"
+    },
+    {
+      "id": "ICHL-034",
+      "name": "Rapid Learning Facility",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Iconic Rapid Learning Facility",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_Rapid_Learning_Facility",
+      "image_file": "034_Rapid_Learning_Facility.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/6b/034_Rapid_Learning_Facility.webp/120px-034_Rapid_Learning_Facility.webp.png",
+      "image": "data/village/ichl/ICHL-034.png",
+      "image_sha256": "a22fefbb33f47cc7704a1c28c21e7e401a146ccc31f226d0705b940e17e9812d"
+    },
+    {
+      "id": "ICHL-035",
+      "name": "CEB Walls",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "CEB Walls",
+      "source_url": "https://wiki.opensourceecology.org/wiki/CEB_Walls",
+      "image_file": "035_CEB_Walls.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/33/035_CEB_Walls.webp/120px-035_CEB_Walls.webp.png",
+      "image": "data/village/ichl/ICHL-035.png",
+      "image_sha256": "5bfca5edaa30e8eb0547de3b6c4b39a462530e62e8662c03c7c5cb77b33351da"
+    },
+    {
+      "id": "ICHL-036",
+      "name": "Utility Wall Integration",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Utility Wall Integration",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Utility_Wall_Integration",
+      "image_file": "036_Utility_Wall_Integration.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/32/036_Utility_Wall_Integration.webp/120px-036_Utility_Wall_Integration.webp.png",
+      "image": "data/village/ichl/ICHL-036.png",
+      "image_sha256": "e1e50ddcc0627e0e9aa9c8259fd4b3474727737ec224cf6aac8247a481486b7c"
+    },
+    {
+      "id": "ICHL-037",
+      "name": "Interior Utility Systems",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Interior Utility Systems",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Interior_Utility_Systems",
+      "image_file": "037_Interior_Utility_Systems.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0f/037_Interior_Utility_Systems.webp/120px-037_Interior_Utility_Systems.webp.png",
+      "image": "data/village/ichl/ICHL-037.png",
+      "image_sha256": "c50e9d351bd05d702b1a538d001023f936c12e876c75c23540928628dfe5b9d3"
+    },
+    {
+      "id": "ICHL-038",
+      "name": "Build Workflows",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "Build Workflows",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Build_Workflows",
+      "image_file": "038_Build_Workflows.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/e2/038_Build_Workflows.webp/120px-038_Build_Workflows.webp.png",
+      "image": "data/village/ichl/ICHL-038.png",
+      "image_sha256": "73673c1187f1f817ee4fd51d50a2c19c2af40b936bc5d5ffcdbcacd63c3aa02e"
+    },
+    {
+      "id": "ICHL-039",
+      "name": "Master Tool List",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "Master Tool List",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Master_Tool_List",
+      "image_file": "039_Master_Tool_List.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/8a/039_Master_Tool_List.webp/120px-039_Master_Tool_List.webp.png",
+      "image": "data/village/ichl/ICHL-039.png",
+      "image_sha256": "f437309c747b41d7db78499fa2f9d19b803293daef5b838996846627b1ab31d1"
+    },
+    {
+      "id": "ICHL-040",
+      "name": "Master Part List",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Master Part List",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Master_Part_List",
+      "image_file": "040_Master_Part_List.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5d/040_Master_Part_List.webp/120px-040_Master_Part_List.webp.png",
+      "image": "data/village/ichl/ICHL-040.png",
+      "image_sha256": "efd9f175f1db2e12d722351ebffe84b8da166a8932643ea402994ad21394bb75"
+    },
+    {
+      "id": "ICHL-041",
+      "name": "Master Fastener List",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "Master Fastener List",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Master_Fastener_List",
+      "image_file": "041_Master_Fastener_List.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/93/041_Master_Fastener_List.webp/120px-041_Master_Fastener_List.webp.png",
+      "image": "data/village/ichl/ICHL-041.png",
+      "image_sha256": "49ef80485f219dcb83c7af8ea2c24f816dd86b35b302d4cab4241c0437249388"
+    },
+    {
+      "id": "ICHL-042",
+      "name": "Iconic Build Technique",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "Iconic Build Technique",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_Build_Technique",
+      "image_file": "042_Iconic_Build_Technique.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/12/042_Iconic_Build_Technique.webp/120px-042_Iconic_Build_Technique.webp.png",
+      "image": "data/village/ichl/ICHL-042.png",
+      "image_sha256": "4e25f59ccb2c25d8e3a1c166ee71249988e422bb41c65c05ae2fca7d7b43ba6c"
+    },
+    {
+      "id": "ICHL-043",
+      "name": "Materials Handling",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "Materials Handling",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Materials_Handling",
+      "image_file": "043_Materials_Handling.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5d/043_Materials_Handling.webp/120px-043_Materials_Handling.webp.png",
+      "image": "data/village/ichl/ICHL-043.png",
+      "image_sha256": "4c7ceb524c41a08945442e1574455ebf1090c3f1ff1b89002b62d86fedadd312"
+    },
+    {
+      "id": "ICHL-044",
+      "name": "Panel Lift",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy",
+        "tools"
+      ],
+      "wiki_target": "Panel Lift",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Panel_Lift",
+      "image_file": "044_Panel_Lift.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/c6/044_Panel_Lift.webp/120px-044_Panel_Lift.webp.png",
+      "image": "data/village/ichl/ICHL-044.png",
+      "image_sha256": "795cbef6b0873d1993ed7e9cddc9076257e3c0b3a3fc2f038356c65c724c7f5e"
+    },
+    {
+      "id": "ICHL-045",
+      "name": "Electrical Wiring Ergonomics",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy",
+        "tools"
+      ],
+      "wiki_target": "Electrical Wiring Ergonomics",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Electrical_Wiring_Ergonomics",
+      "image_file": "045_Electrical_Wiring_Ergonomics.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/af/045_Electrical_Wiring_Ergonomics.webp/120px-045_Electrical_Wiring_Ergonomics.webp.png",
+      "image": "data/village/ichl/ICHL-045.png",
+      "image_sha256": "fa991d024dbf2425aa3954702d55e307208454e564a5e33b7ab9d072d052a308"
+    },
+    {
+      "id": "ICHL-046",
+      "name": "Wall Building Jig",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "wall building jig",
+      "source_url": "https://wiki.opensourceecology.org/wiki/wall_building_jig",
+      "image_file": "046_wall_building_jig.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/72/046_wall_building_jig.webp/120px-046_wall_building_jig.webp.png",
+      "image": "data/village/ichl/ICHL-046.png",
+      "image_sha256": "a97f2ed92397ef2c6abc7526189b3fed792e01fddfd0fe09cb4615fd9c073efa"
+    },
+    {
+      "id": "ICHL-047",
+      "name": "Saw Guide Jig",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "saw guide jig",
+      "source_url": "https://wiki.opensourceecology.org/wiki/saw_guide_jig",
+      "image_file": "047_saw_guide_jig.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/61/047_saw_guide_jig.webp/120px-047_saw_guide_jig.webp.png",
+      "image": "data/village/ichl/ICHL-047.png",
+      "image_sha256": "a5e492055fe480f45eb8a4e8f11700e551007fb48907dd0e3efd7cfc55124997"
+    },
+    {
+      "id": "ICHL-048",
+      "name": "Cabinet Hinges",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "cabinet hinges",
+      "source_url": "https://wiki.opensourceecology.org/wiki/cabinet_hinges",
+      "image_file": "048_cabinet_hinges.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/a8/048_cabinet_hinges.webp/120px-048_cabinet_hinges.webp.png",
+      "image": "data/village/ichl/ICHL-048.png",
+      "image_sha256": "9b0b016f91a611e8211a24b18fb203aa58f1ffab1d8d4e90c6ddd19ac37218ca"
+    },
+    {
+      "id": "ICHL-049",
+      "name": "Overhead Crane",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "overhead crane",
+      "source_url": "https://wiki.opensourceecology.org/wiki/overhead_crane",
+      "image_file": "049_overhead_crane.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/47/049_overhead_crane.webp/120px-049_overhead_crane.webp.png",
+      "image": "data/village/ichl/ICHL-049.png",
+      "image_sha256": "a269950332c2ae834afc93489c2172527eb75f723f1caff43e41bd295ea94e20"
+    },
+    {
+      "id": "ICHL-050",
+      "name": "Marking",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "marking",
+      "source_url": "https://wiki.opensourceecology.org/wiki/marking",
+      "image_file": "050_marking.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/6b/050_marking.webp/120px-050_marking.webp.png",
+      "image": "data/village/ichl/ICHL-050.png",
+      "image_sha256": "0b84bb3dbc9d14dc3a9c2ee1237afb298bc4e3383a5106d79b4d5bcbe5e3b2f2"
+    },
+    {
+      "id": "ICHL-051",
+      "name": "Cutting",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "cutting",
+      "source_url": "https://wiki.opensourceecology.org/wiki/cutting",
+      "image_file": "051_cutting.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/eb/051_cutting.webp/120px-051_cutting.webp.png",
+      "image": "data/village/ichl/ICHL-051.png",
+      "image_sha256": "a46b7850226bdd5e10626bc3af6faf20905c71607f91fe77c14ad782bf75dc59"
+    },
+    {
+      "id": "ICHL-052",
+      "name": "Efficient Trenching Between Confined End Points",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "efficient trenching between confined end points",
+      "source_url": "https://wiki.opensourceecology.org/wiki/efficient_trenching_between_confined_end_points",
+      "image_file": "052_efficient_trenching_between_confined_end_points.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/cf/052_efficient_trenching_between_confined_end_points.webp/120px-052_efficient_trenching_between_confined_end_points.webp.png",
+      "image": "data/village/ichl/ICHL-052.png",
+      "image_sha256": "c5946d3388d9b5e498841d069ad8db5dac87642c4f542d83dd6deef927c27e47"
+    },
+    {
+      "id": "ICHL-053",
+      "name": "Concrete Mixing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "concrete mixing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/concrete_mixing",
+      "image_file": "053_concrete_mixing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/a9/053_concrete_mixing.webp/120px-053_concrete_mixing.webp.png",
+      "image": "data/village/ichl/ICHL-053.png",
+      "image_sha256": "709c6fd64d10135cc80268c0aa94e3f9aadc24a4b4f5018192a689ec70642973"
+    },
+    {
+      "id": "ICHL-054",
+      "name": "Material Calculations",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "material calculations",
+      "source_url": "https://wiki.opensourceecology.org/wiki/material_calculations",
+      "image_file": "054_material_calculations.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/a7/054_material_calculations.webp/120px-054_material_calculations.webp.png",
+      "image": "data/village/ichl/ICHL-054.png",
+      "image_sha256": "8de508df632498aec7ea3795cfd96d0ac26067ec3eaada09b8824acd8cb0fbdf"
+    },
+    {
+      "id": "ICHL-055",
+      "name": "Building As A Mental Game",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "building as a mental game",
+      "source_url": "https://wiki.opensourceecology.org/wiki/building_as_a_mental_game",
+      "image_file": "055_building_as_a_mental_game.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/9a/055_building_as_a_mental_game.webp/120px-055_building_as_a_mental_game.webp.png",
+      "image": "data/village/ichl/ICHL-055.png",
+      "image_sha256": "ebca0371390a5d2f482bcfe91b19337137693fbcdc0457ed91138e827bddd38d"
+    },
+    {
+      "id": "ICHL-056",
+      "name": "Extreme Collaboration",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "extreme collaboration",
+      "source_url": "https://wiki.opensourceecology.org/wiki/extreme_collaboration",
+      "image_file": "056_extreme_collaboration.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/07/056_extreme_collaboration.webp/120px-056_extreme_collaboration.webp.png",
+      "image": "data/village/ichl/ICHL-056.png",
+      "image_sha256": "1f326501944dee29f7bdfbcda5eeefa39d4981cc421a31386727de1ca6877c5d"
+    },
+    {
+      "id": "ICHL-057",
+      "name": "Airless Sprayer",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "airless sprayer",
+      "source_url": "https://wiki.opensourceecology.org/wiki/airless_sprayer",
+      "image_file": "057_airless_sprayer.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b8/057_airless_sprayer.webp/120px-057_airless_sprayer.webp.png",
+      "image": "data/village/ichl/ICHL-057.png",
+      "image_sha256": "a8008dc701b8216bb5414d5ba79b18035a3742dfed0cff5506bad24113c2a9e3"
+    },
+    {
+      "id": "ICHL-058",
+      "name": "Build Rate Specifications",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "build rate specifications",
+      "source_url": "https://wiki.opensourceecology.org/wiki/build_rate_specifications",
+      "image_file": "058_build_rate_specifications.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/16/058_build_rate_specifications.webp/120px-058_build_rate_specifications.webp.png",
+      "image": "data/village/ichl/ICHL-058.png",
+      "image_sha256": "85ca8ad076a1c3cd81b8f3bf8f7e314a590c550d483107d01b935bc48e1ee533"
+    },
+    {
+      "id": "ICHL-059",
+      "name": "Filling Holes",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "filling holes",
+      "source_url": "https://wiki.opensourceecology.org/wiki/filling_holes",
+      "image_file": "059_filling_holes.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/4a/059_filling_holes.webp/120px-059_filling_holes.webp.png",
+      "image": "data/village/ichl/ICHL-059.png",
+      "image_sha256": "1bef6846c9400c0c491f59cfb0140c0106ae758fb55e848539b6c1139668d055"
+    },
+    {
+      "id": "ICHL-060",
+      "name": "Tool Holders",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "tool holders",
+      "source_url": "https://wiki.opensourceecology.org/wiki/tool_holders",
+      "image_file": "060_tool_holders.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/fa/060_tool_holders.webp/120px-060_tool_holders.webp.png",
+      "image": "data/village/ichl/ICHL-060.png",
+      "image_sha256": "1a4d24d4a4403d572b9476979d604e4db57e48eabfc1aefc5f0d64c51406e7d9"
+    },
+    {
+      "id": "ICHL-061",
+      "name": "Sanding",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "sanding",
+      "source_url": "https://wiki.opensourceecology.org/wiki/sanding",
+      "image_file": "061_sanding.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b6/061_sanding.webp/120px-061_sanding.webp.png",
+      "image": "data/village/ichl/ICHL-061.png",
+      "image_sha256": "4752170307f24542122f149716d947fd4ac2cef67899106fcd542d994dfd7aeb"
+    },
+    {
+      "id": "ICHL-062",
+      "name": "Caulking",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "caulking",
+      "source_url": "https://wiki.opensourceecology.org/wiki/caulking",
+      "image_file": "062_caulking.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/63/062_caulking.webp/120px-062_caulking.webp.png",
+      "image": "data/village/ichl/ICHL-062.png",
+      "image_sha256": "369659fd8feb568cead2c972124bb8848541d1fce40b8ced81155cb69884f75d"
+    },
+    {
+      "id": "ICHL-063",
+      "name": "Cleanup",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "cleanup",
+      "source_url": "https://wiki.opensourceecology.org/wiki/cleanup",
+      "image_file": "063_cleanup.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/a6/063_cleanup.webp/120px-063_cleanup.webp.png",
+      "image": "data/village/ichl/ICHL-063.png",
+      "image_sha256": "1de7a653a4bbcda6c9e9d5b2ac0c920184b4c2bc71e193ab69e3bf348e062505"
+    },
+    {
+      "id": "ICHL-064",
+      "name": "Vinyl Flooring Installation",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "vinyl flooring installation",
+      "source_url": "https://wiki.opensourceecology.org/wiki/vinyl_flooring_installation",
+      "image_file": "064_vinyl_flooring_installation.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/97/064_vinyl_flooring_installation.webp/120px-064_vinyl_flooring_installation.webp.png",
+      "image": "data/village/ichl/ICHL-064.png",
+      "image_sha256": "3a526f09244a1589c35e940044de1a0d169e7228904468ef42ed21fa3df29ef2"
+    },
+    {
+      "id": "ICHL-065",
+      "name": "Design Rationale",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "design rationale",
+      "source_url": "https://wiki.opensourceecology.org/wiki/design_rationale",
+      "image_file": "065_design_rationale.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5f/065_design_rationale.webp/120px-065_design_rationale.webp.png",
+      "image": "data/village/ichl/ICHL-065.png",
+      "image_sha256": "a54c0c01d531af094c5eefa7b4baf0059ae422d08dd53af38aaec49f508fd513"
+    },
+    {
+      "id": "ICHL-066",
+      "name": "Foundation Squaring",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "foundation squaring",
+      "source_url": "https://wiki.opensourceecology.org/wiki/foundation_squaring",
+      "image_file": "066_foundation_squaring.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/9f/066_foundation_squaring.webp/120px-066_foundation_squaring.webp.png",
+      "image": "data/village/ichl/ICHL-066.png",
+      "image_sha256": "331e3a6b60d6a714acca60e214d4afc9c736a3f532f4f0d13e2da33e977a22de"
+    },
+    {
+      "id": "ICHL-067",
+      "name": "Roof Membrane Detail",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Membrane Detail",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Membrane_Detail",
+      "image_file": "067_roof_membrane_detail.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/3e/067_roof_membrane_detail.webp/120px-067_roof_membrane_detail.webp.png",
+      "image": "data/village/ichl/ICHL-067.png",
+      "image_sha256": "c7c3364cb22a2860d667c428295f43f7ce57dd21e09b7db1637f0d5146706e40"
+    },
+    {
+      "id": "ICHL-068",
+      "name": "Truss",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Truss",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Truss",
+      "image_file": "068_truss.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0b/068_truss.webp/120px-068_truss.webp.png",
+      "image": "data/village/ichl/ICHL-068.png",
+      "image_sha256": "3827c9b13d7f4912b3aa87ea3bd99ebf941ec26327bda0578deaa679dd14383c"
+    },
+    {
+      "id": "ICHL-069",
+      "name": "52 Truss Assembly",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "52' Truss Assembly",
+      "source_url": "https://wiki.opensourceecology.org/wiki/52%27_Truss_Assembly",
+      "image_file": "069_52_truss_assembly.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/db/069_52_truss_assembly.webp/120px-069_52_truss_assembly.webp.png",
+      "image": "data/village/ichl/ICHL-069.png",
+      "image_sha256": "d7f62ac9af334dede109fdfbe1d39ddbc0394ef78d9290c2ee17591de17be5b3"
+    },
+    {
+      "id": "ICHL-070",
+      "name": "Tapered Truss",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Tapered Truss",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Tapered_Truss",
+      "image_file": "070_tapered_truss.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/80/070_tapered_truss.webp/120px-070_tapered_truss.webp.png",
+      "image": "data/village/ichl/ICHL-070.png",
+      "image_sha256": "edf3adb0561c350e6327a4cc052d12a9be3d51a8394df96ba19e5bd4791e777a"
+    },
+    {
+      "id": "ICHL-071",
+      "name": "Large Gutter",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "water",
+        "housing"
+      ],
+      "wiki_target": "Large Gutter",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Large_Gutter",
+      "image_file": "071_large_gutter.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/05/071_large_gutter.webp/120px-071_large_gutter.webp.png",
+      "image": "data/village/ichl/ICHL-071.png",
+      "image_sha256": "c2984435e605effa0b921ae8a9666c9c55bf555976f4f72a371f1b8d02afc0cf"
+    },
+    {
+      "id": "ICHL-072",
+      "name": "Gutter",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "water",
+        "housing"
+      ],
+      "wiki_target": "14_Gutter",
+      "source_url": "https://wiki.opensourceecology.org/wiki/14_Gutter",
+      "image_file": "072_gutter.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/02/072_gutter.webp/120px-072_gutter.webp.png",
+      "image": "data/village/ichl/ICHL-072.png",
+      "image_sha256": "aa79daceaff0148747ab41a996e7d100d21fbf8fd8472ed2fe63713fdb631819"
+    },
+    {
+      "id": "ICHL-073",
+      "name": "Gutter Downspout",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "water",
+        "housing"
+      ],
+      "wiki_target": "Gutter Downspout",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Gutter_Downspout",
+      "image_file": "073_gutter_downspout.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/dd/073_gutter_downspout.webp/120px-073_gutter_downspout.webp.png",
+      "image": "data/village/ichl/ICHL-073.png",
+      "image_sha256": "800aaff9b45dd5a13f4b431e13dfcafed0d9d610d70f3e6747608c9316f4acfc"
+    },
+    {
+      "id": "ICHL-074",
+      "name": "PV Array Modules",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "15_PV",
+      "source_url": "https://wiki.opensourceecology.org/wiki/15_PV",
+      "image_file": "074_pv_array_modules.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/bf/074_pv_array_modules.webp/120px-074_pv_array_modules.webp.png",
+      "image": "data/village/ichl/ICHL-074.png",
+      "image_sha256": "fa3545fd8022459b3719d3c222bfacdf6719a8b1ffcf045b1e9cf4fccafb5293"
+    },
+    {
+      "id": "ICHL-075",
+      "name": "PV Runners",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "PV Runners",
+      "source_url": "https://wiki.opensourceecology.org/wiki/PV_Runners",
+      "image_file": "075_pv_runners.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/a4/075_pv_runners.webp/120px-075_pv_runners.webp.png",
+      "image": "data/village/ichl/ICHL-075.png",
+      "image_sha256": "1dd030d8e6964ab25c7b96220eae470fbbfee35b274022a08e9a33d9fbd3baaf"
+    },
+    {
+      "id": "ICHL-076",
+      "name": "Roof Gravel",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "16_Roof_Gravel",
+      "source_url": "https://wiki.opensourceecology.org/wiki/16_Roof_Gravel",
+      "image_file": "076_Roof_Gravel.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/98/076_Roof_Gravel.webp/120px-076_Roof_Gravel.webp.png",
+      "image": "data/village/ichl/ICHL-076.png",
+      "image_sha256": "21800faf49898a268189b787e645721e7c4afaa4bdeaa2fe4305a35d43fc5b66"
+    },
+    {
+      "id": "ICHL-077",
+      "name": "Living Roof",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "landscape",
+        "housing"
+      ],
+      "wiki_target": "Living Roof",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Living_Roof",
+      "image_file": "077_Living_Roof.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/df/077_Living_Roof.webp/120px-077_Living_Roof.webp.png",
+      "image": "data/village/ichl/ICHL-077.png",
+      "image_sha256": "5d8435f196570d675520a2f3b78aa68461677d98d59b12c80939e076b5114475"
+    },
+    {
+      "id": "ICHL-078",
+      "name": "Envelope Process",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Envelope Process",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Envelope_Process",
+      "image_file": "078_Envelope_Process.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/65/078_Envelope_Process.webp/120px-078_Envelope_Process.webp.png",
+      "image": "data/village/ichl/ICHL-078.png",
+      "image_sha256": "2c0b85a794e5cd0512e9baedacefa0c5d35c34c5322b48d003b6359ff1cbceda"
+    },
+    {
+      "id": "ICHL-079",
+      "name": "Insulation",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "6_Insulation",
+      "source_url": "https://wiki.opensourceecology.org/wiki/6_Insulation",
+      "image_file": "079_Insulation.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/04/079_Insulation.webp/120px-079_Insulation.webp.png",
+      "image": "data/village/ichl/ICHL-079.png",
+      "image_sha256": "830ce410823e3c72219dbde432d0cdbc75b02c5a89aba24dfc045756f34f64e3"
+    },
+    {
+      "id": "ICHL-080",
+      "name": "Housewrap Envelope Tape",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "7_Housewrap_+_Envelope_Tape",
+      "source_url": "https://wiki.opensourceecology.org/wiki/7_Housewrap_%2B_Envelope_Tape",
+      "image_file": "080_Housewrap_Envelope_Tape.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/98/080_Housewrap_Envelope_Tape.webp/120px-080_Housewrap_Envelope_Tape.webp.png",
+      "image": "data/village/ichl/ICHL-080.png",
+      "image_sha256": "36f118c83d7dfa1caa96f0108f9563e64ab4630883eaaf16971a530f12586ec1"
+    },
+    {
+      "id": "ICHL-081",
+      "name": "Exterior Doors",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "8_Exterior_Doors",
+      "source_url": "https://wiki.opensourceecology.org/wiki/8_Exterior_Doors",
+      "image_file": "081_Exterior_Doors.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/66/081_Exterior_Doors.webp/120px-081_Exterior_Doors.webp.png",
+      "image": "data/village/ichl/ICHL-081.png",
+      "image_sha256": "e44369588f8d665202b552f122a762dd8d8941213b72477b7f24c6f49896e10a"
+    },
+    {
+      "id": "ICHL-082",
+      "name": "Siding",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "9_Siding",
+      "source_url": "https://wiki.opensourceecology.org/wiki/9_Siding",
+      "image_file": "082_Siding.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5f/082_Siding.webp/120px-082_Siding.webp.png",
+      "image": "data/village/ichl/ICHL-082.png",
+      "image_sha256": "bb65b3a46e8df140d8284ea95a131962096228ad7b16ac120e9b78d9dc3c26f8"
+    },
+    {
+      "id": "ICHL-083",
+      "name": "Siding Penetrations",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "10_Siding_Penetrations",
+      "source_url": "https://wiki.opensourceecology.org/wiki/10_Siding_Penetrations",
+      "image_file": "083_Siding_Penetrations.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/3b/083_Siding_Penetrations.webp/120px-083_Siding_Penetrations.webp.png",
+      "image": "data/village/ichl/ICHL-083.png",
+      "image_sha256": "f676e88bc38152b4d4d202e593f313d7d9c3376b63e3a613a0584a6577531ae5"
+    },
+    {
+      "id": "ICHL-084",
+      "name": "Exterior Trim",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "13_Exterior_Trim",
+      "source_url": "https://wiki.opensourceecology.org/wiki/13_Exterior_Trim",
+      "image_file": "084_Exterior_Trim.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/a0/084_Exterior_Trim.webp/120px-084_Exterior_Trim.webp.png",
+      "image": "data/village/ichl/ICHL-084.png",
+      "image_sha256": "dcff724b81f39cd5c6e74a558418a625dd93018d6c447f39305743cf650b90c9"
+    },
+    {
+      "id": "ICHL-085",
+      "name": "Window Boxes",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Window Boxes",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Window_Boxes",
+      "image_file": "085_Window_Boxes.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/de/085_Window_Boxes.webp/120px-085_Window_Boxes.webp.png",
+      "image": "data/village/ichl/ICHL-085.png",
+      "image_sha256": "cb477650fa2d7057b5962dad973eeaeb230caba89957df5011867f0dbb7b37b5"
+    },
+    {
+      "id": "ICHL-086",
+      "name": "Window Trim Assemblies",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Window Trim Assemblies",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Window_Trim_Assemblies",
+      "image_file": "086_Window_Trim_Assemblies.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/8b/086_Window_Trim_Assemblies.webp/120px-086_Window_Trim_Assemblies.webp.png",
+      "image": "data/village/ichl/ICHL-086.png",
+      "image_sha256": "c8cef9608e2cb52b6fe2ca58d7dd7b2940de4237a54e0c1551e351ad376b0100"
+    },
+    {
+      "id": "ICHL-087",
+      "name": "Terrace Finishing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Terrace Finishing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Terrace_Finishing",
+      "image_file": "087_Terrace_Finishing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/6d/087_Terrace_Finishing.webp/120px-087_Terrace_Finishing.webp.png",
+      "image": "data/village/ichl/ICHL-087.png",
+      "image_sha256": "03ea3cb0c24431559681f1117b858a4ff7eb250039355626060720a9d68c0333"
+    },
+    {
+      "id": "ICHL-088",
+      "name": "Canopy Finish",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Canopy Finish",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Canopy_Finish",
+      "image_file": "088_Canopy_Finish.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/72/088_Canopy_Finish.webp/120px-088_Canopy_Finish.webp.png",
+      "image": "data/village/ichl/ICHL-088.png",
+      "image_sha256": "a0aae2e94aca55fca346c92bc632136762b56a68e600c5ddee7d6edddb6e5ce4"
+    },
+    {
+      "id": "ICHL-089",
+      "name": "Electrical Service Entrance",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy",
+        "climate"
+      ],
+      "wiki_target": "Electrical Service Entrance",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Electrical_Service_Entrance",
+      "image_file": "089_Electrical_Service_Entrance.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/c0/089_Electrical_Service_Entrance.webp/120px-089_Electrical_Service_Entrance.webp.png",
+      "image": "data/village/ichl/ICHL-089.png",
+      "image_sha256": "deee794bc969d22f004fd05e60b34350a358186548c4c4199abcb8bb5bd81e36"
+    },
+    {
+      "id": "ICHL-090",
+      "name": "Power Center Module",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Power Center Module",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Power_Center_Module",
+      "image_file": "090_Power_Center_Module.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/66/090_Power_Center_Module.webp/120px-090_Power_Center_Module.webp.png",
+      "image": "data/village/ichl/ICHL-090.png",
+      "image_sha256": "17ca745b324b79358f1dd3fc6dbe6ef751e8d0a92f6b082b1bee0584cd024634"
+    },
+    {
+      "id": "ICHL-091",
+      "name": "Trenching And Conduit",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "energy"
+      ],
+      "wiki_target": "Trenching and Conduit",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Trenching_and_Conduit",
+      "image_file": "091_trenching_and_conduit.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/3a/091_trenching_and_conduit.webp/120px-091_trenching_and_conduit.webp.png",
+      "image": "data/village/ichl/ICHL-091.png",
+      "image_sha256": "f42451fc8b81393b7c5ad4723174d7ef56c8b392b3ca572dd84125581a8f2f40"
+    },
+    {
+      "id": "ICHL-092",
+      "name": "Power Meter Submodule",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Iconic Power Meter Submodule",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_Power_Meter_Submodule",
+      "image_file": "092_power_meter_submodule.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/de/092_power_meter_submodule.webp/120px-092_power_meter_submodule.webp.png",
+      "image": "data/village/ichl/ICHL-092.png",
+      "image_sha256": "7a25acaeb94e9279708cc575738438be87780bb26bc9e067a96f04ba16614312"
+    },
+    {
+      "id": "ICHL-093",
+      "name": "Main Breaker Panel Submodule",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Main Breaker Panel Submodule",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Main_Breaker_Panel_Submodule",
+      "image_file": "093_main_breaker_panel_submodule.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/24/093_main_breaker_panel_submodule.webp/120px-093_main_breaker_panel_submodule.webp.png",
+      "image": "data/village/ichl/ICHL-093.png",
+      "image_sha256": "69dacc75ec27aa08c454eea44f130a571e74a12007446243a189be3681e4793d"
+    },
+    {
+      "id": "ICHL-094",
+      "name": "Power Center",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "18_Power_Center",
+      "source_url": "https://wiki.opensourceecology.org/wiki/18_Power_Center",
+      "image_file": "094_power_center.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/73/094_power_center.webp/120px-094_power_center.webp.png",
+      "image": "data/village/ichl/ICHL-094.png",
+      "image_sha256": "d6b60029748d1743e7451745ed4cf20f9122c032b17614193b30e853b949a41e"
+    },
+    {
+      "id": "ICHL-095",
+      "name": "Rough Electrical",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "30_Rough_Electrical",
+      "source_url": "https://wiki.opensourceecology.org/wiki/30_Rough_Electrical",
+      "image_file": "095_rough_electrical.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0c/095_rough_electrical.webp/120px-095_rough_electrical.webp.png",
+      "image": "data/village/ichl/ICHL-095.png",
+      "image_sha256": "7ca80f9c57dfae54ad70bf2b0d7b60ede336d88e33b9ba128c97af98817d9930"
+    },
+    {
+      "id": "ICHL-096",
+      "name": "Wire Runs",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Wire Runs",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Wire_Runs",
+      "image_file": "096_wire_runs.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/eb/096_wire_runs.webp/120px-096_wire_runs.webp.png",
+      "image": "data/village/ichl/ICHL-096.png",
+      "image_sha256": "315238a5a6074247d3ba54c7125be66151faaa2882d7b9e8dad55c56066b04ef"
+    },
+    {
+      "id": "ICHL-097",
+      "name": "Overall Electrical Design",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Overall Electrical Design",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Overall_Electrical_Design",
+      "image_file": "097_overall_electrical_design.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/ed/097_overall_electrical_design.webp/120px-097_overall_electrical_design.webp.png",
+      "image": "data/village/ichl/ICHL-097.png",
+      "image_sha256": "3906e9f0b8c60978a5822737981911f513d516b658b1b66a1df8d9ec9e80d463"
+    },
+    {
+      "id": "ICHL-098",
+      "name": "Electrical Boxes",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Electrical Boxes",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Electrical_Boxes",
+      "image_file": "098_electrical_boxes.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/f6/098_electrical_boxes.webp/120px-098_electrical_boxes.webp.png",
+      "image": "data/village/ichl/ICHL-098.png",
+      "image_sha256": "cf5a7b48cd38e2caafa92ec4862f3269a9957f3b020a8d3c0dc1e3cc51e677c4"
+    },
+    {
+      "id": "ICHL-099",
+      "name": "Electrical Box Layout",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Electrical Box Layout",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Electrical_Box_Layout",
+      "image_file": "099_electrical_box_layout.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/8b/099_electrical_box_layout.webp/120px-099_electrical_box_layout.webp.png",
+      "image": "data/village/ichl/ICHL-099.png",
+      "image_sha256": "a39cdcbd5711e8135fb1d5793a8937880e7ba766542390c455728875d6ac0765"
+    },
+    {
+      "id": "ICHL-100",
+      "name": "Subpanel",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Subpanel",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Subpanel",
+      "image_file": "100_subpanel.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/f0/100_subpanel.webp/120px-100_subpanel.webp.png",
+      "image": "data/village/ichl/ICHL-100.png",
+      "image_sha256": "5443dc23e874cc9280e93bae3fe0c25be125b1cd93adcee4a8e8e37bd021dcd0"
+    },
+    {
+      "id": "ICHL-101",
+      "name": "Automatic Transfer Switch",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Automatic Transfer Switch",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Automatic_Transfer_Switch",
+      "image_file": "101_automatic_transfer_switch.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/80/101_automatic_transfer_switch.webp/120px-101_automatic_transfer_switch.webp.png",
+      "image": "data/village/ichl/ICHL-101.png",
+      "image_sha256": "95224424ea25a342d8565e02222d5f65ff7e246c9f88732ea2721835a4091845"
+    },
+    {
+      "id": "ICHL-102",
+      "name": "Transfer Switch To Subpanel",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Transfer Switch to Subpanel",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Transfer_Switch_to_Subpanel",
+      "image_file": "102_transfer_switch_to_subpanel.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/dc/102_transfer_switch_to_subpanel.webp/120px-102_transfer_switch_to_subpanel.webp.png",
+      "image": "data/village/ichl/ICHL-102.png",
+      "image_sha256": "62170a34879807ef9d541aa2e1beb4e112d621e7b9b214a730f08b518f243a3a"
+    },
+    {
+      "id": "ICHL-103",
+      "name": "Water Heater Circuits",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "climate"
+      ],
+      "wiki_target": "Water Heater Circuits",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Water_Heater_Circuits",
+      "image_file": "103_water_heater_circuits.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/f9/103_water_heater_circuits.webp/120px-103_water_heater_circuits.webp.png",
+      "image": "data/village/ichl/ICHL-103.png",
+      "image_sha256": "ef165cca8ecd7ca1c9bffae39e99bec2fefc6202714a6d0152f7e72d7e2780d4"
+    },
+    {
+      "id": "ICHL-104",
+      "name": "Main Panel Through Tube",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Main Panel Through-Tube",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Main_Panel_Through-Tube",
+      "image_file": "104_main_panel_through_tube.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/00/104_main_panel_through_tube.webp/120px-104_main_panel_through_tube.webp.png",
+      "image": "data/village/ichl/ICHL-104.png",
+      "image_sha256": "50016f9ea06d12fe1f8f9cb7babe04c7e3e805ef73d1b8eff0f888c16fae8513"
+    },
+    {
+      "id": "ICHL-105",
+      "name": "Electrical Integration",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Electrical Integration",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Electrical_Integration",
+      "image_file": "105_electrical_integration.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/69/105_electrical_integration.webp/120px-105_electrical_integration.webp.png",
+      "image": "data/village/ichl/ICHL-105.png",
+      "image_sha256": "fb703b60fbdadcc063c22883aecca0dec092a65b92a70f5ad744cb8cffdf4b61"
+    },
+    {
+      "id": "ICHL-106",
+      "name": "Water Hookup",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "20_Water_Hookup",
+      "source_url": "https://wiki.opensourceecology.org/wiki/20_Water_Hookup",
+      "image_file": "106_Water_Hookup.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0b/106_Water_Hookup.webp/120px-106_Water_Hookup.webp.png",
+      "image": "data/village/ichl/ICHL-106.png",
+      "image_sha256": "30b4ce8901c798c6bf9c248005cff7fce26fafb7270abdfd7b459cdd1af114fa"
+    },
+    {
+      "id": "ICHL-107",
+      "name": "Foundation Water Rough In",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "water"
+      ],
+      "wiki_target": "Foundation Water Rough-In",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Foundation_Water_Rough-In",
+      "image_file": "107_Foundation_Water_Rough_In.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/8e/107_Foundation_Water_Rough_In.webp/120px-107_Foundation_Water_Rough_In.webp.png",
+      "image": "data/village/ichl/ICHL-107.png",
+      "image_sha256": "aaf002bd6931079587aabf9247a943cbac4e8a6453e6dfee77947ed7c209339f"
+    },
+    {
+      "id": "ICHL-108",
+      "name": "City Water Tap",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "City Water Tap",
+      "source_url": "https://wiki.opensourceecology.org/wiki/City_Water_Tap",
+      "image_file": "108_City_Water_Tap.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/48/108_City_Water_Tap.webp/120px-108_City_Water_Tap.webp.png",
+      "image": "data/village/ichl/ICHL-108.png",
+      "image_sha256": "24c2b3dfe8b8ed724cc0361ad216ac26ab3f96d908f541a7003c2ab7dfc161cf"
+    },
+    {
+      "id": "ICHL-109",
+      "name": "Water Meter Assembly",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "energy"
+      ],
+      "wiki_target": "Water Meter Assembly",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Water_Meter_Assembly",
+      "image_file": "109_Water_Meter_Assembly.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/7b/109_Water_Meter_Assembly.webp/120px-109_Water_Meter_Assembly.webp.png",
+      "image": "data/village/ichl/ICHL-109.png",
+      "image_sha256": "eb8a6fb596450945b54263f03dfa2351124e55963131b4b0929e364d620b8436"
+    },
+    {
+      "id": "ICHL-110",
+      "name": "Water Service Entrance",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "climate"
+      ],
+      "wiki_target": "Water Service Entrance",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Water_Service_Entrance",
+      "image_file": "110_Water_Service_Entrance.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/d6/110_Water_Service_Entrance.webp/120px-110_Water_Service_Entrance.webp.png",
+      "image": "data/village/ichl/ICHL-110.png",
+      "image_sha256": "8fc4ce560f0f3fd3b3eab698e3055e064354830eba92786e7ef411ee85f0caaa"
+    },
+    {
+      "id": "ICHL-111",
+      "name": "Rough Water",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "28_Rough_Water",
+      "source_url": "https://wiki.opensourceecology.org/wiki/28_Rough_Water",
+      "image_file": "111_Rough_Water.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5c/111_Rough_Water.webp/120px-111_Rough_Water.webp.png",
+      "image": "data/village/ichl/ICHL-111.png",
+      "image_sha256": "28ccccdc13e33e16b505287e1f134a6013470650ba97cb02e7f12af7121975c3"
+    },
+    {
+      "id": "ICHL-112",
+      "name": "Hose Bib Assembly",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Hose Bib Assembly",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Hose_Bib_Assembly",
+      "image_file": "112_Hose_Bib_Assembly.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/ea/112_Hose_Bib_Assembly.webp/120px-112_Hose_Bib_Assembly.webp.png",
+      "image": "data/village/ichl/ICHL-112.png",
+      "image_sha256": "9b8d8145222536e75cdccf33aa1eba039d42623ab8d6e97f032b138441c0a0a7"
+    },
+    {
+      "id": "ICHL-113",
+      "name": "Expansion Tank Assembly",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Expansion Tank Assembly",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Expansion_Tank_Assembly",
+      "image_file": "113_Expansion_Tank_Assembly.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b9/113_Expansion_Tank_Assembly.webp/120px-113_Expansion_Tank_Assembly.webp.png",
+      "image": "data/village/ichl/ICHL-113.png",
+      "image_sha256": "74e2d9ca2df8a86a887933351bb000b07795ab70177b45600e0bacd4001288a0"
+    },
+    {
+      "id": "ICHL-114",
+      "name": "Tub Shower Water Supply",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Tub Shower Water Supply",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Tub_Shower_Water_Supply",
+      "image_file": "114_Tub_Shower_Water_Supply.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/43/114_Tub_Shower_Water_Supply.webp/120px-114_Tub_Shower_Water_Supply.webp.png",
+      "image": "data/village/ichl/ICHL-114.png",
+      "image_sha256": "f49c10482df6623339b28130f2a25e5f61bfc7fcc6a939285df3d23a79279673"
+    },
+    {
+      "id": "ICHL-115",
+      "name": "Bathroom Sink Rough Water Supply",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Bathroom Sink Rough Water Supply",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Bathroom_Sink_Rough_Water_Supply",
+      "image_file": "115_Bathroom_Sink_Rough_Water_Supply.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/47/115_Bathroom_Sink_Rough_Water_Supply.webp/120px-115_Bathroom_Sink_Rough_Water_Supply.webp.png",
+      "image": "data/village/ichl/ICHL-115.png",
+      "image_sha256": "6dc12ba241a662b3da083ecffb2f723200879f01f182051f1120810f3155aa73"
+    },
+    {
+      "id": "ICHL-116",
+      "name": "Toilet Rough Water Supply",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Toilet Rough Water Supply",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Toilet_Rough_Water_Supply",
+      "image_file": "116_Toilet_Rough_Water_Supply.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0d/116_Toilet_Rough_Water_Supply.webp/120px-116_Toilet_Rough_Water_Supply.webp.png",
+      "image": "data/village/ichl/ICHL-116.png",
+      "image_sha256": "7812c60754890232176d7947bf04d65b8468bebf1300abfcefb0daaf7693e65b"
+    },
+    {
+      "id": "ICHL-117",
+      "name": "Washer Rough Water Supply",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Washer Rough Water Supply",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Washer_Rough_Water_Supply",
+      "image_file": "117_Washer_Rough_Water_Supply.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/3f/117_Washer_Rough_Water_Supply.webp/120px-117_Washer_Rough_Water_Supply.webp.png",
+      "image": "data/village/ichl/ICHL-117.png",
+      "image_sha256": "b9ac46aa1a4c34e8b739af59009ad59d5e5083d25418e07d95b53d7bd7a859e6"
+    },
+    {
+      "id": "ICHL-118",
+      "name": "Dishwasher Rough Water Supply",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Dishwasher Rough Water Supply",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Dishwasher_Rough_Water_Supply",
+      "image_file": "118_Dishwasher_Rough_Water_Supply.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/17/118_Dishwasher_Rough_Water_Supply.webp/120px-118_Dishwasher_Rough_Water_Supply.webp.png",
+      "image": "data/village/ichl/ICHL-118.png",
+      "image_sha256": "743abd3c977582c79afbdffa8e3e58f044b0959c16224bcede3526e95020dc0b"
+    },
+    {
+      "id": "ICHL-119",
+      "name": "Shower Trim",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Shower Trim",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Shower_Trim",
+      "image_file": "119_Shower_Trim.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/62/119_Shower_Trim.webp/120px-119_Shower_Trim.webp.png",
+      "image": "data/village/ichl/ICHL-119.png",
+      "image_sha256": "d332b196fd0518d7ab112a7a8b086d7f3cc238a7eb4f36d27168df027f840bf1"
+    },
+    {
+      "id": "ICHL-120",
+      "name": "Bath Tub Trim",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Bath Tub Trim",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Bath_Tub_Trim",
+      "image_file": "120_Bath_Tub_Trim.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/54/120_Bath_Tub_Trim.webp/120px-120_Bath_Tub_Trim.webp.png",
+      "image": "data/village/ichl/ICHL-120.png",
+      "image_sha256": "0167eda6739f20c545804df3447169adc6475c5beeeb646d262a4cd27c1214fb"
+    },
+    {
+      "id": "ICHL-121",
+      "name": "Water System Test",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Water System Test",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Water_System_Test",
+      "image_file": "121_water_system_test.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/11/121_water_system_test.webp/120px-121_water_system_test.webp.png",
+      "image": "data/village/ichl/ICHL-121.png",
+      "image_sha256": "11b7a00c649979bc799d5554899c525b0ac61a1556430c649595a4a4004720a9"
+    },
+    {
+      "id": "ICHL-122",
+      "name": "Sewer Hookup",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "water"
+      ],
+      "wiki_target": "21_Sewer_Hookup",
+      "source_url": "https://wiki.opensourceecology.org/wiki/21_Sewer_Hookup",
+      "image_file": "122_sewer_hookup.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/cf/122_sewer_hookup.webp/120px-122_sewer_hookup.webp.png",
+      "image": "data/village/ichl/ICHL-122.png",
+      "image_sha256": "9653bf29d674ccdff2a30a66ff5da0a5b3da187e7626c619f384ed13dadf03d7"
+    },
+    {
+      "id": "ICHL-123",
+      "name": "Connection To City Sewer",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "water"
+      ],
+      "wiki_target": "Connection to City Sewer",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Connection_to_City_Sewer",
+      "image_file": "123_connection_to_city_sewer.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/f0/123_connection_to_city_sewer.webp/120px-123_connection_to_city_sewer.webp.png",
+      "image": "data/village/ichl/ICHL-123.png",
+      "image_sha256": "489660d8f6c52ab98ee90f271314f2eef6d86229f98679912c07daf801c25a85"
+    },
+    {
+      "id": "ICHL-124",
+      "name": "Trenching And Pipe",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "Trenching and Pipe",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Trenching_and_Pipe",
+      "image_file": "124_trenching_and_pipe.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/98/124_trenching_and_pipe.webp/120px-124_trenching_and_pipe.webp.png",
+      "image": "data/village/ichl/ICHL-124.png",
+      "image_sha256": "a457832e729cece520cc5a8c1eaa7819301122df49845bec432285e1b212b721"
+    },
+    {
+      "id": "ICHL-125",
+      "name": "Cleanout",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Cleanout",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Cleanout",
+      "image_file": "125_cleanout.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/39/125_cleanout.webp/120px-125_cleanout.webp.png",
+      "image": "data/village/ichl/ICHL-125.png",
+      "image_sha256": "ad7bed943f4d13979b04e9b4c42c8c2d5ce1c95c73ba96d6a34cfd660c786217"
+    },
+    {
+      "id": "ICHL-126",
+      "name": "Pump Vault",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Pump Vault",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Pump_Vault",
+      "image_file": "126_pump_vault.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/4e/126_pump_vault.webp/120px-126_pump_vault.webp.png",
+      "image": "data/village/ichl/ICHL-126.png",
+      "image_sha256": "ef3b89619b611937195dcab5a16afb07b1e5bd8a9b0f47bcc135e6940797fe7c"
+    },
+    {
+      "id": "ICHL-127",
+      "name": "Interior Rough Plumbing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "27_Rough_Plumbing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/27_Rough_Plumbing",
+      "image_file": "127_interior_rough_plumbing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/00/127_interior_rough_plumbing.webp/120px-127_interior_rough_plumbing.webp.png",
+      "image": "data/village/ichl/ICHL-127.png",
+      "image_sha256": "4fa481fe01059354524402a49fb1611601b7bf177148eb2c9f42f36874123d17"
+    },
+    {
+      "id": "ICHL-128",
+      "name": "Tub Shower",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "29_Tub/Shower",
+      "source_url": "https://wiki.opensourceecology.org/wiki/29_Tub%2FShower",
+      "image_file": "128_tub_shower.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/17/128_tub_shower.webp/120px-128_tub_shower.webp.png",
+      "image": "data/village/ichl/ICHL-128.png",
+      "image_sha256": "6db6e0a8a7ff8cc0c3a2b8ec2256f0b56ca924c06b47e4436390be8aea63636d"
+    },
+    {
+      "id": "ICHL-129",
+      "name": "Main Stack Vent",
+      "available": false,
+      "sets": [
+        "ichl",
+        "climate"
+      ],
+      "wiki_target": "Main Stack Vent",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Main_Stack_Vent",
+      "image_file": "129_main_stack_vent.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/9a/129_main_stack_vent.webp/120px-129_main_stack_vent.webp.png",
+      "image": "data/village/ichl/ICHL-129.png",
+      "image_sha256": "18874147eaf83529c737649740a08068c7d189ff5af924c32220dab872c1289f"
+    },
+    {
+      "id": "ICHL-130",
+      "name": "Washer Drain",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Washer Drain",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Washer_Drain",
+      "image_file": "130_washer_drain.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/51/130_washer_drain.webp/120px-130_washer_drain.webp.png",
+      "image": "data/village/ichl/ICHL-130.png",
+      "image_sha256": "f56d5a4181fa1f44af412692584780b8a8bfbbfe01474e528b2ca017a5db6dcf"
+    },
+    {
+      "id": "ICHL-131",
+      "name": "Minitank Heater Overflow",
+      "available": false,
+      "sets": [
+        "ichl",
+        "climate"
+      ],
+      "wiki_target": "Minitank Heater Overflow",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Minitank_Heater_Overflow",
+      "image_file": "131_minitank_heater_overflow.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/00/131_minitank_heater_overflow.webp/120px-131_minitank_heater_overflow.webp.png",
+      "image": "data/village/ichl/ICHL-131.png",
+      "image_sha256": "5734acf0ee170043f68456967520ec9750c03522265bc24e9a4f063933ad5ad8"
+    },
+    {
+      "id": "ICHL-132",
+      "name": "Kitchen Sink Drain Assembly",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Kitchen Sink Drain Assembly",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Kitchen_Sink_Drain_Assembly",
+      "image_file": "132_kitchen_sink_drain_assembly.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/21/132_kitchen_sink_drain_assembly.webp/120px-132_kitchen_sink_drain_assembly.webp.png",
+      "image": "data/village/ichl/ICHL-132.png",
+      "image_sha256": "b9144649fe1d6f8f68e61c64b3f443ff04c9959a0f70e7a066cb7528a8618c16"
+    },
+    {
+      "id": "ICHL-133",
+      "name": "Bathroom Sink Drain Assembly",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Bathroom Sink Drain Assembly",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Bathroom_Sink_Drain_Assembly",
+      "image_file": "133_bathroom_sink_drain_assembly.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/32/133_bathroom_sink_drain_assembly.webp/120px-133_bathroom_sink_drain_assembly.webp.png",
+      "image": "data/village/ichl/ICHL-133.png",
+      "image_sha256": "151137fc8569cd00a44972023fa989cf49e87edd6c1454f72d159cb0377b4b69"
+    },
+    {
+      "id": "ICHL-134",
+      "name": "Framed Floor Plumbing Unit",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "water",
+        "housing"
+      ],
+      "wiki_target": "Framed Floor Plumbing Unit",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Framed_Floor_Plumbing_Unit",
+      "image_file": "134_framed_floor_plumbing_unit.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/e4/134_framed_floor_plumbing_unit.webp/120px-134_framed_floor_plumbing_unit.webp.png",
+      "image": "data/village/ichl/ICHL-134.png",
+      "image_sha256": "f425eba9bcfc13932e2f5f625cd3a4a7a02514aeb4e3ebd183ea010f45061508"
+    },
+    {
+      "id": "ICHL-135",
+      "name": "Framed Floor Shower Drain Assembly",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "water",
+        "housing"
+      ],
+      "wiki_target": "Framed Floor Shower Drain Assembly",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Framed_Floor_Shower_Drain_Assembly",
+      "image_file": "135_framed_floor_shower_drain_assembly.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/4a/135_framed_floor_shower_drain_assembly.webp/120px-135_framed_floor_shower_drain_assembly.webp.png",
+      "image": "data/village/ichl/ICHL-135.png",
+      "image_sha256": "7004f68fb97f31d1229bc3e009c4f8404152ecb1e55e7b095f302c4a9841ac80"
+    },
+    {
+      "id": "ICHL-136",
+      "name": "Shower Drain Pit",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Shower Drain Pit",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Shower_Drain_Pit",
+      "image_file": "136_shower_drain_pit.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/04/136_shower_drain_pit.webp/120px-136_shower_drain_pit.webp.png",
+      "image": "data/village/ichl/ICHL-136.png",
+      "image_sha256": "a1abaa5e87415fb560a949931b7299c388ee7ed93e0e8f1ee7059c976b853214"
+    },
+    {
+      "id": "ICHL-137",
+      "name": "First Floor Slab Foundation Rough In",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "First Floor Slab Foundation Rough-In",
+      "source_url": "https://wiki.opensourceecology.org/wiki/First_Floor_Slab_Foundation_Rough-In",
+      "image_file": "137_first_floor_slab_foundation_rough_in.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0d/137_first_floor_slab_foundation_rough_in.webp/120px-137_first_floor_slab_foundation_rough_in.webp.png",
+      "image": "data/village/ichl/ICHL-137.png",
+      "image_sha256": "efcc3f487eb0c04f3ae0a03e1e39cba81250cf41c27c4d9063e2fee488edfed1"
+    },
+    {
+      "id": "ICHL-138",
+      "name": "Second Floor Bath Tub Drain",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Second Floor Bath Tub Drain",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Second_Floor_Bath_Tub_Drain",
+      "image_file": "138_second_floor_bath_tub_drain.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5b/138_second_floor_bath_tub_drain.webp/120px-138_second_floor_bath_tub_drain.webp.png",
+      "image": "data/village/ichl/ICHL-138.png",
+      "image_sha256": "bf3bedcf76ad814a4cb29f4bb91ca8604da7ea5e65e3858c154711fb9885099d"
+    },
+    {
+      "id": "ICHL-139",
+      "name": "First Floor Bath Tub Drain",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "First Floor Bath Tub Drain",
+      "source_url": "https://wiki.opensourceecology.org/wiki/First_Floor_Bath_Tub_Drain",
+      "image_file": "139_first_floor_bath_tub_drain.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/bf/139_first_floor_bath_tub_drain.webp/120px-139_first_floor_bath_tub_drain.webp.png",
+      "image": "data/village/ichl/ICHL-139.png",
+      "image_sha256": "7f4e49339b73d49fc0e1525d86a3e31254fe3f4ffbbcbf068c6047c62a94fd9b"
+    },
+    {
+      "id": "ICHL-140",
+      "name": "Second Floor Toilet Drain",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Second Floor Toilet Drain",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Second_Floor_Toilet_Drain",
+      "image_file": "140_second_floor_toilet_drain.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/29/140_second_floor_toilet_drain.webp/120px-140_second_floor_toilet_drain.webp.png",
+      "image": "data/village/ichl/ICHL-140.png",
+      "image_sha256": "257fc48687e8ec1705d6470f5884b8e2386db15564fa164faa4e71e57254533e"
+    },
+    {
+      "id": "ICHL-141",
+      "name": "Plumbing System Test",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Plumbing System Test",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Plumbing_System_Test",
+      "image_file": "141_plumbing_system_test.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/ba/141_plumbing_system_test.webp/120px-141_plumbing_system_test.webp.png",
+      "image": "data/village/ichl/ICHL-141.png",
+      "image_sha256": "7f62bba9ee523033d7fd7ab74c5b4b1604a83a8afe612bc86c22512da5301170"
+    },
+    {
+      "id": "ICHL-142",
+      "name": "Inverter",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Iconic CAD Inverter",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_CAD_Inverter",
+      "image_file": "142_inverter.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/dd/142_inverter.webp/120px-142_inverter.webp.png",
+      "image": "data/village/ichl/ICHL-142.png",
+      "image_sha256": "619f701031b6a47944aa5daf2ae8abf6da025c798a0cd29eddc8b91d7efb74d2"
+    },
+    {
+      "id": "ICHL-143",
+      "name": "Inverter Ac Disconnect",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Inverter AC Disconnect",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Inverter_AC_Disconnect",
+      "image_file": "143_inverter_ac_disconnect.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/76/143_inverter_ac_disconnect.webp/120px-143_inverter_ac_disconnect.webp.png",
+      "image": "data/village/ichl/ICHL-143.png",
+      "image_sha256": "97a482b5458685a88c7d7dc09aeb7f8151244687e66dbc12b747fb27e5241b68"
+    },
+    {
+      "id": "ICHL-144",
+      "name": "PV Dc Disconnect",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "PV DC Disconnect",
+      "source_url": "https://wiki.opensourceecology.org/wiki/PV_DC_Disconnect",
+      "image_file": "144_pv_dc_disconnect.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/78/144_pv_dc_disconnect.webp/120px-144_pv_dc_disconnect.webp.png",
+      "image": "data/village/ichl/ICHL-144.png",
+      "image_sha256": "169d8fc801cbf151b21fb4cdfca5224dc60d5f6537514706f231cd55928d4a3e"
+    },
+    {
+      "id": "ICHL-145",
+      "name": "Inverter Battery",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Inverter Battery",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Inverter_Battery",
+      "image_file": "145_inverter_battery.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/22/145_inverter_battery.webp/120px-145_inverter_battery.webp.png",
+      "image": "data/village/ichl/ICHL-145.png",
+      "image_sha256": "32f2595ff6b984e8b7f5e27019488b355c2647fe871509db87726a9b811e9da5"
+    },
+    {
+      "id": "ICHL-146",
+      "name": "PV String Design",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "PV String Design",
+      "source_url": "https://wiki.opensourceecology.org/wiki/PV_String_Design",
+      "image_file": "146_pv_string_design.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/48/146_pv_string_design.webp/120px-146_pv_string_design.webp.png",
+      "image": "data/village/ichl/ICHL-146.png",
+      "image_sha256": "54ceb872f74e29e56708ce5c5ab627ccedbec6af75e1416e32049628c9df9a95"
+    },
+    {
+      "id": "ICHL-147",
+      "name": "PV Combiner",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Iconic PV Combiner",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_PV_Combiner",
+      "image_file": "147_pv_combiner.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/06/147_pv_combiner.webp/120px-147_pv_combiner.webp.png",
+      "image": "data/village/ichl/ICHL-147.png",
+      "image_sha256": "2fd0af8848586e1c5d41a99204de47b41a275096519a86d23517e759327d2a58"
+    },
+    {
+      "id": "ICHL-148",
+      "name": "PV Run From Roof",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "energy",
+        "housing"
+      ],
+      "wiki_target": "PV Run from Roof",
+      "source_url": "https://wiki.opensourceecology.org/wiki/PV_Run_from_Roof",
+      "image_file": "148_pv_run_from_roof.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/77/148_pv_run_from_roof.webp/120px-148_pv_run_from_roof.webp.png",
+      "image": "data/village/ichl/ICHL-148.png",
+      "image_sha256": "e530449c24180a44ef4252aa2214e56d3cac00e9c9381a386a60b0252e08466b"
+    },
+    {
+      "id": "ICHL-149",
+      "name": "PV Panels",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Iconic PV Panels",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_PV_Panels",
+      "image_file": "149_pv_panels.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/82/149_pv_panels.webp/120px-149_pv_panels.webp.png",
+      "image": "data/village/ichl/ICHL-149.png",
+      "image_sha256": "6466e13a25a227234097f542915788d8ab51a718d84b72505574188de911f8d7"
+    },
+    {
+      "id": "ICHL-150",
+      "name": "PV Mounting",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "PV Mounting",
+      "source_url": "https://wiki.opensourceecology.org/wiki/PV_Mounting",
+      "image_file": "150_pv_mounting.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/74/150_pv_mounting.webp/120px-150_pv_mounting.webp.png",
+      "image": "data/village/ichl/ICHL-150.png",
+      "image_sha256": "972d8c400fd305c7c791151378f24c913cf0143cc955e47fcb048641ae2a4875"
+    },
+    {
+      "id": "ICHL-151",
+      "name": "Heat Pump Module",
+      "available": false,
+      "sets": [
+        "ichl",
+        "climate"
+      ],
+      "wiki_target": "17_Heat_Pump",
+      "source_url": "https://wiki.opensourceecology.org/wiki/17_Heat_Pump",
+      "image_file": "151_Heat_Pump_Module.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/c2/151_Heat_Pump_Module.webp/120px-151_Heat_Pump_Module.webp.png",
+      "image": "data/village/ichl/ICHL-151.png",
+      "image_sha256": "67bdfc49c2b127b0625ab3c881cbbf33fb09001e3a9cb4c46ae8692f60aecced"
+    },
+    {
+      "id": "ICHL-152",
+      "name": "Floor Vents",
+      "available": false,
+      "sets": [
+        "ichl",
+        "climate"
+      ],
+      "wiki_target": "Vents",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Vents",
+      "image_file": "152_Floor_Vents.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5b/152_Floor_Vents.webp/120px-152_Floor_Vents.webp.png",
+      "image": "data/village/ichl/ICHL-152.png",
+      "image_sha256": "53e72f744c33e3399f62e19bd04a4bfd04e798df391a8baf286cd9645032638b"
+    },
+    {
+      "id": "ICHL-153",
+      "name": "Heat Pump Mounts",
+      "available": false,
+      "sets": [
+        "ichl",
+        "climate"
+      ],
+      "wiki_target": "Heat Pump Mounts",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Heat_Pump_Mounts",
+      "image_file": "153_Heat_Pump_Mounts.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b5/153_Heat_Pump_Mounts.webp/120px-153_Heat_Pump_Mounts.webp.png",
+      "image": "data/village/ichl/ICHL-153.png",
+      "image_sha256": "cc5f13b77a1cc8526890cd80d8a1e1677dd26347e0034545fd7ba3bed8581492"
+    },
+    {
+      "id": "ICHL-154",
+      "name": "Heat Pump Interior Unit",
+      "available": false,
+      "sets": [
+        "ichl",
+        "climate",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Heat Pump Interior Unit",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Heat_Pump_Interior_Unit",
+      "image_file": "154_Heat_Pump_Interior_Unit.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/91/154_Heat_Pump_Interior_Unit.webp/120px-154_Heat_Pump_Interior_Unit.webp.png",
+      "image": "data/village/ichl/ICHL-154.png",
+      "image_sha256": "ede2b00d8a785c2e39cbd0f2ddfb0b9d83bc2c04986b3c4c22d9556062a1af32"
+    },
+    {
+      "id": "ICHL-155",
+      "name": "Heat Pump Exterior Unit",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "climate",
+        "housing"
+      ],
+      "wiki_target": "Heat Pump Exterior Unit",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Heat_Pump_Exterior_Unit",
+      "image_file": "155_Heat_Pump_Exterior_Unit.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/01/155_Heat_Pump_Exterior_Unit.webp/120px-155_Heat_Pump_Exterior_Unit.webp.png",
+      "image": "data/village/ichl/ICHL-155.png",
+      "image_sha256": "5ed5949a95428d4b472eec080b05e0b8fa15523c76ebbb869a89ec0b5cfded11"
+    },
+    {
+      "id": "ICHL-156",
+      "name": "Bathroom Vent Fans",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "climate"
+      ],
+      "wiki_target": "Bathroom Vent Fans",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Bathroom_Vent_Fans",
+      "image_file": "156_Bathroom_Vent_Fans.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b8/156_Bathroom_Vent_Fans.webp/120px-156_Bathroom_Vent_Fans.webp.png",
+      "image": "data/village/ichl/ICHL-156.png",
+      "image_sha256": "efd248ad940108460401abf1e0f4116885f282979fc2a57b2f0dc44c33600ff2"
+    },
+    {
+      "id": "ICHL-157",
+      "name": "Heat Pump Exterior Disconnect",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "climate",
+        "housing"
+      ],
+      "wiki_target": "Heat Pump Exterior Disconnect",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Heat_Pump_Exterior_Disconnect",
+      "image_file": "157_Heat_Pump_Exterior_Disconnect.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/d0/157_Heat_Pump_Exterior_Disconnect.webp/120px-157_Heat_Pump_Exterior_Disconnect.webp.png",
+      "image": "data/village/ichl/ICHL-157.png",
+      "image_sha256": "911772d65f1ad6d98a8e264a5ed3fd0c18691e4f823f89ebc453946754a8e6dd"
+    },
+    {
+      "id": "ICHL-158",
+      "name": "Hardscape",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "23_Hardscape",
+      "source_url": "https://wiki.opensourceecology.org/wiki/23_Hardscape",
+      "image_file": "158_Hardscape.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/9d/158_Hardscape.webp/120px-158_Hardscape.webp.png",
+      "image": "data/village/ichl/ICHL-158.png",
+      "image_sha256": "97acf8bd60b79cd2a021bade3f1987f18cf212b67e1f85860620f2157fb3d93b"
+    },
+    {
+      "id": "ICHL-159",
+      "name": "Foundation Skirt With Edgers",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "24_Skirt",
+      "source_url": "https://wiki.opensourceecology.org/wiki/24_Skirt",
+      "image_file": "159_Foundation_Skirt_with_Edgers.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/63/159_Foundation_Skirt_with_Edgers.webp/120px-159_Foundation_Skirt_with_Edgers.webp.png",
+      "image": "data/village/ichl/ICHL-159.png",
+      "image_sha256": "b0a9a7596adda5ca0f735e985743530b635d9e874acefe97a06b8793803b2c34"
+    },
+    {
+      "id": "ICHL-160",
+      "name": "Landscape",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "landscape"
+      ],
+      "wiki_target": "26_Landscape",
+      "source_url": "https://wiki.opensourceecology.org/wiki/26_Landscape",
+      "image_file": "160_Landscape.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/02/160_Landscape.webp/120px-160_Landscape.webp.png",
+      "image": "data/village/ichl/ICHL-160.png",
+      "image_sha256": "90a60ba784e6e05dd200552b48bc5d382c967386761607e474809c968f1039e9"
+    },
+    {
+      "id": "ICHL-161",
+      "name": "Waterscape",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Waterscape",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Waterscape",
+      "image_file": "161_Waterscape.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0c/161_Waterscape.webp/120px-161_Waterscape.webp.png",
+      "image": "data/village/ichl/ICHL-161.png",
+      "image_sha256": "224f3f98b559c27277ff9c80e391f5f3c8308ad399612a96166294509db7c3a2"
+    },
+    {
+      "id": "ICHL-162",
+      "name": "Driveway",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "Driveway",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Driveway",
+      "image_file": "162_Driveway.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/89/162_Driveway.webp/120px-162_Driveway.webp.png",
+      "image": "data/village/ichl/ICHL-162.png",
+      "image_sha256": "620f7319ebd8a37c770aa626c29ff8f627fcf652c3382b76adeebcfc6893a099"
+    },
+    {
+      "id": "ICHL-163",
+      "name": "Walkway",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Walkway",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Walkway",
+      "image_file": "163_Walkway.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/f4/163_Walkway.webp/120px-163_Walkway.webp.png",
+      "image": "data/village/ichl/ICHL-163.png",
+      "image_sha256": "504e75ff059299eaf3b3fe7d4ea734f7bca9cb0e4f2ca22b8a5dbe0d8777155b"
+    },
+    {
+      "id": "ICHL-164",
+      "name": "Edgers",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Edgers",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Edgers",
+      "image_file": "164_Edgers.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/af/164_Edgers.webp/120px-164_Edgers.webp.png",
+      "image": "data/village/ichl/ICHL-164.png",
+      "image_sha256": "3526778fd03863e5427618c698f25208d47ba67789b73b52d7bb1029ca0218de"
+    },
+    {
+      "id": "ICHL-165",
+      "name": "Retaining Walls",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Retaining Walls",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Retaining_Walls",
+      "image_file": "165_Retaining_Walls.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/bb/165_Retaining_Walls.webp/120px-165_Retaining_Walls.webp.png",
+      "image": "data/village/ichl/ICHL-165.png",
+      "image_sha256": "2d941ed1919e1cb7338951943d42fcea81ae1531eb4e8235860b10d8afe0ae8d"
+    },
+    {
+      "id": "ICHL-166",
+      "name": "Window Box Planting",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Window Box Planting",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Window_Box_Planting",
+      "image_file": "166_Window_Box_Planting.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/24/166_Window_Box_Planting.webp/120px-166_Window_Box_Planting.webp.png",
+      "image": "data/village/ichl/ICHL-166.png",
+      "image_sha256": "711576926fbd4860c5405254862426863bf0dd88c175e42c9f2b1f1564950b36"
+    },
+    {
+      "id": "ICHL-167",
+      "name": "Landscape Planting",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "landscape"
+      ],
+      "wiki_target": "Landscape Planting",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Landscape_Planting",
+      "image_file": "167_Landscape_Planting.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/73/167_Landscape_Planting.webp/120px-167_Landscape_Planting.webp.png",
+      "image": "data/village/ichl/ICHL-167.png",
+      "image_sha256": "c999bd662a801ad56c8525cd13f1be8d8ac8868d285075836a0c42ac146071a2"
+    },
+    {
+      "id": "ICHL-168",
+      "name": "Pervious Pavement",
+      "available": false,
+      "sets": [
+        "ichl",
+        "climate"
+      ],
+      "wiki_target": "Pervious Pavement",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Pervious_Pavement",
+      "image_file": "168_Pervious_Pavement.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/49/168_Pervious_Pavement.webp/120px-168_Pervious_Pavement.webp.png",
+      "image": "data/village/ichl/ICHL-168.png",
+      "image_sha256": "86758f75d2c4db1e35016af79141c80fa884583b0450850bfc6baa83b6037eaf"
+    },
+    {
+      "id": "ICHL-169",
+      "name": "Living Walls",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Iconic Living Walls",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_Living_Walls",
+      "image_file": "169_Living_Walls.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/4e/169_Living_Walls.webp/120px-169_Living_Walls.webp.png",
+      "image": "data/village/ichl/ICHL-169.png",
+      "image_sha256": "afe251286bdb26c3bc5e09fcae94f6ccd83400b18acd58acfc2a51136c4c6109"
+    },
+    {
+      "id": "ICHL-170",
+      "name": "Drywall + Utility Channel",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "31_Drywall_+_Utility_Channel",
+      "source_url": "https://wiki.opensourceecology.org/wiki/31_Drywall_%2B_Utility_Channel",
+      "image_file": "170_Drywall_+_Utility_Channel.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/7d/170_Drywall_%2B_Utility_Channel.webp/120px-170_Drywall_%2B_Utility_Channel.webp.png",
+      "image": "data/village/ichl/ICHL-170.png",
+      "image_sha256": "e209747ae3e1a938a8625c116f7666fdde5f4653e85f3799ed5c33e7f441de0e"
+    },
+    {
+      "id": "ICHL-171",
+      "name": "Interior Doors",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "31.5_Interior_Doors",
+      "source_url": "https://wiki.opensourceecology.org/wiki/31.5_Interior_Doors",
+      "image_file": "171_Interior_Doors.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/d9/171_Interior_Doors.webp/120px-171_Interior_Doors.webp.png",
+      "image": "data/village/ichl/ICHL-171.png",
+      "image_sha256": "5b6d0a7e169a7d6ee77516281ae030f4f35a61ccf51c02dffc871cad8fa5e1e5"
+    },
+    {
+      "id": "ICHL-172",
+      "name": "Interior Window Trim",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Interior Window Trim",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Interior_Window_Trim",
+      "image_file": "172_Interior_Window_Trim.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/a2/172_Interior_Window_Trim.webp/120px-172_Interior_Window_Trim.webp.png",
+      "image": "data/village/ichl/ICHL-172.png",
+      "image_sha256": "a3539dab97940cecdd4350ea632244789115352d1c786edf988409151482d918"
+    },
+    {
+      "id": "ICHL-173",
+      "name": "Interior Door Trim",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Interior Door Trim",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Interior_Door_Trim",
+      "image_file": "173_Interior_Door_Trim.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/bd/173_Interior_Door_Trim.webp/120px-173_Interior_Door_Trim.webp.png",
+      "image": "data/village/ichl/ICHL-173.png",
+      "image_sha256": "d7dcf020fdc9b6150b723ad6441632bac26623e0f465b5f08de47128951e8af8"
+    },
+    {
+      "id": "ICHL-174",
+      "name": "Drywall Trim",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Drywall Trim",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Drywall_Trim",
+      "image_file": "174_Drywall_Trim.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/3c/174_Drywall_Trim.webp/120px-174_Drywall_Trim.webp.png",
+      "image": "data/village/ichl/ICHL-174.png",
+      "image_sha256": "19819f6c2a51b936971bda3cba08b04fd161cc919210d1c5c1b00e793b5f0983"
+    },
+    {
+      "id": "ICHL-175",
+      "name": "Beadboard",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Beadboard",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Beadboard",
+      "image_file": "175_Beadboard.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/44/175_Beadboard.webp/120px-175_Beadboard.webp.png",
+      "image": "data/village/ichl/ICHL-175.png",
+      "image_sha256": "e416a410192e453b4b07fba360d55656ed07d188543554c36d220329742e6861"
+    },
+    {
+      "id": "ICHL-176",
+      "name": "Garage Door",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "33_Garage_Door",
+      "source_url": "https://wiki.opensourceecology.org/wiki/33_Garage_Door",
+      "image_file": "176_Garage_Door.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/12/176_Garage_Door.webp/120px-176_Garage_Door.webp.png",
+      "image": "data/village/ichl/ICHL-176.png",
+      "image_sha256": "602454871b5432548522fb58aedfbd0a0168b638ca6c3f8b177b386f26c5ef49"
+    },
+    {
+      "id": "ICHL-177",
+      "name": "Interior Doors",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "31.5_Interior_Doors",
+      "source_url": "https://wiki.opensourceecology.org/wiki/31.5_Interior_Doors",
+      "image_file": "177_Interior_Doors.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0f/177_Interior_Doors.webp/120px-177_Interior_Doors.webp.png",
+      "image": "data/village/ichl/ICHL-177.png",
+      "image_sha256": "6fd9b853ccf986f7ae1b167ca07c9434cc96279601ba6bc37f8b067f81d53704"
+    },
+    {
+      "id": "ICHL-178",
+      "name": "Exterior Doors",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "8_Exterior_Doors",
+      "source_url": "https://wiki.opensourceecology.org/wiki/8_Exterior_Doors",
+      "image_file": "178_Exterior_Doors.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/c6/178_Exterior_Doors.webp/120px-178_Exterior_Doors.webp.png",
+      "image": "data/village/ichl/ICHL-178.png",
+      "image_sha256": "e448b96915c7236e963d2263459903c58fe69eaf4ec24eea6d536a8163011bcf"
+    },
+    {
+      "id": "ICHL-179",
+      "name": "Bi-Fold Folding Doors",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Bi-Fold Folding Doors",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Bi-Fold_Folding_Doors",
+      "image_file": "179_Bi-Fold_Folding_Doors.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/74/179_Bi-Fold_Folding_Doors.webp/120px-179_Bi-Fold_Folding_Doors.webp.png",
+      "image": "data/village/ichl/ICHL-179.png",
+      "image_sha256": "7e7e089d62981cd4bb641dfe984dde85d70e4615324ed92ab438f384529d37fd"
+    },
+    {
+      "id": "ICHL-180",
+      "name": "Painting",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "32_Painting",
+      "source_url": "https://wiki.opensourceecology.org/wiki/32_Painting",
+      "image_file": "180_Painting.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/88/180_Painting.webp/120px-180_Painting.webp.png",
+      "image": "data/village/ichl/ICHL-180.png",
+      "image_sha256": "0aa6723303424fc6ddd337b63b48b607241a5bcfd36a9c85a5825a2d6d8a22f2"
+    },
+    {
+      "id": "ICHL-181",
+      "name": "Masking",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Masking",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Masking",
+      "image_file": "181_Masking.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/2a/181_Masking.webp/120px-181_Masking.webp.png",
+      "image": "data/village/ichl/ICHL-181.png",
+      "image_sha256": "6d4cea5e78f5487603a1052619ff497c452da11794a520434dec862975b720d4"
+    },
+    {
+      "id": "ICHL-182",
+      "name": "Painting Surface Preparation",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Painting Surface Preparation",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Painting_Surface_Preparation",
+      "image_file": "182_Painting_Surface_Preparation.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/de/182_Painting_Surface_Preparation.webp/120px-182_Painting_Surface_Preparation.webp.png",
+      "image": "data/village/ichl/ICHL-182.png",
+      "image_sha256": "609d15a93043c58f843d05f611b2c6c8a27cbf6949c77e846f8da14b0e777dd7"
+    },
+    {
+      "id": "ICHL-183",
+      "name": "Stained Trim",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Stained Trim",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Stained_Trim",
+      "image_file": "183_Stained_Trim.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/e7/183_Stained_Trim.webp/120px-183_Stained_Trim.webp.png",
+      "image": "data/village/ichl/ICHL-183.png",
+      "image_sha256": "9721952f94d59a7651e3fad16d391b99c28f2a8bfe1e3ac03ae7905aa9e1651d"
+    },
+    {
+      "id": "ICHL-184",
+      "name": "Repairing Scratched Metal",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Repairing Scratched Metal",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Repairing_Scratched_Metal",
+      "image_file": "184_Repairing_Scratched_Metal.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/c8/184_Repairing_Scratched_Metal.webp/120px-184_Repairing_Scratched_Metal.webp.png",
+      "image": "data/village/ichl/ICHL-184.png",
+      "image_sha256": "63e024fb734f0c0097323bcd496104ca3ca9e130eea6cd86d08c8b8b5de9775b"
+    },
+    {
+      "id": "ICHL-185",
+      "name": "Kitchen Cabinets",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "34_Kitchen_Cabinets",
+      "source_url": "https://wiki.opensourceecology.org/wiki/34_Kitchen_Cabinets",
+      "image_file": "185_Kitchen_Cabinets.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/02/185_Kitchen_Cabinets.webp/120px-185_Kitchen_Cabinets.webp.png",
+      "image": "data/village/ichl/ICHL-185.png",
+      "image_sha256": "9cd09827d2beb5a7c5d82315cca5cb2a11e1bd79c3bff4d668dc22afd2309ba3"
+    },
+    {
+      "id": "ICHL-186",
+      "name": "Butcher Block",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Butcher Block",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Butcher_Block",
+      "image_file": "186_Butcher_Block.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/14/186_Butcher_Block.webp/120px-186_Butcher_Block.webp.png",
+      "image": "data/village/ichl/ICHL-186.png",
+      "image_sha256": "3191730c9fbaca32abeb04091a7dc597109f757c30ec368b0faa92f09f479b8c"
+    },
+    {
+      "id": "ICHL-187",
+      "name": "Kitchen Sink Plumbing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Kitchen Sink Plumbing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Kitchen_Sink_Plumbing",
+      "image_file": "187_Kitchen_Sink_Plumbing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/db/187_Kitchen_Sink_Plumbing.webp/120px-187_Kitchen_Sink_Plumbing.webp.png",
+      "image": "data/village/ichl/ICHL-187.png",
+      "image_sha256": "3a81f84b307eaac9c2448a82e7d465b07bff75ecb689d4b366cf0230720a1d38"
+    },
+    {
+      "id": "ICHL-188",
+      "name": "Bathroom Cabinets",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "35_Bathroom_Cabinets",
+      "source_url": "https://wiki.opensourceecology.org/wiki/35_Bathroom_Cabinets",
+      "image_file": "188_Bathroom_Cabinets.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b4/188_Bathroom_Cabinets.webp/120px-188_Bathroom_Cabinets.webp.png",
+      "image": "data/village/ichl/ICHL-188.png",
+      "image_sha256": "9c5952feb7723ce4fd8b499d75e1063e82dc94d71edc92d6f9bcc684ad46ea04"
+    },
+    {
+      "id": "ICHL-189",
+      "name": "Shelves Or Closets",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "36.7_Shelves_+_Closets",
+      "source_url": "https://wiki.opensourceecology.org/wiki/36.7_Shelves_%2B_Closets",
+      "image_file": "189_Shelves_or_Closets.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/e2/189_Shelves_or_Closets.webp/120px-189_Shelves_or_Closets.webp.png",
+      "image": "data/village/ichl/ICHL-189.png",
+      "image_sha256": "4b1bf87c10923355c916812e3b6eca3afd05f97e0a565a1b27e07d1910d38664"
+    },
+    {
+      "id": "ICHL-190",
+      "name": "Kitchen Sink Drain Finish",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Kitchen Sink Drain Finish",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Kitchen_Sink_Drain_Finish",
+      "image_file": "190_Kitchen_Sink_Drain_Finish.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/a9/190_Kitchen_Sink_Drain_Finish.webp/120px-190_Kitchen_Sink_Drain_Finish.webp.png",
+      "image": "data/village/ichl/ICHL-190.png",
+      "image_sha256": "0d959bfa4875b79ca1008c4017d34f7e18bb7c2a0dc38e02faa07daf7ddff1e7"
+    },
+    {
+      "id": "ICHL-191",
+      "name": "Bathroom Sink Drain Finish",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Bathroom Sink Drain Finish",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Bathroom_Sink_Drain_Finish",
+      "image_file": "191_Bathroom_Sink_Drain_Finish.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/3b/191_Bathroom_Sink_Drain_Finish.webp/120px-191_Bathroom_Sink_Drain_Finish.webp.png",
+      "image": "data/village/ichl/ICHL-191.png",
+      "image_sha256": "e6384643361e72399fef8d763b9939770f7a541753b0c9810e98e19d442428af"
+    },
+    {
+      "id": "ICHL-192",
+      "name": "Kitchen Sink Water Connection",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Kitchen Sink Water Connection",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Kitchen_Sink_Water_Connection",
+      "image_file": "192_Kitchen_Sink_Water_Connection.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5f/192_Kitchen_Sink_Water_Connection.webp/120px-192_Kitchen_Sink_Water_Connection.webp.png",
+      "image": "data/village/ichl/ICHL-192.png",
+      "image_sha256": "a4a9a2bbb35869620e9658ca8f9860641ba6c8b863bbc9101063fcfef1a0c127"
+    },
+    {
+      "id": "ICHL-193",
+      "name": "Bathroom Sink Water Connection",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Bathroom Sink Water Connection",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Bathroom_Sink_Water_Connection",
+      "image_file": "193_Bathroom_Sink_Water_Connection.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/ec/193_Bathroom_Sink_Water_Connection.webp/120px-193_Bathroom_Sink_Water_Connection.webp.png",
+      "image": "data/village/ichl/ICHL-193.png",
+      "image_sha256": "2eda56405b48e7fcde85fa368e57935b0ea28c9f8c308bd6b74a84fd9b72f1e0"
+    },
+    {
+      "id": "ICHL-194",
+      "name": "Interior Trim",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "36_Interior_Trim",
+      "source_url": "https://wiki.opensourceecology.org/wiki/36_Interior_Trim",
+      "image_file": "194_Interior_Trim.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/09/194_Interior_Trim.webp/120px-194_Interior_Trim.webp.png",
+      "image": "data/village/ichl/ICHL-194.png",
+      "image_sha256": "6829d1805d39aa6c4d3c4d19742b9d8faf25681a1d5e7e9bdd4de0b61dc538a2"
+    },
+    {
+      "id": "ICHL-195",
+      "name": "Door Knobs",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Door Knobs",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Door_Knobs",
+      "image_file": "195_Door_Knobs.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/86/195_Door_Knobs.webp/120px-195_Door_Knobs.webp.png",
+      "image": "data/village/ichl/ICHL-195.png",
+      "image_sha256": "373f9b42a5c5803fbb50adc1e1b0311fde73d97777b4ec8efa615386d1a7a5cd"
+    },
+    {
+      "id": "ICHL-196",
+      "name": "Utility Channel Closure",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Utility Channel Closure",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Utility_Channel_Closure",
+      "image_file": "196_Utility_Channel_Closure.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0f/196_Utility_Channel_Closure.webp/120px-196_Utility_Channel_Closure.webp.png",
+      "image": "data/village/ichl/ICHL-196.png",
+      "image_sha256": "a1aa8065ae62c282641f4cf76dd6b3b824fa2fafa1acefa1511c7bef2021559f"
+    },
+    {
+      "id": "ICHL-197",
+      "name": "Stair Finish",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Stair Finish",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Stair_Finish",
+      "image_file": "197_Stair_Finish.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/e7/197_Stair_Finish.webp/120px-197_Stair_Finish.webp.png",
+      "image": "data/village/ichl/ICHL-197.png",
+      "image_sha256": "b484c07d3079ec5deeaf3ccc322ce3a84921f4568f10ff56cd8d065f50c00d86"
+    },
+    {
+      "id": "ICHL-198",
+      "name": "Stair Landing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Stair Landing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Stair_Landing",
+      "image_file": "198_Stair_Landing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/f8/198_Stair_Landing.webp/120px-198_Stair_Landing.webp.png",
+      "image": "data/village/ichl/ICHL-198.png",
+      "image_sha256": "fb9047a53d0605fe9109a4f3d4abbae801914bfa9b2180cf65e02872146ee59e"
+    },
+    {
+      "id": "ICHL-199",
+      "name": "Stair Handrail",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Stair Handrail",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Stair_Handrail",
+      "image_file": "199_Stair_Handrail.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b4/199_Stair_Handrail.webp/120px-199_Stair_Handrail.webp.png",
+      "image": "data/village/ichl/ICHL-199.png",
+      "image_sha256": "6bd7e78d860bc764a23fd4f567eec2986ee6824ab4e2798431a46880abd28d23"
+    },
+    {
+      "id": "ICHL-200",
+      "name": "Interior Trim Map",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Interior Trim Map",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Interior_Trim_Map",
+      "image_file": "200_Interior_Trim_Map.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/1f/200_Interior_Trim_Map.webp/120px-200_Interior_Trim_Map.webp.png",
+      "image": "data/village/ichl/ICHL-200.png",
+      "image_sha256": "cc48a5dbdfe6ebc8a55c27a186fab4b35be03600b7f36fbf9e01f1ccad3bba07"
+    },
+    {
+      "id": "ICHL-201",
+      "name": "Keyless Entry",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Keyless Entry",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Keyless_Entry",
+      "image_file": "201_Keyless_Entry.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5a/201_Keyless_Entry.webp/120px-201_Keyless_Entry.webp.png",
+      "image": "data/village/ichl/ICHL-201.png",
+      "image_sha256": "88565439137dfa3bdf28a350895ae6e7753a2069798c00269ff47cd4abe5bd9a"
+    },
+    {
+      "id": "ICHL-202",
+      "name": "Flooring",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "36.5_Flooring",
+      "source_url": "https://wiki.opensourceecology.org/wiki/36.5_Flooring",
+      "image_file": "202_Flooring.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/30/202_Flooring.webp/120px-202_Flooring.webp.png",
+      "image": "data/village/ichl/ICHL-202.png",
+      "image_sha256": "b831bacbc98720e909ff650508f5180798d98a788f629619eade51387bdfb44f"
+    },
+    {
+      "id": "ICHL-203",
+      "name": "Exterior Door Termination Strip",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Exterior Door Termination Strip",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Exterior_Door_Termination_Strip",
+      "image_file": "203_Exterior_Door_Termination_Strip.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/aa/203_Exterior_Door_Termination_Strip.webp/120px-203_Exterior_Door_Termination_Strip.webp.png",
+      "image": "data/village/ichl/ICHL-203.png",
+      "image_sha256": "9b31169c078151d7ff705c5a063f02532326217b60871ceb4626aae787d9eaa8"
+    },
+    {
+      "id": "ICHL-204",
+      "name": "Transition Strip",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Transition Strip",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Transition_Strip",
+      "image_file": "204_Transition_Strip.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/32/204_Transition_Strip.webp/120px-204_Transition_Strip.webp.png",
+      "image": "data/village/ichl/ICHL-204.png",
+      "image_sha256": "87c22283f202e3c351f14dec57501bd2effcc278998d04ee81deea075ad2c2a2"
+    },
+    {
+      "id": "ICHL-205",
+      "name": "Stair Transition Strip",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Stair Transition Strip",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Stair_Transition_Strip",
+      "image_file": "205_Stair_Transition_Strip.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/88/205_Stair_Transition_Strip.webp/120px-205_Stair_Transition_Strip.webp.png",
+      "image": "data/village/ichl/ICHL-205.png",
+      "image_sha256": "0d360811fb4750e36e4b51b5a76daf71b04a32c05a1c30eb0894823946c0482e"
+    },
+    {
+      "id": "ICHL-206",
+      "name": "Terrace Carpet",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Terrace Carpet",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Terrace_Carpet",
+      "image_file": "206_Terrace_Carpet.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/20/206_Terrace_Carpet.webp/120px-206_Terrace_Carpet.webp.png",
+      "image": "data/village/ichl/ICHL-206.png",
+      "image_sha256": "f036e10655b5efd16c1e59bb9785fdc65e5bad0a7926648e5b8e03dc9cd0617a"
+    },
+    {
+      "id": "ICHL-207",
+      "name": "Garage Door Upper Rail",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Garage Door Upper Rail",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Garage_Door_Upper_Rail",
+      "image_file": "207_Garage_Door_Upper_Rail.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/78/207_Garage_Door_Upper_Rail.webp/120px-207_Garage_Door_Upper_Rail.webp.png",
+      "image": "data/village/ichl/ICHL-207.png",
+      "image_sha256": "64fc0348c04db05b73dfc3c9c73c75f7369aa3831a27eb0eb53ea55b16870233"
+    },
+    {
+      "id": "ICHL-208",
+      "name": "Garage Door Opener",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "37_Garage_Door_Opener",
+      "source_url": "https://wiki.opensourceecology.org/wiki/37_Garage_Door_Opener",
+      "image_file": "208_Garage_Door_Opener.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/99/208_Garage_Door_Opener.webp/120px-208_Garage_Door_Opener.webp.png",
+      "image": "data/village/ichl/ICHL-208.png",
+      "image_sha256": "0e53ac8fff6a180a1fadad2818072f5add9b5c2b73e048bce657dd777045a2e9"
+    },
+    {
+      "id": "ICHL-209",
+      "name": "Finish Electrical",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "37.5_Finish_Electrical",
+      "source_url": "https://wiki.opensourceecology.org/wiki/37.5_Finish_Electrical",
+      "image_file": "209_Finish_Electrical.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/dc/209_Finish_Electrical.webp/120px-209_Finish_Electrical.webp.png",
+      "image": "data/village/ichl/ICHL-209.png",
+      "image_sha256": "7ecc9af2e20f3db32bb4da35fc4b4653a6c48e0b291bda8645d92ac3a6b121f5"
+    },
+    {
+      "id": "ICHL-210",
+      "name": "Light Channels",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "37.7_Light_Channels",
+      "source_url": "https://wiki.opensourceecology.org/wiki/37.7_Light_Channels",
+      "image_file": "210_Light_Channels.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/1b/210_Light_Channels.webp/120px-210_Light_Channels.webp.png",
+      "image": "data/village/ichl/ICHL-210.png",
+      "image_sha256": "d6410fa6775ee7e1e423f99229bde081dcf2d9e1327196b406e91e3336d0d59f"
+    },
+    {
+      "id": "ICHL-211",
+      "name": "Interior Lights",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Interior Lights",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Interior_Lights",
+      "image_file": "211_Interior_Lights.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/69/211_Interior_Lights.webp/120px-211_Interior_Lights.webp.png",
+      "image": "data/village/ichl/ICHL-211.png",
+      "image_sha256": "c7decf0e0fccb0f465f0049356f12b126cbbe3b65eeb07081dd43f6bea2a6547"
+    },
+    {
+      "id": "ICHL-212",
+      "name": "Vanity Lights",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Vanity Lights",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Vanity_Lights",
+      "image_file": "212_Vanity_Lights.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/30/212_Vanity_Lights.webp/120px-212_Vanity_Lights.webp.png",
+      "image": "data/village/ichl/ICHL-212.png",
+      "image_sha256": "a804bf6b3d66e9e7748b98f625408f5a14823623bf9f454ae9161f2410a68423"
+    },
+    {
+      "id": "ICHL-213",
+      "name": "Smoke Alarms",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Smoke Alarms",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Smoke_Alarms",
+      "image_file": "213_Smoke_Alarms.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/3a/213_Smoke_Alarms.webp/120px-213_Smoke_Alarms.webp.png",
+      "image": "data/village/ichl/ICHL-213.png",
+      "image_sha256": "503961aac941e0587703cb02d768c2d0866bbdba0b9ef09c231f8a06c2731c0e"
+    },
+    {
+      "id": "ICHL-214",
+      "name": "Exterior Lights",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Exterior Lights",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Exterior_Lights",
+      "image_file": "214_Exterior_Lights.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/05/214_Exterior_Lights.webp/120px-214_Exterior_Lights.webp.png",
+      "image": "data/village/ichl/ICHL-214.png",
+      "image_sha256": "b8237ca1873d1efe4c69e6d75abe90d33078355ff26cdf10b917f06846212249"
+    },
+    {
+      "id": "ICHL-215",
+      "name": "Kinetic Switches",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Kinetic Switches",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Kinetic_Switches",
+      "image_file": "215_Kinetic_Switches.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/f4/215_Kinetic_Switches.webp/120px-215_Kinetic_Switches.webp.png",
+      "image": "data/village/ichl/ICHL-215.png",
+      "image_sha256": "72314a044849b1e5b88dd96d02374dc7d47ad7cc5eb8f565b7d290d079ab3005"
+    },
+    {
+      "id": "ICHL-216",
+      "name": "Kinetic Switch Receivers",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Kinetic Switch Receivers",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Kinetic_Switch_Receivers",
+      "image_file": "216_Kinetic_Switch_Receivers.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/56/216_Kinetic_Switch_Receivers.webp/120px-216_Kinetic_Switch_Receivers.webp.png",
+      "image": "data/village/ichl/ICHL-216.png",
+      "image_sha256": "423fab10167835bfbe05d32fff7d5eab6b590603d90f2751415c49376df9e2c2"
+    },
+    {
+      "id": "ICHL-217",
+      "name": "Receptacle Installation",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Receptacle Installation",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Receptacle_Installation",
+      "image_file": "217_Receptacle_Installation.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/98/217_Receptacle_Installation.webp/120px-217_Receptacle_Installation.webp.png",
+      "image": "data/village/ichl/ICHL-217.png",
+      "image_sha256": "571a5366cc41ff227b2c30841b4fc52b84fad4011bd3927762f57e59c0804c77"
+    },
+    {
+      "id": "ICHL-218",
+      "name": "Outlet Covers",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Outlet Covers",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Outlet_Covers",
+      "image_file": "218_Outlet_Covers.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/a2/218_Outlet_Covers.webp/120px-218_Outlet_Covers.webp.png",
+      "image": "data/village/ichl/ICHL-218.png",
+      "image_sha256": "6dde0ceb0f3bc967ff72013abd219a5a18056262de57f9a3ed9773219de34307"
+    },
+    {
+      "id": "ICHL-219",
+      "name": "Concrete Sealer",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Concrete Sealer",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Concrete_Sealer",
+      "image_file": "219_Concrete_Sealer.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/e8/219_Concrete_Sealer.webp/120px-219_Concrete_Sealer.webp.png",
+      "image": "data/village/ichl/ICHL-219.png",
+      "image_sha256": "eb215294722e94cf993fa449ce18a386fcc4bff8336084b3810c51f72c0699e7"
+    },
+    {
+      "id": "ICHL-220",
+      "name": "Toilet Installation",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "X Toilet",
+      "source_url": "https://wiki.opensourceecology.org/wiki/X_Toilet",
+      "image_file": "220_Toilet_Installation.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/be/220_Toilet_Installation.webp/120px-220_Toilet_Installation.webp.png",
+      "image": "data/village/ichl/ICHL-220.png",
+      "image_sha256": "2a36157b014778355b8ad3ec2d160233a5f4d44c2d6a537583594b4a2026088a"
+    },
+    {
+      "id": "ICHL-221",
+      "name": "Tub-Shower",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "29_Tub/Shower",
+      "source_url": "https://wiki.opensourceecology.org/wiki/29_Tub%2FShower",
+      "image_file": "221_Tub-Shower.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/c1/221_Tub-Shower.webp/120px-221_Tub-Shower.webp.png",
+      "image": "data/village/ichl/ICHL-221.png",
+      "image_sha256": "c41e80b3709c02c6c63aa671df1db6c288e16e5291a9af84e23605b12d2eae38"
+    },
+    {
+      "id": "ICHL-222",
+      "name": "Toilet Paper Dispenser",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Toilet Paper Dispenser",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Toilet_Paper_Dispenser",
+      "image_file": "222_Toilet_Paper_Dispenser.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/fe/222_Toilet_Paper_Dispenser.webp/120px-222_Toilet_Paper_Dispenser.webp.png",
+      "image": "data/village/ichl/ICHL-222.png",
+      "image_sha256": "f2acb8d74fc27bba4944609140751e6ace2668734cd17c9782bc3ae3de8cd22b"
+    },
+    {
+      "id": "ICHL-223",
+      "name": "Towel Hook",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Towel Hook",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Towel_Hook",
+      "image_file": "223_Towel_Hook.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/d1/223_Towel_Hook.webp/120px-223_Towel_Hook.webp.png",
+      "image": "data/village/ichl/ICHL-223.png",
+      "image_sha256": "a001ab428c9cf76a584a467f941d7ff5525a461bd9c8ae0d95926838664fe52c"
+    },
+    {
+      "id": "ICHL-224",
+      "name": "Hand Towel Hanger",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Hand Towel Hanger",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Hand_Towel_Hanger",
+      "image_file": "224_Hand_Towel_Hanger.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/3a/224_Hand_Towel_Hanger.webp/120px-224_Hand_Towel_Hanger.webp.png",
+      "image": "data/village/ichl/ICHL-224.png",
+      "image_sha256": "0aba541f9e427838c07f7b46288b5d844c5ceb4b4bfb9e4a8661b48fcb296adc"
+    },
+    {
+      "id": "ICHL-225",
+      "name": "Mirror Installation",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Mirror Installation",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Mirror_Installation",
+      "image_file": "225_Mirror_Installation.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/90/225_Mirror_Installation.webp/120px-225_Mirror_Installation.webp.png",
+      "image": "data/village/ichl/ICHL-225.png",
+      "image_sha256": "b124085521edd1d300a428201e828a4dd2cd3af26354175eba228aad59df4b0c"
+    },
+    {
+      "id": "ICHL-226",
+      "name": "Washer",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Washer",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Washer",
+      "image_file": "227_Washer.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b5/227_Washer.webp/120px-227_Washer.webp.png",
+      "image": "data/village/ichl/ICHL-226.png",
+      "image_sha256": "1e09d161ae2036dbdd2a367fb0ae2469d61ebfecd5b0d22435392aa60401efe6"
+    },
+    {
+      "id": "ICHL-227",
+      "name": "On-Demand Water Heater",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "climate"
+      ],
+      "wiki_target": "Iconic On-Demand Water Heater",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_On-Demand_Water_Heater",
+      "image_file": "228_On-Demand_Water_Heater.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/fb/228_On-Demand_Water_Heater.webp/120px-228_On-Demand_Water_Heater.webp.png",
+      "image": "data/village/ichl/ICHL-227.png",
+      "image_sha256": "a00755627f26fe022d59c60576a7407b9930c34c17657f7a9c8503cfd0fa71f3"
+    },
+    {
+      "id": "ICHL-228",
+      "name": "Water Heater",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "climate"
+      ],
+      "wiki_target": "Water Heater",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Water_Heater",
+      "image_file": "229_Water_Heater.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/f0/229_Water_Heater.webp/120px-229_Water_Heater.webp.png",
+      "image": "data/village/ichl/ICHL-228.png",
+      "image_sha256": "e4e612a9db607df5d9619d185bf23e334de4c80d7a0bd63ae38b8e65c5020c2a"
+    },
+    {
+      "id": "ICHL-229",
+      "name": "Minitank Water Heater",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water",
+        "climate"
+      ],
+      "wiki_target": "Iconic Minitank Water Heater",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_Minitank_Water_Heater",
+      "image_file": "230_Minitank_Water_Heater.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/66/230_Minitank_Water_Heater.webp/120px-230_Minitank_Water_Heater.webp.png",
+      "image": "data/village/ichl/ICHL-229.png",
+      "image_sha256": "5b45a31ae9fc1d2319f6271c0990689ac1d9eb93d19f4bcd5c98b39b78b2112a"
+    },
+    {
+      "id": "ICHL-230",
+      "name": "Induction Cooktop",
+      "available": false,
+      "sets": [
+        "ichl",
+        "climate"
+      ],
+      "wiki_target": "Induction Cooktop",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Induction_Cooktop",
+      "image_file": "231_Induction_Cooktop.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/82/231_Induction_Cooktop.webp/120px-231_Induction_Cooktop.webp.png",
+      "image": "data/village/ichl/ICHL-230.png",
+      "image_sha256": "20cdf7d978c97e825a144bbec0649e509160fca1ca75d750fbd301453dea9d20"
+    },
+    {
+      "id": "ICHL-231",
+      "name": "Oven",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Iconic Oven",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_Oven",
+      "image_file": "232_Oven.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5b/232_Oven.webp/120px-232_Oven.webp.png",
+      "image": "data/village/ichl/ICHL-231.png",
+      "image_sha256": "cdcbab97931e055cd30fa1f68bb30949e29cb59d7243bc36d0f48968d8545065"
+    },
+    {
+      "id": "ICHL-232",
+      "name": "Dishwasher",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Iconic Dishwasher",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Iconic_Dishwasher",
+      "image_file": "233_Dishwasher.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/16/233_Dishwasher.webp/120px-233_Dishwasher.webp.png",
+      "image": "data/village/ichl/ICHL-232.png",
+      "image_sha256": "de3e972771ab5cbf3b49f2c1ae788e0b29607d899e964317e34f4bbf365ee160"
+    },
+    {
+      "id": "ICHL-233",
+      "name": "Refrigerator",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Refrigerator",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Refrigerator",
+      "image_file": "234_Refrigerator.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/2f/234_Refrigerator.webp/120px-234_Refrigerator.webp.png",
+      "image": "data/village/ichl/ICHL-233.png",
+      "image_sha256": "c8ab665a419d27c488417342a88b3a43ff1aa87387ea4a400281100d0e96825d"
+    },
+    {
+      "id": "ICHL-234",
+      "name": "Range Hood",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Range Hood",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Range_Hood",
+      "image_file": "235_Range_Hood.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/cb/235_Range_Hood.webp/120px-235_Range_Hood.webp.png",
+      "image": "data/village/ichl/ICHL-234.png",
+      "image_sha256": "bd27fba933fcdb3889d57e9cbc04b4231270b508ebc64fdd6f6682bc002b9027"
+    },
+    {
+      "id": "ICHL-235",
+      "name": "Appliance Connections",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Appliance Connections",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Appliance_Connections",
+      "image_file": "236_Appliance_Connections.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/d7/236_Appliance_Connections.webp/120px-236_Appliance_Connections.webp.png",
+      "image": "data/village/ichl/ICHL-235.png",
+      "image_sha256": "8491a69c235a5fb24ded7af1194888f8991f33be5fa913675df0f181fadba7e7"
+    },
+    {
+      "id": "ICHL-236",
+      "name": "Final Touchup List",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Final Touchup List",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Final_Touchup_List",
+      "image_file": "237_Final_Touchup_List.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/81/237_Final_Touchup_List.webp/120px-237_Final_Touchup_List.webp.png",
+      "image": "data/village/ichl/ICHL-236.png",
+      "image_sha256": "58d4c22ee55f97b8d0f2e1816091683a734945c0b4675c37b2fbe000fa692554"
+    },
+    {
+      "id": "ICHL-237",
+      "name": "Utility Wall",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Utility Wall",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Utility_Wall",
+      "image_file": "238_Utility_Wall.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/a/ad/238_Utility_Wall.webp/120px-238_Utility_Wall.webp.png",
+      "image": "data/village/ichl/ICHL-237.png",
+      "image_sha256": "50358144f38b49cdea39f796a36226e652c2233560cf280247c546024439aa39"
+    },
+    {
+      "id": "ICHL-238",
+      "name": "Glazing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Glazing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Glazing",
+      "image_file": "239_Glazing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/75/239_Glazing.webp/120px-239_Glazing.webp.png",
+      "image": "data/village/ichl/ICHL-238.png",
+      "image_sha256": "26cddee2d5a51777ab36ad4a88c9f8a01f494a3c3e254883777fbccb3f8cc28e"
+    },
+    {
+      "id": "ICHL-239",
+      "name": "Roof Sheathing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "climate",
+        "housing"
+      ],
+      "wiki_target": "Roof Sheathing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Roof_Sheathing",
+      "image_file": "240_Roof_Sheathing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/db/240_Roof_Sheathing.webp/120px-240_Roof_Sheathing.webp.png",
+      "image": "data/village/ichl/ICHL-239.png",
+      "image_sha256": "9dc727bf2f10f78b9e02461de491831cf4c29b867a09ae30cdf8fadedbb2f4d8"
+    },
+    {
+      "id": "ICHL-240",
+      "name": "Floor Joists",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Floor Joists",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Floor_Joists",
+      "image_file": "241_Floor_Joists.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/41/241_Floor_Joists.webp/120px-241_Floor_Joists.webp.png",
+      "image": "data/village/ichl/ICHL-240.png",
+      "image_sha256": "acfe2a4f24d249a495381f9b897309f6823faa06516eb2d8c58b4002c23caf28"
+    },
+    {
+      "id": "ICHL-241",
+      "name": "Sill Plate",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Sill Plate",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Sill_Plate",
+      "image_file": "242_Sill_Plate.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/97/242_Sill_Plate.webp/120px-242_Sill_Plate.webp.png",
+      "image": "data/village/ichl/ICHL-241.png",
+      "image_sha256": "8de5aa509deceda7a85a45302d8b995514aa581181a158b513b22bf835be1139"
+    },
+    {
+      "id": "ICHL-242",
+      "name": "Self-Leveling Concrete",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Self-Leveling Concrete",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Self-Leveling_Concrete",
+      "image_file": "243_Self-Leveling_Concrete.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/ee/243_Self-Leveling_Concrete.webp/120px-243_Self-Leveling_Concrete.webp.png",
+      "image": "data/village/ichl/ICHL-242.png",
+      "image_sha256": "7afb4e55e7b074e47dc7e6278e8d14c621d8ae4e174f9c2a5e06ab7c99bbc3b0"
+    },
+    {
+      "id": "ICHL-243",
+      "name": "Interior Sheathing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "climate",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Interior Sheathing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Interior_Sheathing",
+      "image_file": "244_Interior_Sheathing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/c8/244_Interior_Sheathing.webp/120px-244_Interior_Sheathing.webp.png",
+      "image": "data/village/ichl/ICHL-243.png",
+      "image_sha256": "f8fb1553f82dc6cc5fb913de982578c34933dd81895fd158e238b9c91ba3412e"
+    },
+    {
+      "id": "ICHL-244",
+      "name": "Floor Tile",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Floor Tile",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Floor_Tile",
+      "image_file": "245_Floor_Tile.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/76/245_Floor_Tile.webp/120px-245_Floor_Tile.webp.png",
+      "image": "data/village/ichl/ICHL-244.png",
+      "image_sha256": "2c83b25c274ba9272f20fdc8446d36869e9e2b9f99cba4c0ceb0206150654a07"
+    },
+    {
+      "id": "ICHL-245",
+      "name": "First Floor Platform",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "First Floor Platform",
+      "source_url": "https://wiki.opensourceecology.org/wiki/First_Floor_Platform",
+      "image_file": "246_First_Floor_Platform.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/80/246_First_Floor_Platform.webp/120px-246_First_Floor_Platform.webp.png",
+      "image": "data/village/ichl/ICHL-245.png",
+      "image_sha256": "a11f4c4d10c8d22db94c0404feeeb45a2227530f941835a0ffbf69ff13a3ea79"
+    },
+    {
+      "id": "ICHL-246",
+      "name": "Foundation Anchors",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "Foundation Anchors",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Foundation_Anchors",
+      "image_file": "247_Foundation_Anchors.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/f8/247_Foundation_Anchors.webp/120px-247_Foundation_Anchors.webp.png",
+      "image": "data/village/ichl/ICHL-246.png",
+      "image_sha256": "b32e9b168b84e5694092f587c36c001388e7cf209c074f19f2edc021731ca0a7"
+    },
+    {
+      "id": "ICHL-247",
+      "name": "Foundation Pour",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "Foundation Pour",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Foundation_Pour",
+      "image_file": "248_Foundation_Pour.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/ee/248_Foundation_Pour.webp/120px-248_Foundation_Pour.webp.png",
+      "image": "data/village/ichl/ICHL-247.png",
+      "image_sha256": "504f8c175674211f26c07625ef12006d5140ab0f55a843f79f4d5f7ff735d40c"
+    },
+    {
+      "id": "ICHL-248",
+      "name": "Foundation Form Removal",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "Foundation Form Removal",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Foundation_Form_Removal",
+      "image_file": "249_Foundation_Form_Removal.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/12/249_Foundation_Form_Removal.webp/120px-249_Foundation_Form_Removal.webp.png",
+      "image": "data/village/ichl/ICHL-248.png",
+      "image_sha256": "24df0a95dece8d98361e8f0525c5f2126c8588f904765ee2f82a075428ac52e3"
+    },
+    {
+      "id": "ICHL-249",
+      "name": "Concrete Control / Relief Cuts",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Concrete Control Relief Cuts",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Concrete_Control_Relief_Cuts",
+      "image_file": "250_Concrete_Control___Relief_Cuts.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/69/250_Concrete_Control_Relief_Cuts.webp/120px-250_Concrete_Control_Relief_Cuts.webp.png",
+      "image": "data/village/ichl/ICHL-249.png",
+      "image_sha256": "24de8e89e2627876ab0e766c8db70517228b6954b62e9949cd67cb7296d9180c"
+    },
+    {
+      "id": "ICHL-250",
+      "name": "Sill Plate Layout",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Sill Plate Layout",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Sill_Plate_Layout",
+      "image_file": "251_Sill_Plate_Layout.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/f/f2/251_Sill_Plate_Layout.webp/120px-251_Sill_Plate_Layout.webp.png",
+      "image": "data/village/ichl/ICHL-250.png",
+      "image_sha256": "d95d93700b40702933b064b1c088b94fe60a2902018194b7f8f6c6cb53ebea1e"
+    },
+    {
+      "id": "ICHL-251",
+      "name": "Sill Plate Gasket",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Sill Plate Gasket",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Sill_Plate_Gasket",
+      "image_file": "252_Sill_Plate_Gasket.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/97/252_Sill_Plate_Gasket.webp/120px-252_Sill_Plate_Gasket.webp.png",
+      "image": "data/village/ichl/ICHL-251.png",
+      "image_sha256": "b071cb908cf2afcaec03355226b38900738a6a7b8f6769ec7de087463e387dcb"
+    },
+    {
+      "id": "ICHL-252",
+      "name": "Sill Plate Anchoring - Ramset",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Sill Plate Anchoring - Ramset",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Sill_Plate_Anchoring_-_Ramset",
+      "image_file": "253_Sill_Plate_Anchoring_-_Ramset.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/85/253_Sill_Plate_Anchoring_-_Ramset.webp/120px-253_Sill_Plate_Anchoring_-_Ramset.webp.png",
+      "image": "data/village/ichl/ICHL-252.png",
+      "image_sha256": "288c21be5f4c65f40311816e12ea892ccdc7d99c806b172b3fe75afa9749e433"
+    },
+    {
+      "id": "ICHL-253",
+      "name": "Module Placement",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Module Placement",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Module_Placement",
+      "image_file": "254_Module_Placement.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/7c/254_Module_Placement.webp/120px-254_Module_Placement.webp.png",
+      "image": "data/village/ichl/ICHL-253.png",
+      "image_sha256": "2a91a8492d2672561a4c50658ebfe2e567eefb99827fe48feeb1170a6640ab50"
+    },
+    {
+      "id": "ICHL-254",
+      "name": "Module Clamping",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Module Clamping",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Module_Clamping",
+      "image_file": "255_Module_Clamping.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/3a/255_Module_Clamping.webp/120px-255_Module_Clamping.webp.png",
+      "image": "data/village/ichl/ICHL-254.png",
+      "image_sha256": "3a7b370d523a103742b1620af0aeaf05dd25fb35a32e4c0121abede508f6dbd3"
+    },
+    {
+      "id": "ICHL-255",
+      "name": "Module Base Fastening",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Module Base Fastening",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Module_Base_Fastening",
+      "image_file": "256_Module_Base_Fastening.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/6a/256_Module_Base_Fastening.webp/120px-256_Module_Base_Fastening.webp.png",
+      "image": "data/village/ichl/ICHL-255.png",
+      "image_sha256": "34d1990403311ad17e0db7405d30633df74f22495efa02b277c5d7eafed74c5f"
+    },
+    {
+      "id": "ICHL-256",
+      "name": "Plumb And Square Module",
+      "available": false,
+      "sets": [
+        "ichl",
+        "water"
+      ],
+      "wiki_target": "Plumb and Square Module",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Plumb_and_Square_Module",
+      "image_file": "257_Plumb_and_Square_Module.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/9a/257_Plumb_and_Square_Module.webp/120px-257_Plumb_and_Square_Module.webp.png",
+      "image": "data/village/ichl/ICHL-256.png",
+      "image_sha256": "72d84fb8f90df2c8a95123e77262378588853206ba14716fea9d2bc26c1df815"
+    },
+    {
+      "id": "ICHL-257",
+      "name": "Module Nail-Off",
+      "available": false,
+      "sets": [
+        "ichl",
+        "tools"
+      ],
+      "wiki_target": "Module Nail-Off",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Module_Nail-Off",
+      "image_file": "258_Module_Nail-Off.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/14/258_Module_Nail-Off.webp/120px-258_Module_Nail-Off.webp.png",
+      "image": "data/village/ichl/ICHL-257.png",
+      "image_sha256": "dd0452d6c1503feb856e0c59a573b857e6ed89dd0e5e03b33dd15e20ddcd218b"
+    },
+    {
+      "id": "ICHL-258",
+      "name": "OSB-to-Sill Fastening",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "OSB-to-Sill Fastening",
+      "source_url": "https://wiki.opensourceecology.org/wiki/OSB-to-Sill_Fastening",
+      "image_file": "259_OSB-to-Sill_Fastening.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/46/259_OSB-to-Sill_Fastening.webp/120px-259_OSB-to-Sill_Fastening.webp.png",
+      "image": "data/village/ichl/ICHL-258.png",
+      "image_sha256": "138dc61958e416481340bd01b3a38e1c8ef7af7a0295d95bd3a1c633b91c137e"
+    },
+    {
+      "id": "ICHL-259",
+      "name": "Blocking",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Blocking",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Blocking",
+      "image_file": "260_Blocking.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/09/260_Blocking.webp/120px-260_Blocking.webp.png",
+      "image": "data/village/ichl/ICHL-259.png",
+      "image_sha256": "dcd162f88d01ff6b87bdb53cc4ada480bd06172c97d3ade89848dc62ee669f67"
+    },
+    {
+      "id": "ICHL-260",
+      "name": "Stair Stringers",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Stair Stringers",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Stair_Stringers",
+      "image_file": "261_Stair_Stringers.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/38/261_Stair_Stringers.webp/120px-261_Stair_Stringers.webp.png",
+      "image": "data/village/ichl/ICHL-260.png",
+      "image_sha256": "265bc2f2e2f2b019f82cf18298ba05ad368f2174cc450cfd543013872e07be5d"
+    },
+    {
+      "id": "ICHL-261",
+      "name": "Mid Band",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Mid Band",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Mid_Band",
+      "image_file": "262_Mid_Band.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/dd/262_Mid_Band.webp/120px-262_Mid_Band.webp.png",
+      "image": "data/village/ichl/ICHL-261.png",
+      "image_sha256": "2800bd42ec44d27afb897adec5c7394675f01ba32e532ed75f6ae1ce2908eb5b"
+    },
+    {
+      "id": "ICHL-262",
+      "name": "Top Plate",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Top Plate",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Top_Plate",
+      "image_file": "263_Top_Plate.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/52/263_Top_Plate.webp/120px-263_Top_Plate.webp.png",
+      "image": "data/village/ichl/ICHL-262.png",
+      "image_sha256": "a8c31928c07c1edc0cade90112a13012ed991cd48f7e9f1a2e176c2291204d18"
+    },
+    {
+      "id": "ICHL-263",
+      "name": "Rim Joist",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Rim Joist",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Rim_Joist",
+      "image_file": "264_Rim_Joist.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/90/264_Rim_Joist.webp/120px-264_Rim_Joist.webp.png",
+      "image": "data/village/ichl/ICHL-263.png",
+      "image_sha256": "776acb6b3e4db947cee5c2e4fe198a740750f3a3fb283b3f7c9f0649894277d6"
+    },
+    {
+      "id": "ICHL-264",
+      "name": "Plywood Clips",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Plywood Clips",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Plywood_Clips",
+      "image_file": "265_Plywood_Clips.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/e5/265_Plywood_Clips.webp/120px-265_Plywood_Clips.webp.png",
+      "image": "data/village/ichl/ICHL-264.png",
+      "image_sha256": "5f30ddfe090914999f2aaa1ae7bdc763c99f232a6fcc342d543bcf35d0836b98"
+    },
+    {
+      "id": "ICHL-265",
+      "name": "Joist Squeak Gasket",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "housing"
+      ],
+      "wiki_target": "Joist Squeak Gasket",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Joist_Squeak_Gasket",
+      "image_file": "266_Joist_Squeak_Gasket.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/23/266_Joist_Squeak_Gasket.webp/120px-266_Joist_Squeak_Gasket.webp.png",
+      "image": "data/village/ichl/ICHL-265.png",
+      "image_sha256": "824141e39c52908003d7c70779da83cf86b31e8edb2cf39a1899a584240d4b0e"
+    },
+    {
+      "id": "ICHL-266",
+      "name": "Hurricane Ties",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Hurricane Ties",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Hurricane_Ties",
+      "image_file": "267_Hurricane_Ties.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/06/267_Hurricane_Ties.webp/120px-267_Hurricane_Ties.webp.png",
+      "image": "data/village/ichl/ICHL-266.png",
+      "image_sha256": "08674c72ef80ed60ade9a650e5bbd7b8559cdefebec1af327bca80170b9aeead"
+    },
+    {
+      "id": "ICHL-267",
+      "name": "Subfloor",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Subfloor",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Subfloor",
+      "image_file": "268_Subfloor.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/c9/268_Subfloor.webp/120px-268_Subfloor.webp.png",
+      "image": "data/village/ichl/ICHL-267.png",
+      "image_sha256": "fbbb8cfa6c3762d713eefb1771a9fd8cac36ec2ea70a1f9c9ef418945ded55a0"
+    },
+    {
+      "id": "ICHL-268",
+      "name": "Roof Joists",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Roof Joists",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Roof_Joists",
+      "image_file": "269_Roof_Joists.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/83/269_Roof_Joists.webp/120px-269_Roof_Joists.webp.png",
+      "image": "data/village/ichl/ICHL-268.png",
+      "image_sha256": "bedbe6a00beba98e47097f618c44faacba09f16e45bdd314ad9b7e2331d5ee52"
+    },
+    {
+      "id": "ICHL-269",
+      "name": "Roof Tapers",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Roof Tapers",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Roof_Tapers",
+      "image_file": "270_Roof_Tapers.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/70/270_Roof_Tapers.webp/120px-270_Roof_Tapers.webp.png",
+      "image": "data/village/ichl/ICHL-269.png",
+      "image_sha256": "ecc3cb259fa816f50e7a20d63aa1b2b090e743cd27b847bc9cb63204bae7c1c6"
+    },
+    {
+      "id": "ICHL-270",
+      "name": "Insulation Box",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Insulation Box",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Insulation_Box",
+      "image_file": "271_Insulation_Box.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/2b/271_Insulation_Box.webp/120px-271_Insulation_Box.webp.png",
+      "image": "data/village/ichl/ICHL-270.png",
+      "image_sha256": "9c546b25e857e6b89bd0686c63d902ef112a8628ef09bd029715b25763a6ee66"
+    },
+    {
+      "id": "ICHL-271",
+      "name": "Foundation Flashing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Foundation Flashing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Foundation_Flashing",
+      "image_file": "272_Foundation_Flashing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/72/272_Foundation_Flashing.webp/120px-272_Foundation_Flashing.webp.png",
+      "image": "data/village/ichl/ICHL-271.png",
+      "image_sha256": "80a5563926e9d66d4f3227d2348937c085d9b9e664da28a0b9b33f339321db80"
+    },
+    {
+      "id": "ICHL-272",
+      "name": "Exterior Sheathing / OSB Band",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "climate",
+        "housing"
+      ],
+      "wiki_target": "Exterior Sheathing OSB Band",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Exterior_Sheathing_OSB_Band",
+      "image_file": "273_Exterior_Sheathing___OSB_Band.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/ce/273_Exterior_Sheathing_OSB_Band.webp/120px-273_Exterior_Sheathing_OSB_Band.webp.png",
+      "image": "data/village/ichl/ICHL-272.png",
+      "image_sha256": "b2e2eea4235c7c0ad3f300a86b34c0c57a509d6e3a03a0cf2ec869c47fd66452"
+    },
+    {
+      "id": "ICHL-273",
+      "name": "Siding Starter Strip",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Siding Starter Strip",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Siding_Starter_Strip",
+      "image_file": "274_Siding_Starter_Strip.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/65/274_Siding_Starter_Strip.webp/120px-274_Siding_Starter_Strip.webp.png",
+      "image": "data/village/ichl/ICHL-273.png",
+      "image_sha256": "860e62bf83c36893a3eae88e3027904a3ece2f33ecf52210f7a135c62f95180a"
+    },
+    {
+      "id": "ICHL-274",
+      "name": "J-Channel",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "J-Channel",
+      "source_url": "https://wiki.opensourceecology.org/wiki/J-Channel",
+      "image_file": "275_J-Channel.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5a/275_J-Channel.webp/120px-275_J-Channel.webp.png",
+      "image": "data/village/ichl/ICHL-274.png",
+      "image_sha256": "f4163a3321c9c7fc21b782458620c5245aa3f38db2aca53a1cb2e29abcb31ab1"
+    },
+    {
+      "id": "ICHL-275",
+      "name": "Exterior Light Mounting Box",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Exterior Light Mounting Box",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Exterior_Light_Mounting_Box",
+      "image_file": "276_Exterior_Light_Mounting_Box.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/34/276_Exterior_Light_Mounting_Box.webp/120px-276_Exterior_Light_Mounting_Box.webp.png",
+      "image": "data/village/ichl/ICHL-275.png",
+      "image_sha256": "c04b56479a8ab8d1bdbad9fe87045f2a42799c9340515b96a8e18551684b7e78"
+    },
+    {
+      "id": "ICHL-276",
+      "name": "Garage Door Header",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Garage Door Header",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Garage_Door_Header",
+      "image_file": "277_Garage_Door_Header.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/7e/277_Garage_Door_Header.webp/120px-277_Garage_Door_Header.webp.png",
+      "image": "data/village/ichl/ICHL-276.png",
+      "image_sha256": "df69442637c9886f94ea38c7df12f2b36f084881929a1762010906720b929f5c"
+    },
+    {
+      "id": "ICHL-277",
+      "name": "Garage Roof Ledger",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Garage Roof Ledger",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Garage_Roof_Ledger",
+      "image_file": "278_Garage_Roof_Ledger.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/21/278_Garage_Roof_Ledger.webp/120px-278_Garage_Roof_Ledger.webp.png",
+      "image": "data/village/ichl/ICHL-277.png",
+      "image_sha256": "6380366792eccc77faa05898ac5a02ff0a5e66ca1294d89e0ce561c4ab574894"
+    },
+    {
+      "id": "ICHL-278",
+      "name": "Cant Strip",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Cant Strip",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Cant_Strip",
+      "image_file": "279_Cant_Strip.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/56/279_Cant_Strip.webp/120px-279_Cant_Strip.webp.png",
+      "image": "data/village/ichl/ICHL-278.png",
+      "image_sha256": "7cb3ac04525ee61ee78486dd85a874845d34fffb4053b0850b93a3b49eba71cb"
+    },
+    {
+      "id": "ICHL-279",
+      "name": "Deck Railing Posts",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Deck Railing Posts",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Deck_Railing_Posts",
+      "image_file": "280_Deck_Railing_Posts.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/d2/280_Deck_Railing_Posts.webp/120px-280_Deck_Railing_Posts.webp.png",
+      "image": "data/village/ichl/ICHL-279.png",
+      "image_sha256": "6834df694109f73d3bbf11150dcb63977ba591fe967e884517ca0719000eddba"
+    },
+    {
+      "id": "ICHL-280",
+      "name": "Deck Railing Sheathing",
+      "available": false,
+      "sets": [
+        "ichl",
+        "climate"
+      ],
+      "wiki_target": "Deck Railing Sheathing",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Deck_Railing_Sheathing",
+      "image_file": "281_Deck_Railing_Sheathing.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b1/281_Deck_Railing_Sheathing.webp/120px-281_Deck_Railing_Sheathing.webp.png",
+      "image": "data/village/ichl/ICHL-280.png",
+      "image_sha256": "767dc3e3c56e87aa3a2a2f79d86404a6e0f410143b93f6e6f0826a6f4cb70c2b"
+    },
+    {
+      "id": "ICHL-281",
+      "name": "T1-11 Siding",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "T1-11 Siding",
+      "source_url": "https://wiki.opensourceecology.org/wiki/T1-11_Siding",
+      "image_file": "282_T1-11_Siding.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/1/1e/282_T1-11_Siding.webp/120px-282_T1-11_Siding.webp.png",
+      "image": "data/village/ichl/ICHL-281.png",
+      "image_sha256": "393607eaec4b1f93cee8cbc554d76f241823f32260540440e7258a50e1955894"
+    },
+    {
+      "id": "ICHL-282",
+      "name": "Roof Drip Cap - Drip Edge",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Roof Drip Cap - Drip Edge",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Roof_Drip_Cap_-_Drip_Edge",
+      "image_file": "283_Roof_Drip_Cap_-_Drip_Edge.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/e/e0/283_Roof_Drip_Cap_-_Drip_Edge.webp/120px-283_Roof_Drip_Cap_-_Drip_Edge.webp.png",
+      "image": "data/village/ichl/ICHL-282.png",
+      "image_sha256": "cdf7f6eb1c62fa4646dde2c82b126d819662c86f9db666e723e8407ee05c812f"
+    },
+    {
+      "id": "ICHL-283",
+      "name": "EPDM Roof Membrane",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "EPDM Roof Membrane",
+      "source_url": "https://wiki.opensourceecology.org/wiki/EPDM_Roof_Membrane",
+      "image_file": "284_EPDM_Roof_Membrane.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/92/284_EPDM_Roof_Membrane.webp/120px-284_EPDM_Roof_Membrane.webp.png",
+      "image": "data/village/ichl/ICHL-283.png",
+      "image_sha256": "e68c921273f47480144476186906943f0fb8f78c146d9e50009653c98a899e92"
+    },
+    {
+      "id": "ICHL-284",
+      "name": "Roof Membrane Termination Bar",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Roof Membrane Termination Bar",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Roof_Membrane_Termination_Bar",
+      "image_file": "285_Roof_Membrane_Termination_Bar.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/95/285_Roof_Membrane_Termination_Bar.webp/120px-285_Roof_Membrane_Termination_Bar.webp.png",
+      "image": "data/village/ichl/ICHL-284.png",
+      "image_sha256": "815b05ceaf3c2c83f8d5e42884089a461e77016d64e57f160455cef85d48c667"
+    },
+    {
+      "id": "ICHL-285",
+      "name": "Trellis",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Trellis",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Trellis",
+      "image_file": "286_Trellis.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/50/286_Trellis.webp/120px-286_Trellis.webp.png",
+      "image": "data/village/ichl/ICHL-285.png",
+      "image_sha256": "f583b519a5e4ee1ea58413ae669d77708b0b897d34b551d17a2c2f6f1795cb0a"
+    },
+    {
+      "id": "ICHL-286",
+      "name": "Trellis Corner Finish",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Trellis Corner Finish",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Trellis_Corner_Finish",
+      "image_file": "287_Trellis_Corner_Finish.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/3/3f/287_Trellis_Corner_Finish.webp/120px-287_Trellis_Corner_Finish.webp.png",
+      "image": "data/village/ichl/ICHL-286.png",
+      "image_sha256": "b40c07a29e84793fc7ab285cd94bac725cdc2a951120b89c7e4114020a012c46"
+    },
+    {
+      "id": "ICHL-287",
+      "name": "Roof Edge Top Band",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Roof Edge Top Band",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Roof_Edge_Top_Band",
+      "image_file": "288_Roof_Edge_Top_Band.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/9/91/288_Roof_Edge_Top_Band.webp/120px-288_Roof_Edge_Top_Band.webp.png",
+      "image": "data/village/ichl/ICHL-287.png",
+      "image_sha256": "6686f6ae1c298baff7844fdad39317ceec4910c427ad546031586fac11dd19da"
+    },
+    {
+      "id": "ICHL-288",
+      "name": "Gravel Retention Mesh",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Gravel Retention Mesh",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Gravel_Retention_Mesh",
+      "image_file": "289_Gravel_Retention_Mesh.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/7/7a/289_Gravel_Retention_Mesh.webp/120px-289_Gravel_Retention_Mesh.webp.png",
+      "image": "data/village/ichl/ICHL-288.png",
+      "image_sha256": "c1911e429ed3d4f8d09ec36963415e1161963f11b9f1dbf85b765b3c8cc54c0e"
+    },
+    {
+      "id": "ICHL-289",
+      "name": "Roof Membrane Repair",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Roof Membrane Repair",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Roof_Membrane_Repair",
+      "image_file": "290_Roof_Membrane_Repair.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/28/290_Roof_Membrane_Repair.webp/120px-290_Roof_Membrane_Repair.webp.png",
+      "image": "data/village/ichl/ICHL-289.png",
+      "image_sha256": "2f13972a08866edb9fd5f18b889c0d678a03243bc21664a17386bd5e809e7a77"
+    },
+    {
+      "id": "ICHL-290",
+      "name": "Planter Box",
+      "available": false,
+      "sets": [
+        "ichl",
+        "landscape"
+      ],
+      "wiki_target": "Planter Box",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Planter_Box",
+      "image_file": "291_Planter_Box.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/4c/291_Planter_Box.webp/120px-291_Planter_Box.webp.png",
+      "image": "data/village/ichl/ICHL-290.png",
+      "image_sha256": "61c820800289ae0d2cb8b436e451da1b25613f61b22aa9558b3a93145899682c"
+    },
+    {
+      "id": "ICHL-291",
+      "name": "Floating Deck",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Floating Deck",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Floating_Deck",
+      "image_file": "292_Floating_Deck.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/6/6f/292_Floating_Deck.webp/120px-292_Floating_Deck.webp.png",
+      "image": "data/village/ichl/ICHL-291.png",
+      "image_sha256": "37365f8d67019ea9f9d6cce78700b86486129a116cc7119fe211242a04158d39"
+    },
+    {
+      "id": "ICHL-292",
+      "name": "Exterior Door Sill Support",
+      "available": false,
+      "sets": [
+        "ichl",
+        "envelope",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Exterior Door Sill Support",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Exterior_Door_Sill_Support",
+      "image_file": "293_Exterior_Door_Sill_Support.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/c/c7/293_Exterior_Door_Sill_Support.webp/120px-293_Exterior_Door_Sill_Support.webp.png",
+      "image": "data/village/ichl/ICHL-292.png",
+      "image_sha256": "0a40c921a239d4f4e4c962f5689b3cb878a43b9f659d55237ce59a079b3df787"
+    },
+    {
+      "id": "ICHL-293",
+      "name": "Ground Rod",
+      "available": false,
+      "sets": [
+        "ichl",
+        "energy"
+      ],
+      "wiki_target": "Ground Rod",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Ground_Rod",
+      "image_file": "294_Ground_Rod.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/4e/294_Ground_Rod.webp/120px-294_Ground_Rod.webp.png",
+      "image": "data/village/ichl/ICHL-293.png",
+      "image_sha256": "bc6f67ca31cbfac282168b10ae9b2f6a64da42d81f10edfeb9f5110e08a445a1"
+    },
+    {
+      "id": "ICHL-294",
+      "name": "Garage Drywall Firewall",
+      "available": false,
+      "sets": [
+        "ichl",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Garage Drywall Firewall",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Garage_Drywall_Firewall",
+      "image_file": "295_Garage_Drywall_Firewall.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/8/82/295_Garage_Drywall_Firewall.webp/120px-295_Garage_Drywall_Firewall.webp.png",
+      "image": "data/village/ichl/ICHL-294.png",
+      "image_sha256": "1b4360697a1fa3071f8e0670ab71294dc51d511624f7f7c0ee82eb8a660b79c2"
+    },
+    {
+      "id": "ICHL-295",
+      "name": "Garage Door Mounting Blocking",
+      "available": false,
+      "sets": [
+        "ichl",
+        "framing",
+        "interiors",
+        "housing"
+      ],
+      "wiki_target": "Garage Door Mounting Blocking",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Garage_Door_Mounting_Blocking",
+      "image_file": "296_Garage_Door_Mounting_Blocking.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/0/0b/296_Garage_Door_Mounting_Blocking.webp/120px-296_Garage_Door_Mounting_Blocking.webp.png",
+      "image": "data/village/ichl/ICHL-295.png",
+      "image_sha256": "8bac7690261ba867950d241c4281f3c44cb24cd76ca52364adebd1b922e63117"
+    },
+    {
+      "id": "ICHL-296",
+      "name": "Fire Protection",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Fire Protection",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Fire_Protection",
+      "image_file": "297_Fire_Protection.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/2/24/297_Fire_Protection.webp/120px-297_Fire_Protection.webp.png",
+      "image": "data/village/ichl/ICHL-296.png",
+      "image_sha256": "cc1e36f4157746d2246d9715d201e22b8c4b9593ab340a71b213bd9d1be67469"
+    },
+    {
+      "id": "ICHL-297",
+      "name": "Foundation Insulation",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site",
+        "envelope",
+        "housing"
+      ],
+      "wiki_target": "Foundation Insulation",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Foundation_Insulation",
+      "image_file": "298_Foundation_Insulation.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/51/298_Foundation_Insulation.webp/120px-298_Foundation_Insulation.webp.png",
+      "image": "data/village/ichl/ICHL-297.png",
+      "image_sha256": "65e006cdf11b45cd9298c562f8afb93bf3a457465235a736e52cb42b53780ac7"
+    },
+    {
+      "id": "ICHL-298",
+      "name": "Polished Concrete",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Polished Concrete",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Polished_Concrete",
+      "image_file": "299_Polished_Concrete.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/d/dc/299_Polished_Concrete.webp/120px-299_Polished_Concrete.webp.png",
+      "image": "data/village/ichl/ICHL-298.png",
+      "image_sha256": "3506595821a0eec9910271b37091b294cc4375e5a6e648bccea3ad819c768a33"
+    },
+    {
+      "id": "ICHL-299",
+      "name": "Battens",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Battens",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Battens",
+      "image_file": "300_Battens.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/5/5b/300_Battens.webp/120px-300_Battens.webp.png",
+      "image": "data/village/ichl/ICHL-299.png",
+      "image_sha256": "44e1576904ddb67069e8cb8bb344bb0ef0ae08b8f55809faa483e285ab0ad864"
+    },
+    {
+      "id": "ICHL-300",
+      "name": "Decorative Band",
+      "available": false,
+      "sets": [
+        "ichl",
+        "housing"
+      ],
+      "wiki_target": "Decorative Band",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Decorative_Band",
+      "image_file": "301_Decorative_Band.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/4/44/301_Decorative_Band.webp/120px-301_Decorative_Band.webp.png",
+      "image": "data/village/ichl/ICHL-300.png",
+      "image_sha256": "c69553962a40c981fea21fb6e9847a10e3cea1fe8b6f182a2257261d1af3f13e"
+    },
+    {
+      "id": "ICHL-301",
+      "name": "Mailbox With Address",
+      "available": false,
+      "sets": [
+        "ichl",
+        "site"
+      ],
+      "wiki_target": "Mailbox with Address",
+      "source_url": "https://wiki.opensourceecology.org/wiki/Mailbox_with_Address",
+      "image_file": "302_Mailbox_with_Address.webp",
+      "image_url": "https://wiki.opensourceecology.org/images/thumb/b/b6/302_Mailbox_with_Address.webp/120px-302_Mailbox_with_Address.webp.png",
+      "image": "data/village/ichl/ICHL-301.png",
+      "image_sha256": "e61eac3be1dbb9397b4941e1f81ed2947deb5c28966084abfc9f03df5c9e4f46"
+    }
+  ]
+}

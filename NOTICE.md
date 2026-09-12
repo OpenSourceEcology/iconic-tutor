@@ -23,3 +23,17 @@ demo geometry. Nominal motor interface facts come from SOYO drawing 060047000
 (SY42STH47-1206A), linked through Pololu. The supplier PDF/CAD is not bundled.
 The recipe and browser preview are AGPL-3.0 software; these new assets are marked
 `original_demo_geometry`, with engineering status still unreviewed.
+
+The village lesson imports the user-supplied `VCS - Conceptual - Cabin 13x13.FCStd`
+from OSE's shared Drive folder (retrieved 2026-09-12). The original document's
+license field is `All rights reserved`; this notice and the application AGPL do
+not relicense its CAD, derived BREP or preview meshes. Cabin and assembly-sheet
+images are from the OSE Village Construction Set wiki. Original CAD metadata,
+source links, SHA-256 and the discrepancy with the wiki's open-source intentions
+are retained in `docs/village-tutor.md`. Redistribution clearance is unresolved.
+
+The additional 301 ICHL thumbnails and their registry labels/IDs/targets come
+from the OSE wiki's `301 ICHL Icons` gallery and `Registry for the 301 ICHL Icons`.
+The committed registry records source URLs and image SHA-256 values. Thumbnails
+retain their original OSE attribution and are not claimed as original app artwork.
+Local palette grouping tags are navigation aids authored for this application.

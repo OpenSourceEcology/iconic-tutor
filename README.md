@@ -2,7 +2,7 @@
 
 Learn by composing a design, changing a source component, inspecting real CAD,
 and leaving a reusable contribution. This early OSE demo includes a house
-wall-layout lesson and a motor mounting-plate lesson.
+wall-layout lesson, a motor mounting-plate lesson and a twelve-cabin village lesson.
 
 - Smooth icon dragging, pan/zoom, drop snapping, keyboard placement and undo.
 - XYZ movement/rotation handles, exact coordinates, and bounding-box stacking.
@@ -116,3 +116,14 @@ parameter proposals for review; it does not run generated code or publish edits.
 Contributions are portable drafts, not automatically installed library entries.
 
 See [the detailed walkthrough](docs/composition-studio.md).
+
+## Village construction lesson
+
+Open [the village tutor on GitHub Pages](https://opensourceecology.github.io/iconic-tutor/village.html),
+also linked from the [main Iconic Tutor page](https://opensourceecology.github.io/iconic-tutor/).
+The development server is at `http://100.66.110.49:8766/village.html` on Tailscale.
+Arrange twelve two-story cabins using the
+supplied FreeCAD model, guided site planning, dynamic icon palettes and plan/3D
+views. The 31 VCS assembly icons and 301 ICHL registry icons are loaded with
+search and project filters, and are visible but disabled until models are available.
+See [village walkthrough and source notes](docs/village-tutor.md).

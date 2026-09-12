@@ -13,7 +13,7 @@ import {
   escapeXml,
 } from "./studio-core.js";
 import { mountAlignment } from "./mount-preview.js";
-import { createStudioView } from "./studio-view.js";
+import { createStudioView } from "./studio-view.js?v=20260912-village-4";
 import {
   rigidTransformBrep,
   machineDocumentXml,
@@ -1016,6 +1016,10 @@ async function exportCad() {
 }
 async function askTutor(text) {
   if (chatBusy || busy) return;
+  if (/\b(?:show|open|switch|explore|design|build)\b.*\b(?:village|cabins?)\b/i.test(text)) {
+    location.href = "village.html";
+    return;
+  }
   // These visible navigation commands are local UI actions and also work in
   // guided mode. Questions and dimensional proposals go to the live model.
   const navigation = text.match(

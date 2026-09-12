@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Iconic Tutor · A village of twelve</title>
+  <link rel="stylesheet" href="css/studio.css?v=20260912-village-4"><link rel="stylesheet" href="css/village.css?v=20260912-village-4">
+  <script type="importmap">{"imports":{"three":"./vendor/three/three.module.js","three/addons/":"./vendor/three/addons/"}}</script>
+</head>
+<body class="village">
+<header class="masthead"><a class="wordmark" href="studio.html"><span class="mark">✳</span> OPEN SOURCE ECOLOGY</a><span class="edition">ICONIC TUTOR</span><nav><a href="studio.html?lesson=house">Housing</a><a href="studio.html?lesson=machines">Machines</a><a href="village.html" aria-current="page">Village</a></nav></header>
+<main>
+  <section class="village-heading"><div><p class="eyebrow">03 / VILLAGE CONSTRUCTION SET</p><h1>A place to live.<br><em>A village to shape.</em></h1><p>Twelve two-story cabins. One shared landscape. Build the plan with your tutor.</p></div><div class="file-actions"><button id="save">Save project ↓</button><button id="open">Open project</button><input id="file" type="file" accept=".json,application/json" hidden><button id="export">Export plan ↓</button></div></section>
+  <div id="notice" role="status" aria-live="polite">Loading the source cabin…</div>
+  <section class="village-workspace" aria-label="Guided village layout">
+    <aside class="library-panel">
+      <p class="eyebrow">YOUR CONSTRUCTION SET</p><h2>Icon library</h2>
+      <label for="palette-set">Call up an icon set</label><select id="palette-set"></select>
+      <label for="search">Find an icon</label><input id="search" type="search" placeholder="Roof, water, tree…">
+      <p class="muted" id="palette-count"></p><div id="palette" class="village-palette"></div>
+      <p class="muted">Grey icons are not placeable yet.</p><a href="https://wiki.opensourceecology.org/wiki/Village_Construction_Set" target="_blank" rel="noopener">Icons from the OSE wiki ↗</a>
+      <p class="muted"><a href="https://wiki.opensourceecology.org/wiki/Registry_for_the_301_ICHL_Icons" target="_blank" rel="noopener">ICHL registry · IDs & module pages ↗</a></p>
+    </aside>
+    <section class="design-panel">
+      <div class="canvas-heading"><input id="name" aria-label="Village name" maxlength="120" value="A village of twelve"><span id="count" class="pill">0 / 12 cabins</span></div>
+      <div class="toolbar"><button id="tab-plan" aria-pressed="true">Site plan</button><button id="tab-3d" aria-pressed="false">3D village</button><span id="navigation-3d" role="group" aria-label="3D drag controls" hidden><button id="pan-view" aria-pressed="true">Pan view</button><button id="orbit-view" aria-pressed="false">Orbit view</button></span><button id="fit">Fit view</button><button id="undo" disabled>Undo</button><button id="redo" disabled>Redo</button></div>
+      <div id="plan" tabindex="0" aria-label="Site plan. Select a cabin; arrow keys move it one foot, R rotates it."></div><div id="village-3d" hidden></div>
+      <div class="canvas-caption"><span id="view-units">Feet · north ↑ · triangle = porch/front</span><span id="view-help">Drag cabin to place · drag background to pan · scroll to zoom</span></div>
+      <div class="arrangement"><button id="courtyard">Courtyard · 12</button><button id="rows">Rows · 12</button><button id="add">+ Place cabin</button></div>
+      <div class="site-controls"><label>Site width (ft)<input id="site-width" type="number" min="40" max="1000" step="1" value="140"></label><label>Site depth (ft)<input id="site-depth" type="number" min="40" max="1000" step="1" value="120"></label><label>Planning clearance (ft)<input id="gap" type="number" min="0" max="100" step="1" value="10"></label></div>
+      <div id="selection" class="selection"><span>Select a cabin to move or rotate it.</span></div>
+      <details><summary>About the first library icon</summary><div class="source-card"><img src="data/village/wiki-cabin.png" alt="Source two-story cabin with front porches and sloped roof"><div><h3>Two-story campus cabin</h3><p id="dimensions"></p><p>Imported from the supplied <em>VCS - Conceptual - Cabin 13x13.FCStd</em>. The full model includes both stories; every placement reuses this geometry.</p><div id="sources"></div></div></div></details>
+      <details><summary>Layout checks <span id="review-summary"></span></summary><div id="checks"></div><p class="muted">Clearance is your planning preference, not a building-code setback. This layout does not verify structures, stairs, accessible routes, fire access, terrain or utilities.</p></details>
+    </section>
+    <aside class="tutor-panel">
+      <p class="eyebrow">LEARN BY DESIGNING</p><h2>Your village tutor</h2><div id="steps" class="village-steps"></div><h3 id="step-title"></h3><p id="step-text"></p><button id="next" class="primary">Continue →</button>
+      <label for="site-notes">Site observations</label><textarea id="site-notes" maxlength="4000" rows="3" placeholder="Entrance, slope, sun, trees, things to preserve…"></textarea>
+      <label for="shared-notes">Shared-space plan</label><textarea id="shared-notes" maxlength="4000" rows="3" placeholder="Sheltered paths, upper-floor stairs, bathrooms, kitchen, garden…"></textarea>
+      <div id="chat-log" role="log" aria-live="polite"></div><div class="suggestions"><button data-question="Show water icons">Water icons</button><button data-question="Show energy icons">Energy icons</button><button data-question="Check my layout">Check layout</button></div>
+      <form id="chat-form"><label for="question">Ask the tutor or call up a palette</label><div class="chat-entry"><input id="question" maxlength="4000" placeholder="Show landscape icons…" required><button type="submit">Send</button></div></form>
+    </aside>
+  </section>
+</main><p class="site-credit">Designed by <a href="https://www.goodancestor.com" target="_blank" rel="noopener">GoodAncestor Foundation</a></p><script type="module" src="js/village.js?v=20260912-village-4"></script>
+</body></html>

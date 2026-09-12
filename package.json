@@ -4,7 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "test": "node tests/studio_core.mjs",
+    "test": "node tests/studio_core.mjs && node tests/village_core.mjs",
+    "test:village": "node scripts/verify_village_browser.mjs",
+    "test:village:interaction": "node scripts/verify_village_interaction.mjs",
     "test:browser": "node scripts/verify_studio_browser.mjs && node scripts/verify_studio_interaction.mjs && node scripts/verify_studio_placement.mjs && node scripts/verify_mount_preview.mjs"
   },
   "devDependencies": {

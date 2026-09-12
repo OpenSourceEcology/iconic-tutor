@@ -72,7 +72,13 @@ try {
     "Escape cancels placement",
   );
   assert(await page.locator("#undo").isDisabled());
-  await page.mouse.move(x, y);
+  // The compact working header and lesson picker can move the plan after edits.
+  // Aim the wheel at its current position, not the pre-edit cabin coordinates.
+  const zoomTarget = await page.locator("#plan svg").boundingBox();
+  await page.mouse.move(
+    zoomTarget.x + zoomTarget.width / 2,
+    zoomTarget.y + zoomTarget.height / 2,
+  );
   await page.mouse.wheel(0, -130);
   await page.waitForFunction(
     (c) => document.querySelector("#plan svg").getAttribute("viewBox") !== c,
