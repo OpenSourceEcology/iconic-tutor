@@ -147,3 +147,19 @@ workbench and VCS contribution guides on 2026-09-12. The workbench's manual inst
 document binding and schema export behavior are intentional parts of the lessons.
 Run `node scripts/verify_learning.mjs` against the static Pages preview to test both
 paths, persistence, safe drafts, downloads, mobile layout and main-page links.
+
+## Mini OSE Book
+
+[Read the source-linked introduction](https://opensourceecology.github.io/iconic-tutor/book.html)
+from the new landing-page story feature or lesson 06. Six short editorial chapters
+connect mission, learning, design tools, project proposals, replication and an
+invitation to contribute. The founder-selected reading trail covers sixteen wiki
+pages, distinguishes outlines from substantive sources, and marks only verified
+wiki OSE Canon categorization. This is a draft introduction, not an official canon
+declaration or a funding/engineering claim.
+
+Readers can save reading progress locally, search/filter sources, download the
+complete Markdown book, print/save a PDF, and draft their own source-aware story.
+No story is transmitted, no wiki page is tagged, and no funding request is sent.
+Run `node scripts/verify_book.mjs` against the static Pages preview for regression
+checks. Book text is CC BY-SA 4.0; application software keeps its existing license.

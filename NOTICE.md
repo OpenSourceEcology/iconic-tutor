@@ -1,5 +1,19 @@
 # Attribution and source records
 
+## Mini OSE Book
+
+The editorial reader at `web/book.html`, with text in `web/js/book-content.js`,
+contains original connective writing and paraphrased Open Source Ecology wiki
+material. Source links credit the wiki contributors in each chapter and the full
+reading trail. Sources were checked on 2026-09-12; outlines, proposals and verified
+OSE Canon tags are distinguished in the reader. The founder's reading direction
+was supplied by the user; this is not represented as founder-approved final text.
+Book text is CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0/), matching
+the wiki's stated text license unless a source specifies otherwise. This does not
+relicense the application software or CAD assets.
+
+## Application and CAD sources
+
 Iconic Tutor is derived from Open Source Ecology’s Iconic CAD. Collin DeSantis
 is the original author of Iconic CAD, developed in collaboration with OSE and
 originally conceived by Marcin Jakubowski. The upstream authorship statement is

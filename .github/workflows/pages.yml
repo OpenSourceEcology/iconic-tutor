@@ -32,6 +32,7 @@ jobs:
           trap 'kill "$server_pid"' EXIT
           node scripts/verify_pages.mjs
           node scripts/verify_learning.mjs
+          node scripts/verify_book.mjs
           STUDIO_URL=http://127.0.0.1:8777/iconic-tutor node scripts/verify_village_browser.mjs
           STUDIO_URL=http://127.0.0.1:8777/iconic-tutor node scripts/verify_village_interaction.mjs
           STUDIO_URL=http://127.0.0.1:8777/iconic-tutor node scripts/verify_village_navigation.mjs
