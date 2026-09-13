@@ -6,7 +6,9 @@ const base=(process.env.STUDIO_PAGES_URL||'http://127.0.0.1:8777/iconic-tutor/')
 assert.equal(sources.length,16); assert.equal(chapters.length,6);
 for (const s of sources) assert(bookMarkdown().includes(s.url));
 assert.equal(sources.filter(s=>s.canon).length,1);
-assert.match(bookMarkdown(),/not an official canon declaration/);
+assert(!bookMarkdown().includes("not an official"));
+assert(!bookMarkdown().includes("In the founder’s message"));
+assert.match(bookMarkdown(), /modeled economics/);
 const browser=await chromium.launch({args:['--use-angle=swiftshader','--enable-webgl']});
 try {
   await fs.mkdir('reports/book-browser',{recursive:true});
