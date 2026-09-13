@@ -8,7 +8,9 @@ for (const s of sources) assert(bookMarkdown().includes(s.url));
 assert.equal(sources.filter(s=>s.canon).length,1);
 assert(!bookMarkdown().includes("not an official"));
 assert(!bookMarkdown().includes("In the founder’s message"));
-assert.match(bookMarkdown(), /modeled economics/);
+assert.match(bookMarkdown(), /experimental validation/);
+assert(!chapters.find(ch=>ch.id==='projects').ladder);
+assert.match(chapters.find(ch=>ch.id==='projects').title, /worth building/);
 const browser=await chromium.launch({args:['--use-angle=swiftshader','--enable-webgl']});
 try {
   await fs.mkdir('reports/book-browser',{recursive:true});

@@ -1,4 +1,4 @@
-import {chapters, sources, audiencePrompts, bookMarkdown} from './book-content.js?v=2';
+import {chapters, sources, audiencePrompts, bookMarkdown} from './book-content.js?v=3';
 const $ = s => document.querySelector(s);
 const element = (tag, text, cls) => {const el = document.createElement(tag); if (text) el.textContent = text; if (cls) el.className = cls; return el;};
 function read(key, fallback) {try {return JSON.parse(localStorage.getItem(key)) ?? fallback;} catch {return fallback;}}
