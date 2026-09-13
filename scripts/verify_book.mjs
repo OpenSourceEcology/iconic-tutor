@@ -19,6 +19,7 @@ try {
   assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'home mobile overflow');
   await page.screenshot({path:'reports/book-browser/home-mobile.png',fullPage:true});
   await page.locator('.story-feature').click();
+  await page.locator('.book-chapter').first().waitFor();
   assert.equal(await page.locator('.book-chapter').count(),6);
   await page.locator('#chapter-mission button').click(); await page.reload();
   assert.match(await page.locator('#reading-progress').textContent(),/1 of 6/);
