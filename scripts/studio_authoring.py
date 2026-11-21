@@ -289,13 +289,13 @@ def record(db, project, action, expected, files=None):
     return public(db, project)
 
 
-def create(db, body):
+def create(db, body, project_id=None):
     module_id = body.get("module_id")
     if module_id not in module_catalog():
         raise RequestError("Select a registered module.")
     name = short_text(body.get("name", module_catalog()[module_id]["title"]), 120, "Project name").strip()
     project = {
-        "id": uuid.uuid4().hex, "module_id": module_id, "name": name,
+        "id": project_id or uuid.uuid4().hex, "module_id": module_id, "name": name,
         "instance": default_instance(module_id), "active_workstream": "geometry",
         "notes": {}, "proposals": [], "build": None,
     }
@@ -605,8 +605,13 @@ def dispatch(method, target, body, model_json):
         if method == "GET":
             if len(segments) == 2:
                 return public(db, project)
-            if segments[2] == "revisions" and len(segments) == 4:
-                return public(db, current(db, project["id"], int(segments[3])))
+            if segments[2] == "revisions":
+                if len(segments) not in (4, 5) or not segments[3].isdigit():
+                    raise RequestError("Unknown project revision.", 404)
+                project = current(db, project["id"], int(segments[3]))
+                if len(segments) == 4:
+                    return public(db, project)
+                segments = segments[:2] + segments[4:]
             if segments[2:] == ["wiki"]:
                 live = urllib.parse.parse_qs(url.query).get("source") == ["live"]
                 return Download(f"{project['module_id']}.wikitext", wiki_text(db, project, live).encode(), "text/plain; charset=utf-8")
