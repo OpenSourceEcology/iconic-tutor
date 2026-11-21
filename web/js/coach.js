@@ -1,4 +1,7 @@
 const $ = id => document.getElementById(id);
+// An invitation stays in the URL fragment until this page reads it. Joining is explicit.
+const invitation = new URLSearchParams(location.hash.slice(1)).get('invite');
+if (invitation) history.replaceState(null, '', location.pathname + location.search);
 const params = new URLSearchParams(location.search);
 const guide = 'https://github.com/OpenSourceEcology/iconic-tutor/blob/main/docs/ichl-authoring.md';
 let lessons = [], lessonId = params.get('lesson') || 'welcome', state = null;
@@ -292,6 +295,7 @@ try {
   }
   if (live && workshop && !workshopAccount) {
     $('join').hidden = false;
+    if (invitation) $('join').elements.invite.value = invitation;
     $('availability').textContent = 'Use your workshop invitation to save a project and talk to the tutor.';
   } else if (live) await startLibrary();
   else {

@@ -1,0 +1,31 @@
+[Unit]
+Description=OSE Tutor contributor workshop
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=ose-tutor
+Group=ose-tutor
+WorkingDirectory=/opt/ose-tutor/current
+EnvironmentFile=/etc/ose-tutor/workshop.env
+Environment=PYTHONDONTWRITEBYTECODE=1
+ExecStart=/usr/bin/python3 scripts/coach_workshop.py --data /var/lib/ose-tutor serve --port 8770 --origin ${STUDIO_PUBLIC_ORIGIN}
+StateDirectory=ose-tutor
+StateDirectoryMode=0700
+Restart=on-failure
+RestartSec=3
+TimeoutStopSec=90
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+MemoryMax=2G
+TasksMax=192
+
+[Install]
+WantedBy=multi-user.target

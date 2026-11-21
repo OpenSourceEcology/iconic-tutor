@@ -1,0 +1,14 @@
+[Unit]
+Description=Back up the OSE Tutor workshop database
+
+[Service]
+Type=oneshot
+User=ose-tutor
+Group=ose-tutor
+ExecStart=/usr/bin/python3 /opt/ose-tutor/current/scripts/backup_workshop.py /var/lib/ose-tutor/workshop.sqlite3 /var/backups/ose-tutor
+UMask=0077
+NoNewPrivileges=true
+ProtectSystem=strict
+ReadWritePaths=/var/backups/ose-tutor
+ProtectHome=true
+PrivateTmp=true
