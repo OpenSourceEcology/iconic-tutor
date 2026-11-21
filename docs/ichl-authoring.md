@@ -4,6 +4,12 @@ Use this workspace to turn a module's source material into editable definitions,
 
 [Watch the 21-second spacing-change and drawing-repair walkthrough](https://opensourceecology.github.io/iconic-tutor/media/ichl-wall-walkthrough.mp4) · [Download OC16](https://github.com/OpenSourceEcology/iconic-cad/raw/refs/heads/main/ichl_wall/examples/OC16.zip) · [Download OC24](https://github.com/OpenSourceEcology/iconic-cad/raw/refs/heads/main/ichl_wall/examples/OC24.zip)
 
+## Start with the tutor
+
+[Open the public module walkthrough](https://opensourceecology.github.io/iconic-tutor/coach.html) to explore the wall without installing software. Compare OC16 and OC24, open the published drawings and cut lists, and keep field notes. To talk to the AI and generate your own files, open the workshop link from your organizer, enter your invitation, and create a project. In a personal Studio, open [the local tutor](http://127.0.0.1:8766/coach.html).
+
+Choose **OSE AI** and describe what you see as a builder. For example, ask “Which cut-list line corresponds to this stud?” or “The two fastening sources disagree. What evidence should I bring back?” Check the cited build record. Inspect and confirm any proposed edit before the tutor regenerates the files. Keep unresolved evidence visible in your handoff. [Hosting the tutor for a group](coach-workshop.md)
+
 ## Run locally
 
 Install Git, Python 3.11 or newer, and Node.js 22 or newer. From a terminal run
@@ -43,6 +49,6 @@ To ask the AI tutor for an edit, configure `STUDIO_LLM_BASE_URL` and `STUDIO_LLM
 | Verify independent use | Have a second person complete the exercise and record where the procedure, prompts, or validation messages need improving. |
 | Start another module | Choose its registry entry and save scope, evidence and workstream notes. A new family needs its own compiler, configured examples and output checks before it can generate reviewed assets. |
 
-The eleven software procedures are executable for ICHL-015. With the supplied inputs, geometry, drawings, cut lists and parametric icons pass their software checks. The other seven workstreams emit drafts with specific evidence gaps. Construction review remains pending for both example walls. Contributor accounts, prepaid checkout and AI usage billing are later work for a shared service.
+The eleven software procedures are executable for ICHL-015. With the supplied inputs, geometry, drawings, cut lists and parametric icons pass their software checks. The other seven workstreams emit drafts with specific evidence gaps. Construction review remains pending for both example walls. Invited workshops support private projects, an included model, and an optional prepaid frontier-model test checkout. [Workshop operator guide](coach-workshop.md) · [Credit accounting](tutor-credits.md)
 
 [Canonical ICHL-015 page](https://wiki.opensourceecology.org/wiki/ICHL-015) · [Wall framing records](https://wiki.opensourceecology.org/wiki/Wall_Framing) · [Earlier wall workflow](https://wiki.opensourceecology.org/wiki/Iconic_CAD_Workflow_Example) · [OSE trial criteria](https://wiki.opensourceecology.org/wiki/Iconic_CAD_Lead_Announcement)

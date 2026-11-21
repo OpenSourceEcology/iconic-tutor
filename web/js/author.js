@@ -4,7 +4,7 @@ import {showModel} from './author-model.js';
 
 const $ = id => document.getElementById(id);
 const root = '/api/authoring';
-let modules = [], aiAvailable = false, project = null, draft = null;
+let modules = [], contributionTasks = [], aiAvailable = false, project = null, draft = null;
 let collect = () => {}, dirty = false, busy = false, rawMode = false;
 
 const moduleInfo = () => modules.find(m => m.id === project.module_id);
@@ -49,13 +49,22 @@ function bindProject(p) {
   const url = new URL(location.href);
   url.searchParams.set('project', p.id);
   history.replaceState(null, '', url);
+  $('open-coach').href = 'coach.html?' + new URLSearchParams({project:p.id});
   $('project-title').textContent = p.name;
   $('project-module').textContent = p.module_id + ' · ' + moduleInfo().title;
+  const task = contributionTasks.find(t => t.module_id === p.module_id && t.workstream === p.active_workstream);
+  $('task-entry').hidden = !task;
+  if (task) {
+    const link = $('task-entry').querySelector('a');
+    link.href = 'contribute.html?' + new URLSearchParams({task:task.id, project:p.id});
+    link.textContent = task.title;
+  }
   $('revision').textContent = 'Saved revision ' + p.version;
   $('notes').value = p.notes?.[p.active_workstream] ?? '';
   $('instance').value = pretty(draft);
   $('generate').disabled = !moduleInfo().can_generate;
   $('generate').title = moduleInfo().can_generate ? '' : 'This module has no configured compiler.';
+  $('publication').disabled = !p.build;
   $('package').disabled = false; $('wiki').disabled = false;
   $('streams').replaceChildren();
   for (const s of moduleInfo().workstreams) {
@@ -256,7 +265,8 @@ $('ask').onclick = () => run(async () => {
 });
 async function download(action, filename) {
   await save();
-  const response = await request(endpoint(action));
+  const response = await request(endpoint('revisions/' + project.version + '/' + action));
+  filename = response.headers.get('Content-Disposition')?.match(/filename="([^"/]+)"/)?.[1] || filename;
   downloadBlob(await response.blob(),filename);
   notice('Downloaded ' + filename + '.');
 }
@@ -265,6 +275,7 @@ function downloadBlob(blob, filename) {
   a.href = url; a.download = filename; a.click();
   setTimeout(()=>URL.revokeObjectURL(url),30000);
 }
+$('publication').onclick = () => run(()=>download('publication',project.module_id + '-generated.zip'));
 $('package').onclick = () => run(()=>download('package',project.module_id + '-project.zip'));
 $('wiki').onclick = () => run(()=>download('wiki' + ($('live-wiki').checked ? '?source=live' : ''),project.module_id + '.wikitext'));
 $('keep-draft').onclick = () => {
@@ -302,6 +313,8 @@ async function init() {
     return;
   }
   const [catalog, listing] = await Promise.all([json('/modules'),json('/projects')]);
+  const tasks = await fetch('data/contributions/tasks.json').then(r => r.ok ? r.json() : null).catch(() => null);
+  contributionTasks = tasks?.tasks || [];
   modules = catalog.modules; aiAvailable = catalog.ai_available;
   for (const m of modules) $('module').add(new Option(m.id + ' · ' + m.title, m.id));
   $('project-select').add(new Option('Choose a saved project','',true,true));

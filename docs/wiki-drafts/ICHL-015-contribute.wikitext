@@ -1,0 +1,6 @@
+== Help document the wall ==
+[https://opensourceecology.github.io/iconic-tutor/coach.html Follow the OSE Tutor wall walkthrough] from the first evidence question through the eleven workstreams, the spacing-change and drawing-repair exercise, and a wiki upload preview. The public walkthrough includes the reference files. A workshop invitation adds live AI and a personal project.
+
+[https://opensourceecology.github.io/iconic-tutor/contribute.html?task=wall-fastening Help resolve the stud-to-plate fastening question]. The standard wall card and the earlier wall workflow describe different fasteners. Compare their sources, identify the build each applies to, and prepare a sourced finding or a specific question for [[Talk:ICHL-015]]. Construction review is pending.
+
+For the adjoining [[Window Framing|window module]], [https://opensourceecology.github.io/iconic-tutor/contribute.html?task=window-opening document what the opening must provide]. Both tasks can be completed in a browser.

@@ -17,6 +17,10 @@ See [attribution and source records](NOTICE.md) and [AGPL-3.0](LICENSE).
 
 ## Author an ICHL module
 
+Start with the [OSE module tutor](https://opensourceecology.github.io/iconic-tutor/coach.html). Follow one wall from source evidence through all eleven schemas to a wiki handoff. The public walkthrough runs in a browser. A [hosted workshop](docs/coach-workshop.md) or [personal Studio](http://127.0.0.1:8766/coach.html) adds conversation, confirmed edits and real CAD generation.
+
+For a single wiki contribution, open the [wall fastening question](https://opensourceecology.github.io/iconic-tutor/contribute.html?task=wall-fastening) or the [window opening question](https://opensourceecology.github.io/iconic-tutor/contribute.html?task=window-opening). Compare the evidence, prepare a proposed answer or an open question, and copy a draft for the module discussion. [Contributor pilot and review exercise](docs/wiki-contribution-pilot.md)
+
 Start the browser authoring workspace with Git, Python 3.11+ and Node.js 22+.
 
 ```sh

@@ -26,9 +26,15 @@ jobs:
         run: python scripts/setup_ichl.py
       - run: python -m pytest tests -q
       - run: python scripts/build_pages.py
+        env:
+          OSE_WORKSHOP_URL: ${{ vars.OSE_WORKSHOP_URL }}
       - run: npx playwright install --with-deps chromium
       - name: Exercise module authoring in the browser
-        run: npm run test:authoring
+        run: |
+          npm run test:authoring
+          node scripts/verify_contribution_browser.mjs
+          node scripts/verify_coach_browser.mjs
+          node tests/coach_credits.mjs
       - name: Test the static deployment
         run: |
           python -m http.server 8777 --bind 127.0.0.1 --directory reports/pages-preview &

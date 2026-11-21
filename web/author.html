@@ -15,6 +15,8 @@
 </header>
 <main class="author-main">
   <h1>Module authoring</h1>
+  <p><a id="open-coach" href="coach.html">Walk through this project with the OSE Tutor</a></p>
+  <p><a href="contribute.html?task=wall-fastening">Contribute evidence for the wall fastening schedule</a> · <a href="contribute.html?task=window-opening">Document the window opening interface</a></p>
   <p id="notice" role="status" aria-live="polite">Opening the local project library…</p>
   <details id="setup" class="panel"><summary>Setup and sample wall packages</summary>
     <p>Run the local Studio server to save projects and generate files. The reference packages contain the OC16 and OC24 example outputs.</p>
@@ -55,6 +57,7 @@
       <article class="stream">
         <header><span id="stream-status" class="state"></span><h2 id="stream-title"></h2><p id="guide"></p></header>
         <div id="validation" aria-live="polite"></div>
+        <p id="task-entry" hidden><a></a></p>
         <div id="editor"></div>
         <details class="panel" id="procedure" open><summary>Authoring procedure</summary><div id="steps"></div></details>
         <label class="field">Workstream notes<textarea id="notes" rows="3" maxlength="6000" placeholder="Record the source, decision, or open question."></textarea></label>
@@ -79,7 +82,8 @@
         <section class="panel"><h3>Generated files</h3><div id="files"></div></section>
         <section class="panel"><h3>Export project</h3>
           <div class="downloads">
-            <button id="package">Download project ZIP</button>
+            <button id="package">Download private project ZIP</button>
+            <button id="publication">Download generated files for wiki upload</button>
             <button id="wiki">Download wiki draft</button>
             <label class="checkbox"><input type="checkbox" id="live-wiki"> Fetch current page before wiki export</label>
           </div>

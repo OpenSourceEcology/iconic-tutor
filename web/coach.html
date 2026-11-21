@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Module authoring tutor · Open Source Ecology</title>
+  <link rel="stylesheet" href="css/studio.css"><link rel="stylesheet" href="css/coach.css"><link rel="stylesheet" href="css/coach-credits.css">
+</head>
+<body>
+<header class="masthead"><a class="wordmark" href="studio.html"><span class="mark" aria-hidden="true">✳</span> OPEN SOURCE ECOLOGY</a><span class="edition">ICONIC TUTOR</span><nav><a href="https://github.com/OpenSourceEcology/iconic-tutor/blob/main/docs/ichl-authoring.md">Authoring guide ↗</a></nav></header>
+<main class="coach">
+  <h1>Module authoring tutor</h1>
+  <p class="intro-text">Start with a wall you know. Follow one stud from the drawing to the cut list, work through the eleven schemas, and prepare a contribution for the OSE wiki.</p>
+  <p id="availability" role="status"></p>
+  <form id="join" hidden><label>Workshop invitation<input name="invite" type="password" required autocomplete="off"></label><button>Join workshop</button></form>
+  <details id="library" hidden><summary>Start or resume a project</summary><form id="start"><label>Module<select id="module"></select></label><label>Project name<input id="name" required maxlength="100" value="My wall review"></label><button>Create project</button></form><label>Resume a project<select id="resume"><option value="">Choose a saved project</option></select></label></details>
+  <p id="project-label" hidden></p>
+  <div class="lesson-grid">
+    <aside><label for="lesson" class="section-label">Walkthrough</label><select id="lesson" aria-label="Choose a lesson"></select><nav id="outline" aria-label="Authoring lessons"></nav></aside>
+    <article aria-labelledby="title">
+      <p id="position" class="section-label"></p><h2 id="title">Opening the walkthrough…</h2>
+      <p id="prompt"></p>
+      <figure id="drawing" hidden><figcaption><label>Reference drawing<select id="example"><option value="OC16">Wall with 16-inch stud spacing</option><option value="OC24">Wall with 24-inch stud spacing</option></select></label></figcaption><img id="frame" width="860" height="590" alt="Elevation and side view of the example wall frame"></figure>
+      <ol id="steps"></ol>
+      <p class="checkpoint"><strong>Check your work</strong> <span id="completion"></span></p>
+      <p id="result" hidden></p>
+      <section id="refs-box"><h3>On the workbench</h3><div id="refs" class="links"></div></section>
+      <section id="chat" hidden><h3>Ask the tutor</h3>
+        <div id="messages" aria-label="Conversation"></div>
+        <form id="ask"><label for="question">What do you see, or where are you stuck?</label><textarea id="question" rows="3" maxlength="1200" required></textarea>
+          <label for="mode">Answer with</label><select id="mode"><option value="guided">Lesson guide · included</option><option value="free" disabled>OSE AI · included</option><option value="frontier" disabled>Frontier AI · prepaid</option></select>
+          <button id="send">Ask</button></form>
+        <div id="actions" class="links"></div><div id="proposal" hidden></div>
+      </section>
+      <section id="coach-credits"></section>
+      <section id="notes"><label for="field-note">My field notes</label><textarea id="field-note" rows="3" placeholder="Identify the build, what you observed, and where someone else can verify it."></textarea><small>Saved in this browser for this walkthrough.</small> <button id="download-notes">Download notes</button></section>
+      <p id="feedback" role="status" aria-live="polite"></p>
+      <div class="paging"><button id="previous">Previous lesson</button><button id="next">Next lesson →</button></div>
+    </article>
+  </div>
+</main><script type="module" src="js/coach.js"></script>
+</body></html>
