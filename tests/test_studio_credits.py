@@ -10,7 +10,7 @@ from concurrent.futures import ThreadPoolExecutor
 from http.client import HTTPConnection
 from http.server import ThreadingHTTPServer
 from pathlib import Path
-from threading import Event, Thread
+from threading import Barrier, Event, Thread
 from unittest.mock import Mock
 from uuid import uuid4
 
@@ -48,6 +48,7 @@ def env(monkeypatch, tmp_path):
     monkeypatch.setenv("STUDIO_STRIPE_TEST_WEBHOOK_SECRET", KEY)
     monkeypatch.setenv("STUDIO_STRIPE_TEST_SECRET_KEY", "sk_test_fixture")
     monkeypatch.delenv("STUDIO_PUBLIC_ORIGIN", raising=False)
+    monkeypatch.delenv("STUDIO_OSE_SUPPORT_BPS", raising=False)
 
 
 def funded(cents=500):
@@ -76,7 +77,13 @@ def test_accounts_cookies_grants_and_usage_receipt(monkeypatch):
         credits.grant(other_account, 5, grant_id)
     assert credits.status(cookie)["balance_microusd"] == 60000
     raw, receipt = credits.metered_completion(cookie, key, PAYLOAD, call)
-    assert raw == RAW and receipt["amount_microusd"] == 1155
+    assert raw == RAW and receipt["amount_microusd"] == 1213
+    assert (receipt["model_cost_microusd"], receipt["support_fee_microusd"], receipt["markup_bps"]) == (
+        1155,
+        58,
+        500,
+    )
+    monkeypatch.setenv("STUDIO_OSE_SUPPORT_BPS", "250")
     assert receipt["cached_tokens"] == 20
     assert credits.metered_completion(cookie, key, PAYLOAD, call) == (raw, receipt)
     assert call.call_count == 1
@@ -84,8 +91,8 @@ def test_accounts_cookies_grants_and_usage_receipt(monkeypatch):
         credits.metered_completion(cookie, key, {**PAYLOAD, "max_tokens": 1}, call)
     assert err.value.status == 409
     info = credits.status(cookie)
-    assert info["available_microusd"] == 58845 and info["held_microusd"] == 0
-    assert next(h for h in info["history"] if h["kind"] == "frontier")["amount_microusd"] == -1155
+    assert info["available_microusd"] == 58787 and info["held_microusd"] == 0
+    assert next(h for h in info["history"] if h["kind"] == "frontier")["amount_microusd"] == -1213
     assert credits.status(another)["history"] == []
     monkeypatch.delenv("STUDIO_FRONTIER_INPUT_USD_PER_MTOK")
     assert not credits.status(cookie)["rates"]["configured"]
@@ -140,7 +147,7 @@ def test_unknown_outcomes_and_definitive_provider_rejection(monkeypatch):
         monkeypatch.setattr(sys, "argv", ["studio_credits.py", "reconcile", account, key, *args])
         credits.main()
         assert credits.status(cookie)["held_microusd"] == 0
-    assert credits.status(cookie)["balance_microusd"] == 5_000_000 - 1155
+    assert credits.status(cookie)["balance_microusd"] == 5_000_000 - 1213
 
 
 def signature(raw, now=None):
@@ -302,8 +309,10 @@ def test_unsolicited_provider_overage_preserves_prepaid_limit():
     receipt_data = {**RAW, "usage": {"prompt_tokens": 90_000, "completion_tokens": 9_000}}
     _, receipt = credits.metered_completion(cookie, uid(), PAYLOAD, Mock(return_value=receipt_data))
     assert receipt["input_tokens"] == 90000 and receipt["output_tokens"] == 9000
-    assert receipt["usage_cost_microusd"] == 387000
-    assert receipt["operator_covered_microusd"] == 387000 - receipt["amount_microusd"] > 0
+    assert receipt["model_cost_microusd"] == 387000
+    assert receipt["support_fee_microusd"] == 19350
+    assert receipt["usage_cost_microusd"] == 406350
+    assert receipt["operator_covered_microusd"] == 406350 - receipt["amount_microusd"] > 0
     assert credits.status(cookie)["available_microusd"] >= 0
 
 
@@ -317,3 +326,109 @@ def test_operator_rotates_one_accounts_credentials_and_sessions():
     assert not credits.status(old)["authenticated"]
     assert credits.status(other)["authenticated"]
     assert credits.status(credits.login(fresh))["account_label"] == "A"
+
+
+def test_concurrent_legacy_db_migration_keeps_receipts_and_holds_at_zero_fee(monkeypatch):
+    account, cookie = funded()
+    monkeypatch.setenv("STUDIO_OSE_SUPPORT_BPS", "0")
+    old_settled, old_held = uid(), uid()
+    _, original = credits.metered_completion(cookie, old_settled, PAYLOAD, Mock(return_value=RAW))
+    with pytest.raises(credits.RequestError):
+        credits.metered_completion(cookie, old_held, PAYLOAD, Mock(side_effect=TimeoutError()))
+    legacy_balance = credits.status(cookie)["available_microusd"]
+    # Rebuild the table with the columns and primary key from the pre-markup release.
+    legacy_columns = (
+        "account,request_id,fingerprint,model,state,reserve,cost,input_rate,cached_rate,"
+        "output_rate,input_tokens,cached_tokens,output_tokens,provider_id,result,at"
+    )
+    with credits.database(True) as db:
+        db.execute("ALTER TABLE credit_calls RENAME TO staging")
+        db.execute("""CREATE TABLE credit_calls (
+            account TEXT NOT NULL REFERENCES credit_accounts(id), request_id TEXT NOT NULL, fingerprint TEXT NOT NULL,
+            model TEXT NOT NULL, state TEXT NOT NULL, reserve INTEGER NOT NULL, cost INTEGER,
+            input_rate INTEGER NOT NULL, cached_rate INTEGER NOT NULL, output_rate INTEGER NOT NULL,
+            input_tokens INTEGER, cached_tokens INTEGER, output_tokens INTEGER, provider_id TEXT,
+            result TEXT, at TEXT NOT NULL, PRIMARY KEY(account,request_id))""")
+        db.execute(f"INSERT INTO credit_calls({legacy_columns}) SELECT {legacy_columns} FROM staging")
+        db.execute("DROP TABLE staging")
+    monkeypatch.setenv("STUDIO_OSE_SUPPORT_BPS", "750")
+    barrier = Barrier(8)
+
+    def check():
+        barrier.wait(timeout=5)
+        return credits.status(cookie)
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures = [pool.submit(check) for _ in range(8)]
+        for future in futures:
+            info = future.result()
+            assert info["available_microusd"] == legacy_balance
+            for event in (r for r in info["history"] if r["kind"] == "frontier"):
+                assert event["markup_bps"] == 0
+                if event["status"] == "settled":
+                    assert (event["model_cost_microusd"], event["support_fee_microusd"]) == (1155, 0)
+    never = Mock(side_effect=AssertionError("Unexpected second inference"))
+    _, replay = credits.metered_completion(cookie, old_settled, PAYLOAD, never)
+    assert replay == original
+    monkeypatch.setattr(
+        sys,
+        "argv",
+        ["studio_credits.py", "reconcile", account, old_held, "--usage", "120", "20", "50", "legacy"],
+    )
+    credits.main()
+    info = credits.status(cookie)
+    assert info["balance_microusd"] == 5_000_000 - 2 * 1155
+    assert (
+        credits.metered_completion(cookie, uid(), PAYLOAD, Mock(return_value=RAW))[1]["support_fee_microusd"]
+        == 87
+    )
+
+
+def test_fee_is_pinned_for_ambiguous_outcomes_and_reconciliation(monkeypatch):
+    account, cookie = funded()
+    key = uid()
+    monkeypatch.setenv("STUDIO_OSE_SUPPORT_BPS", "1250")
+    with pytest.raises(credits.RequestError):
+        credits.metered_completion(cookie, key, PAYLOAD, Mock(side_effect=TimeoutError()))
+    entry = next(r for r in credits.status(cookie)["history"] if r["kind"] == "frontier")
+    assert entry["markup_bps"] == 1250 and entry["support_fee_microusd"] is None
+    monkeypatch.setenv("STUDIO_OSE_SUPPORT_BPS", "0")
+    monkeypatch.setattr(
+        sys, "argv", ["credits", "reconcile", account, key, "--usage", "120", "20", "50", "verified"]
+    )
+    credits.main()
+    entry = next(r for r in credits.status(cookie)["history"] if r["kind"] == "frontier")
+    assert entry["model_cost_microusd"] == 1155 and entry["support_fee_microusd"] == 145
+    assert (
+        entry["amount_microusd"] == -1300
+        and entry["usage_cost_microusd"] == 1300
+        and entry["markup_bps"] == 1250
+    )
+    assert entry["operator_covered_microusd"] == 0
+
+
+def test_preflight_includes_entire_fee_and_invalid_config_cannot_run(monkeypatch):
+    _, cookie = funded(1)
+    payload = {**PAYLOAD, "max_tokens": 500}
+    never = Mock(side_effect=AssertionError("Unexpected inference"))
+    monkeypatch.setenv("STUDIO_OSE_SUPPORT_BPS", "5000")
+    with pytest.raises(credits.RequestError) as err:
+        credits.metered_completion(cookie, uid(), payload, never)
+    assert err.value.status == 402 and not never.called
+    for invalid in ("-1", "10001", "5%", "12.3", ""):
+        monkeypatch.setenv("STUDIO_OSE_SUPPORT_BPS", invalid)
+        assert not credits.status(cookie)["rates"]["configured"]
+        with pytest.raises(credits.RequestError) as err:
+            credits.metered_completion(cookie, uid(), payload, never)
+        assert err.value.status == 503
+    monkeypatch.setenv("STUDIO_OSE_SUPPORT_BPS", "0")
+    assert (
+        credits.metered_completion(cookie, uid(), payload, Mock(return_value=RAW))[1]["amount_microusd"]
+        == 1155
+    )
+
+
+def test_fractional_micro_usd_rounding():
+    assert credits.cost(1, 0, 0, 1, 0, 0) == 1
+    for base, bps, fee in ((1, 500, 1), (20, 500, 1), (21, 500, 2), (0, 500, 0), (1, 0, 0)):
+        assert credits.support_fee(base, bps) == fee

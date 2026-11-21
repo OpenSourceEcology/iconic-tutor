@@ -38,14 +38,46 @@ CREATE TABLE IF NOT EXISTS credit_calls (
  model TEXT NOT NULL, state TEXT NOT NULL, reserve INTEGER NOT NULL, cost INTEGER,
  input_rate INTEGER NOT NULL, cached_rate INTEGER NOT NULL, output_rate INTEGER NOT NULL,
  input_tokens INTEGER, cached_tokens INTEGER, output_tokens INTEGER, provider_id TEXT,
- result TEXT, at TEXT NOT NULL, PRIMARY KEY(account,request_id));
+ result TEXT, at TEXT NOT NULL, markup_bps INTEGER NOT NULL DEFAULT 0,
+ model_cost INTEGER, support_fee INTEGER, PRIMARY KEY(account,request_id));
 """
+
+
+def migrate_call_prices(db):
+    # The second check runs after obtaining the write lock: concurrent server/CLI
+    # opens of an older database can only apply the migration once.
+    def has_markup():
+        return any(col["name"] == "markup_bps" for col in db.execute("PRAGMA table_info(credit_calls)"))
+
+    if has_markup():
+        return
+    with db:
+        db.execute("BEGIN IMMEDIATE")
+        if has_markup():
+            return
+        db.execute("ALTER TABLE credit_calls ADD COLUMN markup_bps INTEGER NOT NULL DEFAULT 0")
+        db.execute("ALTER TABLE credit_calls ADD COLUMN model_cost INTEGER")
+        db.execute("ALTER TABLE credit_calls ADD COLUMN support_fee INTEGER")
+        for row in db.execute("SELECT * FROM credit_calls WHERE state='settled'"):
+            base = cost(
+                row["input_tokens"],
+                row["cached_tokens"],
+                row["output_tokens"],
+                row["input_rate"],
+                row["cached_rate"],
+                row["output_rate"],
+            )
+            db.execute(
+                "UPDATE credit_calls SET model_cost=?,support_fee=0 WHERE account=? AND request_id=?",
+                (base, row["account"], row["request_id"]),
+            )
 
 
 @contextmanager
 def database(write=False):
     with closing(connect()) as db:
         db.executescript(SCHEMA)
+        migrate_call_prices(db)
         with db:
             db.execute("BEGIN IMMEDIATE" if write else "BEGIN")
             yield db
@@ -141,13 +173,23 @@ def rates():
             raise ValueError()
     except (ValueError, InvalidOperation):
         raise RequestError("The operator must configure the frontier model and its token rates.", 503)
-    return model, inp, cached, out
+    try:
+        bps = int(os.environ.get("STUDIO_OSE_SUPPORT_BPS", "500"))
+        if not 0 <= bps <= 10_000:
+            raise ValueError()
+    except ValueError:
+        raise RequestError("Configure OSE support as an integer from 0 to 10000 basis points.", 503)
+    return model, inp, cached, out, bps
 
 
 def cost(input_tokens, cached_tokens, output_tokens, inp, cached, out):
     return (
         (input_tokens - cached_tokens) * inp + cached_tokens * cached + output_tokens * out + MILLION - 1
     ) // MILLION
+
+
+def support_fee(base, markup_bps):
+    return (base * markup_bps + 9_999) // 10_000
 
 
 def totals(db, account):
@@ -171,10 +213,11 @@ def stripe_configured():
 
 def status(cookie):
     try:
-        model, inp, cached, out = rates()
+        model, inp, cached, out, markup_bps = rates()
         pricing = {
             "configured": True,
             "model": model,
+            "markup_bps": markup_bps,
             "input_usd_per_mtok": inp / MILLION,
             "cached_input_usd_per_mtok": cached / MILLION,
             "output_usd_per_mtok": out / MILLION,
@@ -195,11 +238,14 @@ def status(cookie):
         balance, held = totals(db, account)
         history = db.execute(
             """SELECT 'frontier' kind, state status, -coalesce(cost,0) amount_microusd,
-                                reserve reserved_microusd, at, request_id, model, input_tokens, output_tokens, cached_tokens
+                                reserve reserved_microusd, at, request_id, model, input_tokens, output_tokens, cached_tokens,
+                                markup_bps, model_cost model_cost_microusd, support_fee support_fee_microusd,
+                                model_cost+support_fee usage_cost_microusd,
+                                model_cost+support_fee-cost operator_covered_microusd
                                 FROM credit_calls WHERE account=?
                                 UNION ALL SELECT 'test_checkout',state,CASE WHEN state='paid' THEN amount ELSE 0 END,
-                                0,at,request_id,NULL,NULL,NULL,NULL FROM credit_purchases WHERE account=?
-                                UNION ALL SELECT 'operator_test_grant','credited',amount,0,at,id,NULL,NULL,NULL,NULL
+                                0,at,request_id,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL FROM credit_purchases WHERE account=?
+                                UNION ALL SELECT 'operator_test_grant','credited',amount,0,at,id,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL
                                 FROM credit_grants WHERE account=? ORDER BY at DESC LIMIT 100""",
             (account, account, account),
         )
@@ -233,8 +279,12 @@ def usage_counts(raw):
 
 def receipt_for(row, counts, provider_id):
     inp, cached, out = counts
-    usage_cost = cost(inp, cached, out, row["input_rate"], row["cached_rate"], row["output_rate"])
-    charge = min(usage_cost, row["reserve"])
+    base = row["model_cost"]
+    if base is None:
+        base = cost(inp, cached, out, row["input_rate"], row["cached_rate"], row["output_rate"])
+    fee = row["support_fee"] if row["support_fee"] is not None else support_fee(base, row["markup_bps"])
+    usage_cost = base + fee
+    charge = min(usage_cost, row["reserve"]) if row["cost"] is None else row["cost"]
     return {
         "request_id": row["request_id"],
         "model": row["model"],
@@ -242,6 +292,9 @@ def receipt_for(row, counts, provider_id):
         "input_tokens": inp,
         "cached_tokens": cached,
         "output_tokens": out,
+        "markup_bps": row["markup_bps"],
+        "model_cost_microusd": base,
+        "support_fee_microusd": fee,
         "usage_cost_microusd": usage_cost,
         "amount_microusd": charge,
         "operator_covered_microusd": usage_cost - charge,
@@ -255,20 +308,27 @@ def settle(db, row, counts, provider_id, result):
     receipt = receipt_for(row, counts, provider_id)
     db.execute(
         """UPDATE credit_calls SET state='settled',input_tokens=?,cached_tokens=?,output_tokens=?,
-                  cost=?,provider_id=?,result=? WHERE account=? AND request_id=? AND state='held'""",
-        (*counts, receipt["amount_microusd"], provider_id, result, row["account"], row["request_id"]),
+                  model_cost=?,support_fee=?,cost=?,provider_id=?,result=? WHERE account=? AND request_id=? AND state='held'""",
+        (
+            *counts,
+            receipt["model_cost_microusd"],
+            receipt["support_fee_microusd"],
+            receipt["amount_microusd"],
+            provider_id,
+            result,
+            row["account"],
+            row["request_id"],
+        ),
     )
     return receipt
 
 
 def metered_completion(cookie, request_id, payload, invoke):
     key = request_key(request_id)
-    model, inp, cached, out = rates()
     messages = payload.get("messages")
     max_output = payload.get("max_completion_tokens", payload.get("max_tokens"))
     if (
-        payload.get("model") != model
-        or type(max_output) is not int
+        type(max_output) is not int
         or not 1 <= max_output <= 32768
         or not isinstance(messages, list)
         or not messages
@@ -283,7 +343,6 @@ def metered_completion(cookie, request_id, payload, invoke):
     estimated_input = len(encoded(payload).encode()) + 64 * (1 + len(messages))
     if estimated_input > 1_000_000:
         raise RequestError("The frontier prompt exceeds the supported size.")
-    reserved = cost(estimated_input, 0, max_output, inp, cached, out)
     fingerprint = digest(encoded(payload))
     with database(True) as db:
         account = identity(db, cookie)["id"]
@@ -297,6 +356,11 @@ def metered_completion(cookie, request_id, payload, invoke):
                 counts = row["input_tokens"], row["cached_tokens"], row["output_tokens"]
                 return json.loads(row["result"]), receipt_for(row, counts, row["provider_id"])
             raise RequestError("This request was already registered. Check your credit history.", 409)
+        model, inp, cached, out, markup_bps = rates()
+        if payload.get("model") != model:
+            raise RequestError("This request must select the configured frontier model.")
+        max_base = cost(estimated_input, 0, max_output, inp, cached, out)
+        reserved = max_base + support_fee(max_base, markup_bps)
         balance, held = totals(db, account)
         if balance - held < reserved:
             raise RequestError(
@@ -304,8 +368,8 @@ def metered_completion(cookie, request_id, payload, invoke):
             )
         db.execute(
             """INSERT INTO credit_calls(account,request_id,fingerprint,model,state,reserve,input_rate,cached_rate,
-                      output_rate,at) VALUES(?,?,?,?,'held',?,?,?,?,?)""",
-            (account, key, fingerprint, model, reserved, inp, cached, out, timestamp()),
+                      output_rate,at,markup_bps) VALUES(?,?,?,?,'held',?,?,?,?,?,?)""",
+            (account, key, fingerprint, model, reserved, inp, cached, out, timestamp(), markup_bps),
         )
     try:
         raw = invoke(payload)

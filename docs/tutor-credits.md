@@ -1,6 +1,6 @@
 # Contributor accounts and frontier-model credits
 
-The module coach offers guided lessons, an operator-supplied free model, and an optional metered frontier model. Contributors see the configured model rates and their own balance under **AI usage and credits**. Stripe Checkout offers $5 in test credit per completed test payment. A configured commercial model can bill the operator for actual inference even when the contributor uses test credit. Studio adds no service fee.
+The module coach offers guided lessons, an operator-supplied free model, and an optional metered frontier model. Contributors see the configured model rates and their own balance under **AI usage and credits**. Stripe Checkout offers $5 in test credit per completed test payment. A configured commercial model can bill the operator for actual inference even when the contributor uses test credit. A new frontier request includes an OSE support fee of 5% by default. Funding the test account adds its full face value to the balance.
 
 ## Give a contributor access
 
@@ -30,10 +30,11 @@ Set the following environment variables on the Studio server and restart it.
 | `STUDIO_FRONTIER_INPUT_USD_PER_MTOK` | Standard USD price per **million** input tokens for this deployment |
 | `STUDIO_FRONTIER_CACHED_INPUT_USD_PER_MTOK` | USD price per million cached input tokens if the deployment discounts them. Defaults to the standard input rate |
 | `STUDIO_FRONTIER_OUTPUT_USD_PER_MTOK` | USD price per million completion tokens, including billed reasoning tokens returned in the completion total |
+| `STUDIO_OSE_SUPPORT_BPS` | OSE support fee in whole basis points. Defaults to 500 (5%). Set 0 to waive it, or set an integer up to 10000 (100%). The same setting applies across frontier providers |
 
 Use the provider's current rates for a single flat-rate text deployment. Tiered pricing, tool fees and batch discounts require a different pricing contract. Set `STUDIO_LLM_BASE_URL` and `STUDIO_LLM_MODEL` only for the separate free-model service. Guided lessons work without either service.
 
-To verify, sign in, fund the test account, select the frontier mode and ask one question. Check the input/output counts and debit in the transaction history. Each request takes an atomic credit hold for the prompt and maximum output before the server calls the provider. An insufficient balance returns HTTP 402. The ledger snapshots the rates and settles in integer micro-USD using the returned input, cached input and completion counts, rounding up once per request. Credit above the actual charge becomes available again. A provider receipt exceeding the reservation records the excess as operator-covered cost. The account history shows the latest 100 transactions.
+To verify, sign in, fund the test account, select the frontier mode and ask one question. Check the input/output counts and debit in the transaction history. Each request takes an atomic credit hold for the prompt, maximum output and OSE support fee before the server calls the provider. An insufficient balance returns HTTP 402. The ledger snapshots the token rates and support percentage when it reserves credit. It rounds model cost up to the next whole micro-USD using the returned input, cached input and completion counts. The support fee is the rounded model cost times the reserved percentage, rounded up to a whole micro-USD. A model cost of 264 micro-USD plus a 5% fee of 14 micro-USD totals 278 micro-USD ($0.000278). Receipts and settled history identify model cost, OSE support, total debit and any operator-covered excess. Reservations made before support fees were introduced retain a zero fee when replayed or reconciled. Credit above the actual charge becomes available again. A provider receipt exceeding the reservation records the excess as operator-covered cost. The account history shows the latest 100 transactions.
 
 ## Connect hosted Stripe test Checkout
 
