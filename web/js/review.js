@@ -1,5 +1,5 @@
 import {consumeInvitation} from './workshop-invite.js';
-import {readHandoff,readiness} from './contribute-core.js';
+import {readHandoff,readiness} from './contribute-core.js?v=review-1';
 import {fingerprint, httpLink, outcomeLabels, portableReceipt} from './review-core.js';
 
 const $ = id => document.getElementById(id);
@@ -238,7 +238,7 @@ $('decision-form').onsubmit = event(async e => {
 $('decision-form').oninput = () => { $('download-receipt').hidden = true; };
 for (const [code,label] of outcomeLabels) $('outcome').add(new Option(label,code));
 try {
-  const [catalog,deployment] = await Promise.all([api('data/contributions/tasks.json'),api('deployment.json')]);
+  const [catalog,deployment] = await Promise.all([api('data/contributions/tasks.json?v=review-1'),api('deployment.json')]);
   tasks = catalog.tasks;
   if (query.get('task')) $('return-task').href = taskLink(query.get('task'));
   workshop = deployment.workshop === true;

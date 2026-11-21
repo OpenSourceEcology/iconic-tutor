@@ -1,4 +1,4 @@
-import {steps} from './contribute-core.js';
+import {steps} from './contribute-core.js?v=review-1';
 
 // A receiver can try a proposed teaching change without importing the originating
 // module's answer, contributor identity, or project. Only the instruction travels.

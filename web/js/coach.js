@@ -1,5 +1,5 @@
 import {consumeInvitation} from './workshop-invite.js';
-import {contributionStorageKeys} from './contribute-core.js';
+import {contributionStorageKeys} from './contribute-core.js?v=review-1';
 const $ = id => document.getElementById(id);
 const invitation = consumeInvitation();
 const params = new URLSearchParams(location.search);
@@ -311,7 +311,7 @@ $('join').onsubmit = e => {e.preventDefault();run(async ()=>{
   $('join').reset(); $('join').hidden = true; await startLibrary(); $('notes').hidden = false;
 });};
 try {
-  const [catalog,deployment,briefs] = await Promise.all([api('data/coach/lessons.json'),api('deployment.json'),api('data/contributions/tasks.json')]);
+  const [catalog,deployment,briefs] = await Promise.all([api('data/coach/lessons.json'),api('deployment.json'),api('data/contributions/tasks.json?v=review-1')]);
   contributionTasks = briefs.tasks;
   lessons = catalog.lessons;
   const resumeRequested = deployment.backend === 'same-origin' && params.has('project');

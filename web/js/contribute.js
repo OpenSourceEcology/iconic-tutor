@@ -1,4 +1,4 @@
-import {contributionStorageKeys, emptyDraft, handoffFormat, limits, readDraft, readHandoff, readiness, staleSources, steps, suggestedLesson, volunteerClaim, wikitext} from './contribute-core.js';
+import {contributionStorageKeys, emptyDraft, handoffFormat, limits, readDraft, readHandoff, readiness, staleSources, steps, suggestedLesson, volunteerClaim, wikitext} from './contribute-core.js?v=review-1';
 
 import {fingerprint,readReceipt,outcomeLabels} from './review-core.js';
 
@@ -306,7 +306,7 @@ async function act(action) {
 }
 
 async function start() {
-  const response = await fetch('data/contributions/tasks.json');
+  const response = await fetch('data/contributions/tasks.json?v=review-1');
   if (!response.ok) throw Error('The task catalog could not be opened.');
   tasks = (await response.json()).tasks;
   for (const t of tasks) $('task-select').add(new Option(t.module_id + ' · ' + t.title,t.id));

@@ -313,7 +313,7 @@ async function init() {
     return;
   }
   const [catalog, listing] = await Promise.all([json('/modules'),json('/projects')]);
-  const tasks = await fetch('data/contributions/tasks.json').then(r => r.ok ? r.json() : null).catch(() => null);
+  const tasks = await fetch('data/contributions/tasks.json?v=review-1').then(r => r.ok ? r.json() : null).catch(() => null);
   contributionTasks = tasks?.tasks || [];
   modules = catalog.modules; aiAvailable = catalog.ai_available;
   for (const m of modules) $('module').add(new Option(m.id + ' · ' + m.title, m.id));

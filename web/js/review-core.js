@@ -1,4 +1,4 @@
-import {readHandoff, handoffFormat} from './contribute-core.js';
+import {readHandoff, handoffFormat} from './contribute-core.js?v=review-1';
 
 export const outcomeLabels = new Map([
   ['accepted','Accepted for documentation'],
