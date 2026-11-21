@@ -1,10 +1,10 @@
+import {consumeInvitation} from './workshop-invite.js';
+import {contributionStorageKeys} from './contribute-core.js';
 const $ = id => document.getElementById(id);
-// An invitation stays in the URL fragment until this page reads it. Joining is explicit.
-const invitation = new URLSearchParams(location.hash.slice(1)).get('invite');
-if (invitation) history.replaceState(null, '', location.pathname + location.search);
+const invitation = consumeInvitation();
 const params = new URLSearchParams(location.search);
 const guide = 'https://github.com/OpenSourceEcology/iconic-tutor/blob/main/docs/ichl-authoring.md';
-let lessons = [], lessonId = params.get('lesson') || 'welcome', state = null;
+let contributionTasks = [], lessons = [], lessonId = params.get('lesson') || 'welcome', state = null;
 let credits, workshopAccount = null, workshop = false, live = false, busy = false, retry = null;
 
 function node(tag, text) {
@@ -178,8 +178,19 @@ function render() {
   if (!current.resources?.length && (!state || state.project.module_id === 'ICHL-015')) {
     link($('refs'),'Inspect the wall example files','https://opensourceecology.github.io/iconic-tutor/ichl-015/');
   }
-  if (lessonId === 'connections' && (!state || state.project.module_id === 'ICHL-015')) {
-    link($('refs'),'Compare the two fastening records','contribute.html?task=wall-fastening' + (state ? '&project=' + state.project.id : ''));
+  const moduleId = state?.project.module_id || 'ICHL-015';
+  for (const task of contributionTasks.filter(t=>t.module_id === moduleId && t.workstream === current.workstream)) {
+    const query = new URLSearchParams({task:task.id});
+    if (state) query.set('project',state.project.id);
+    link($('refs'),task.title,'contribute.html?' + query);
+  }
+  const firstTask = contributionTasks.find(t => t.module_id === moduleId);
+  const entry = $('contribution');
+  entry.hidden = !firstTask;
+  if (firstTask) {
+    const query = new URLSearchParams({task:firstTask.id});
+    if (state) query.set('project',state.project.id);
+    entry.href = 'contribute.html?' + query;
   }
   $('chat').hidden = !state;
   $('ask-link').hidden = !state;
@@ -191,6 +202,15 @@ async function message(mode,text,actionId) {
   const body = {version:state.project.version, text, mode, lesson_id:lessonId};
   if (actionId) body.action_id = actionId;
   if (mode === 'frontier') {
+    const task = params.get('task');
+    if (task && state.project.id === params.get('project')) {
+      const storage = contributionStorageKeys(task,state.project.id,workshop,workshopAccount);
+      let claim;
+      try { claim = JSON.parse(localStorage.getItem(storage.claim)); } catch {}
+      if (!claim?.token) throw Error('Reopen the coach from your current task claim before using frontier credit here.');
+      body.pilot_task = task;
+      body.pilot_claim_token = claim.token;
+    }
     const key = JSON.stringify([state.project.id, body]);
     if (retry?.key !== key) retry = {key, id:crypto.randomUUID()};
     body.request_id = retry.id;
@@ -281,7 +301,8 @@ $('join').onsubmit = e => {e.preventDefault();run(async ()=>{
   $('join').reset(); $('join').hidden = true; await startLibrary(); $('notes').hidden = false;
 });};
 try {
-  const [catalog,deployment] = await Promise.all([api('data/coach/lessons.json'),api('deployment.json')]);
+  const [catalog,deployment,briefs] = await Promise.all([api('data/coach/lessons.json'),api('deployment.json'),api('data/contributions/tasks.json')]);
+  contributionTasks = briefs.tasks;
   lessons = catalog.lessons;
   const resumeRequested = deployment.backend === 'same-origin' && params.has('project');
   if (!resumeRequested) render();
