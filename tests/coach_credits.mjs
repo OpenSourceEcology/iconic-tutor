@@ -23,8 +23,8 @@ const member = {...guest, authenticated:true, account_label:'Volunteer tester', 
       markup_bps:500,usage_cost_microusd:10500,operator_covered_microusd:0, input_tokens:250,output_tokens:50,cached_tokens:12,model:'example-model'},
     {kind:'frontier',status:'settled', amount_microusd:-10000, model_cost_microusd:10000,support_fee_microusd:0,markup_bps:0},
     {kind:'frontier',status:'settled', amount_microusd:0},
-    {kind:'frontier',status:'settled', amount_microusd:-4000, model_cost_microusd:4001,support_fee_microusd:201,
-      markup_bps:500,usage_cost_microusd:4202,operator_covered_microusd:202},
+    {kind:'frontier',status:'settled', amount_microusd:-4000, model_cost_microusd:4001,support_fee_microusd:200,
+      markup_bps:500,usage_cost_microusd:4201,operator_covered_microusd:201},
     {kind:'test_checkout',status:'paid', amount_microusd:5000000},
     {kind:'frontier',status:'held', amount_microusd:0, reserved_microusd:100000, model:'example-model'},
   ]};
@@ -83,7 +83,7 @@ try {
   assert.match(await amount(0),/-\$0\.0105\s+Model cost \$0\.01\s+OSE support fee \(5%\) \$0\.0005/);
   assert.match(await amount(1),/OSE support fee \(0%\) \$0\.00/);
   assert.match(await amount(2),/^\$0\.00\s+OSE support fee \(0%\) \$0\.00/);
-  assert.match(await amount(3),/Usage total \$0\.004202\s+Covered by operator \$0\.000202/);
+  assert.match(await amount(3),/Usage total \$0\.004201\s+Covered by operator \$0\.000201/);
   assert.equal(await amount(4),'$5.00');
   assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),true);
   assert.ok(!(await amount(5)).includes('support fee'));
