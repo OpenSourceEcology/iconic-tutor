@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "tasks": [
+    {
+      "id": "wall-fastening",
+      "title": "Resolve the stud-to-plate fastener",
+      "module_id": "ICHL-015",
+      "workstream": "connections",
+      "wiki_title": "Talk:ICHL-015",
+      "question": "Which fastening schedule is documented for a stud end meeting the bottom or first top plate in the ICHL-015 reference wall?",
+      "scope": "Use the 48 × 96-inch plain 2×6 frame. Identify the build and the OC16 or OC24 variant your evidence covers. The top-plate lap, adjoining panels and OSB each have separate fastening requirements.",
+      "completion": [
+        "Identify a build record, drawing or reviewer who can tie a schedule to this joint and configuration.",
+        "For a proposed answer, cite the supporting record and record what it establishes about hardware, fasteners per joint, placement and installation. Mark any missing detail.",
+        "If applicability remains uncertain, name the competing sources and the specific detail a builder should confirm."
+      ],
+      "affected": [
+        "Internal joint schedule",
+        "Hardware purchasing quantities",
+        "Build instructions",
+        "Construction field sheet"
+      ],
+      "sources": [
+        {
+          "id": "standard-wall-card",
+          "title": "OSE standard wall card",
+          "kind": "git",
+          "revision": "301993a0e217e570abaa86b21f869272339f9af3",
+          "url": "https://github.com/OpenSourceEcology/iconic-cad/blob/301993a0e217e570abaa86b21f869272339f9af3/web/data/card_templates/standard.json",
+          "repo_path": "web/data/card_templates/standard.json",
+          "snapshot": "library/ichl/contribution-sources/standard-wall-card.json",
+          "sha256": "d3d1565cf248f184fb9858a8ba371bb5752676a03a602d625a604175f2bb6a25",
+          "excerpt": "Screw studs through the bottom and first top plate (3-⅛″ T25) → frame.",
+          "applicability": "The card specifies a screw and the members it joins. It covers a panel with wrap, sheathing and insulation; it supplies no fastener count or positions for an ICHL-015 stud end."
+        },
+        {
+          "id": "wall-workflow",
+          "title": "Earlier wall-family workflow",
+          "kind": "wiki",
+          "revision": "321455",
+          "url": "https://wiki.opensourceecology.org/index.php?title=Iconic_CAD_Workflow_Example&oldid=321455",
+          "wiki_page": "Iconic CAD Workflow Example",
+          "snapshot": "library/ichl/sources/Iconic_CAD_Workflow_Example.json",
+          "excerpt": "we use 3-1/4\" ring shank nails as standard for the wood",
+          "applicability": "This configurable wall-family example also covers OSB. Its wood-fastener sentence gives no per-stud count, positions or link to a particular ICHL-015 build."
+        }
+      ]
+    },
+    {
+      "id": "window-opening",
+      "title": "Document the window-opening interface",
+      "module_id": "ICHL-016",
+      "workstream": "interfaces",
+      "wiki_title": "Talk:ICHL-016",
+      "question": "For one identified window and wall configuration, what opening dimensions and reference faces should both contributors use, and what clearance or tolerance still needs confirmation?",
+      "scope": "The released ICHL-015 OC16 and OC24 examples are plain walls. Use an opening-bearing configuration for this exercise. The existing exterior window panel below provides a candidate reference.",
+      "completion": [
+        "Identify the wall and window configuration, with the drawing, build, or measurement that links them.",
+        "Describe which faces define the opening width and height, the sill datum, the units, and any documented clearance and tolerance.",
+        "If the records do not establish fit, capture the missing dimension or datum as a question for the next contributor."
+      ],
+      "affected": [
+        "Shared opening interface",
+        "Window fabrication drawing",
+        "Fit inspection"
+      ],
+      "sources": [
+        {
+          "id": "window-panel-schema",
+          "title": "SEH 4 × 8 exterior window panel",
+          "kind": "git",
+          "revision": "301993a0e217e570abaa86b21f869272339f9af3",
+          "url": "https://github.com/OpenSourceEcology/iconic-cad/blob/301993a0e217e570abaa86b21f869272339f9af3/library/modules/window_4x8_2x6_36x48/schema.py",
+          "repo_path": "library/modules/window_4x8_2x6_36x48/schema.py",
+          "snapshot": "upstream/iconic-cad/library/modules/window_4x8_2x6_36x48/schema.py",
+          "sha256": "b70523967de8f8f27b6d1b413fe3ea795c6a79aec51e2c200a55362127bc685d",
+          "excerpt": "'rough_opening_width_in': 36,\n 'rough_opening_height_in': 48,\n 'sill_height_in': 24,",
+          "applicability": "These three inch values describe the named OC16 model. It includes OSB and a window opening. Use independent evidence to identify the mating part, reference faces and allowable fit."
+        },
+        {
+          "id": "wall-interface-requirements",
+          "title": "ICHL-015 interface specifications",
+          "kind": "wiki",
+          "revision": "339171",
+          "url": "https://wiki.opensourceecology.org/index.php?title=ICHL-015&oldid=339171",
+          "wiki_page": "ICHL-015",
+          "snapshot": "library/ichl/sources/ICHL-015.json",
+          "excerpt": "mating face, alignment reference, clearance, tolerance, connection requirement.",
+          "applicability": "The wall module lists Window Framing as an opening mate and calls for these interface fields. The list supplies no numerical clearance or tolerance for the window."
+        }
+      ]
+    }
+  ]
+}
