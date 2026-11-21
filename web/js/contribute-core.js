@@ -18,6 +18,10 @@ export function readDraft(data, taskId) {
   const draft = emptyDraft(taskId);
   if (!['answer', 'question'].includes(data.kind)) throw Error('Unknown contribution type.');
   draft.kind = data.kind;
+  if (data.assistance !== undefined && !['unreported','independent','assisted'].includes(data.assistance)) {
+    throw Error('Invalid assistance selection.');
+  }
+  if (data.assistance && data.assistance !== 'unreported') draft.assistance = data.assistance;
   for (const [key, limit] of Object.entries(limits)) {
     const value = data[key] ?? '';
     if (typeof value !== 'string' || value.length > limit || value.includes('\0')) throw Error('Invalid field: ' + key);
@@ -105,10 +109,10 @@ export function readiness(task, draft) {
   if (!draft.text.trim()) issues.push(draft.kind === 'question' ? 'Write the question for the next contributor.' : 'Write the supported answer.');
   if (!draft.source_ids.length && !draft.additional_source.trim()) issues.push('Cite at least one source.');
   if (draft.additional_source.trim() && !sourceURL(draft.additional_source.trim())) issues.push('Enter an http or https source URL without sign-in details.');
-  if (task.id === 'wall-fastening' && draft.kind === 'answer') {
+  if ((task.answer_evidence || task.id === 'wall-fastening') && draft.kind === 'answer') {
     const extra = sourceURL(draft.additional_source.trim()).split('#')[0];
     if (!extra || task.sources.some(s => sameReference(extra, s))) {
-      issues.push('Cite an independent build or reviewer record for the proposed fastening answer.');
+      issues.push(task.answer_evidence || 'Cite an independent build or reviewer record for the proposed fastening answer.');
     }
   }
   if (staleSources(task, draft).length) issues.push('Review changed sources before preparing current wikitext.');

@@ -163,13 +163,13 @@ try {
   };
   const codeA = makeCode(), codeB = makeCode();
   const sharedBrowser = await workshop.newPage();
-  await sharedBrowser.goto(wall);
+  await sharedBrowser.goto(base + '/contribute.html?task=window-opening');
   await sharedBrowser.getByText('Open workshop sign-in').waitFor();
   assert.equal(await sharedBrowser.locator('#workspace').isVisible(),false);
   await signIn(codeA);
   await sharedBrowser.reload();
   await sharedBrowser.locator('#board').waitFor();
-  await sharedBrowser.locator('#contributor').fill('Workshop participant');
+  assert.equal(await sharedBrowser.locator('#contributor').inputValue(),'Workshop participant');
   await sharedBrowser.locator('#text').fill('Private question from participant A');
   await sharedBrowser.locator('#claim').click();
   await sharedBrowser.waitForFunction(() => !document.querySelector('#save-shared').disabled);

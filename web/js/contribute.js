@@ -1,16 +1,19 @@
 import {contributionStorageKeys, emptyDraft, handoffFormat, limits, readDraft, readHandoff, readiness, staleSources, steps, suggestedLesson, volunteerClaim, wikitext} from './contribute-core.js';
 
+import {fingerprint,readReceipt,outcomeLabels} from './review-core.js';
+
 const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 let tasks, task, draft, existing, offered, timerStart, timerRemainder = 0;
 let boardDetail, claim, boardBusy = false, localService = false;
 const project = params.get('project') || '';
-let workshop = false, accountId = '', storage;
+let workshop = false, accountId = '', accountLabel = '', storage;
 
 async function currentAccount() {
   const response = await fetch('/api/credits/status', {cache:'no-store'});
   if (!response.ok) throw Error('The workshop could not verify your session. Reload to try again.');
   const result = await response.json();
+  accountLabel = result.authenticated ? result.account_label : '';
   return result.authenticated ? result.account_storage_id : null;
 }
 
@@ -23,6 +26,13 @@ async function verifyWorkshop() {
   }
 }
 
+
+function reviewLink(id) {
+  const args = new URLSearchParams({task:task.id});
+  if (id) args.set('review',id);
+  if (project) args.set('project',project);
+  return 'review.html?' + args;
+}
 
 function note(message, error = false) {
   $('notice').textContent = message;
@@ -59,7 +69,9 @@ function saveBrowser() {
 }
 
 function renderForm() {
+  if (workshop) { draft.contributor = accountLabel; $('contributor').readOnly = true; }
   for (const key of ['kind', ...Object.keys(limits)]) $(key).value = draft[key];
+  $('assistance').value = draft.assistance || 'unreported';
   for (const input of $('source-list').querySelectorAll('input')) input.checked = draft.source_ids.includes(input.value);
   refreshResult();
   showTime();
@@ -67,13 +79,11 @@ function renderForm() {
 
 function refreshResult() {
   const answer = draft.kind === 'answer';
-  const fastening = task.id === 'wall-fastening';
+  const evidenceRequired = task.answer_evidence || (task.id === 'wall-fastening' ? 'Cite an independent build or reviewer record for this joint.' : '');
   $('response-label').textContent = answer ? 'Proposed answer and its evidence' : 'Question for the next contributor';
-  $('additional-label').textContent = answer && fastening ? 'Independent build or reviewer record URL' : 'Additional source URL (optional with a cited source)';
+  $('additional-label').textContent = answer && evidenceRequired ? 'Supporting evidence URL' : 'Additional source URL (optional with a cited source)';
   $('answer-guidance').hidden = !answer;
-  $('answer-guidance').textContent = fastening
-    ? 'Identify the build in the scope above. Cite a separate record that connects the proposed fastener to that build and joint. A reviewer will assess the proposal.'
-    : 'Describe the evidence for this interpretation. A reviewer will assess the proposed answer.';
+  $('answer-guidance').textContent = evidenceRequired || 'Describe the evidence for this interpretation. A reviewer will assess the proposed answer.';
   const outdated = staleSources(task, draft);
   $('reconcile').hidden = !outdated.length;
   $('changed-sources').textContent = outdated.map(id => {
@@ -203,11 +213,16 @@ function updateBoardControls() {
   const held = boardDetail.status === 'claimed';
   const correctProject = !project || boardDetail.project_id === project;
   const mine = held && claim && claim.holder === boardDetail.contributor && correctProject;
-  $('claim').disabled = boardBusy || held || !draft.contributor.trim();
+  $('claim').disabled = boardBusy || held || boardDetail.awaiting_review || boardDetail.reviews?.some(r => r.status === 'pending') || !draft.contributor.trim();
   $('save-shared').disabled = boardBusy || !mine;
   $('release').disabled = boardBusy || !mine;
   $('submit').disabled = boardBusy || !mine || readiness(task,draft).length > 0;
   $('refresh-board').disabled = boardBusy;
+  const projectId = boardDetail.project_id;
+  const coach = $('claim-coach');
+  coach.hidden = !(mine && projectId);
+  if (!coach.hidden) coach.href = 'coach.html?' + new URLSearchParams({project:projectId,task:task.id,lesson:task.workstream});
+  else coach.removeAttribute('href');
 }
 
 function showBoard() {
@@ -217,12 +232,24 @@ function showBoard() {
     const until = boardDetail.claim_expires_at;
     message = 'Claimed by ' + boardDetail.contributor + (until ? ' until ' + new Date(until).toLocaleDateString() : '') + '.';
   } else if (boardDetail.status === 'ready_for_review') {
-    message = 'A contribution from ' + boardDetail.contributor + ' is ready for review.';
+    const round = boardDetail.reviews?.find(r => r.submission_version === boardDetail.version);
+    message = round?.decision ? 'Decision recorded. You can claim this task to prepare another round.' :
+      'A contribution from ' + boardDetail.contributor + ' is ready for review.';
   }
+  if (outcomeLabels.has(boardDetail.status)) message = 'Decision recorded: ' + outcomeLabels.get(boardDetail.status) + '. You can claim this task for another round.';
   if (boardDetail.project_id && boardDetail.project_id !== project) {
     message += ' The shared task is linked to Studio project ' + boardDetail.project_id + '.';
   }
   $('shared-status').textContent = message + ' Studio revision ' + boardDetail.version + '.';
+  $('task-decisions').replaceChildren();
+  for (const review of boardDetail.reviews || []) {
+    const row = element('p','');
+    const link = element('a','Round ' + review.round + ' · submission revision ' + review.submission_version);
+    link.href = reviewLink(review.id);
+    row.append(link,document.createTextNode(' · ' + (review.decision ? outcomeLabels.get(review.decision.outcome) : 'Awaiting review')));
+    if (review.decision) row.append(element('small',review.decision.reviewer + ' · ' + review.decision.feedback));
+    $('task-decisions').append(row);
+  }
   $('shared-handoffs').replaceChildren();
   for (const row of [boardDetail, ...(boardDetail.handoffs || []).filter(r => r.version !== boardDetail.version)]) {
     if (!row.draft) continue;
@@ -287,7 +314,10 @@ async function start() {
   $('task-select').disabled = false;
   $('task-select').onchange = () => {
     pause();
-    location.href = 'contribute.html?task=' + encodeURIComponent($('task-select').value);
+    const next = tasks.find(item => item.id === $('task-select').value);
+    const destination = new URLSearchParams({task:next.id});
+    if (project && task?.module_id === next.module_id) destination.set('project',project);
+    location.href = 'contribute.html?' + destination;
   };
   const id = params.get('task') || 'wall-fastening';
   task = tasks.find(t => t.id === id);
@@ -295,6 +325,7 @@ async function start() {
     $('task-select').selectedIndex = -1;
     throw Error('This task is not in the catalog. Choose an available contribution above.');
   }
+  $('open-reviews').href = reviewLink();
   $('task-select').value = task.id;
   document.title = task.title + ' · Iconic Tutor';
   $('title').textContent = task.title;
@@ -341,6 +372,11 @@ async function start() {
       changed();
     });
   }
+  $('assistance').onchange = () => {
+    if ($('assistance').value === 'unreported') delete draft.assistance;
+    else draft.assistance = $('assistance').value;
+    changed();
+  };
   $('confirm-sources').onclick = () => {
     draft.source_ids = draft.source_ids.filter(id => task.sources.some(s => s.id === id));
     draft.source_revisions = Object.fromEntries(draft.source_ids.map(id => [id, task.sources.find(s => s.id === id).revision]));
@@ -388,6 +424,26 @@ async function start() {
     const field = $('claim-text'); field.hidden = false; field.value = volunteerClaim(task,draft); field.focus(); field.select();
   }));
   $('download').onclick = run(handoff);
+  $('receipt-file').onchange = run(async event => {
+    const file = event.target.files[0]; event.target.value = '';
+    const panel = $('receipt-result'); panel.replaceChildren();
+    if (!file) return;
+    if (file.size > 140000) throw Error('Choose a portable review receipt smaller than 140 KB.');
+    const receipt = await readReceipt(await file.text(),tasks);
+    if (receipt.draft.task_id !== task.id) throw Error('Open task “' + receipt.draft.task_id + '” to inspect this review.');
+    const matches = receipt.fingerprint === await fingerprint(draft);
+    const d = receipt.decision;
+    panel.append(element('h3','Local, unverified review'),
+      element('p',outcomeLabels.get(d.outcome) + ' · ' + d.reviewer + ' · ' + d.decided_at),
+      element('p',d.feedback),element('p',matches ? 'Reviewed handoff matches the open draft.' : 'Reviewed handoff differs from the open draft.'),
+      element('small','SHA-256 ' + receipt.fingerprint));
+    const details = element('details','');
+    details.append(element('summary','Inspect reviewed submission'),element('p',receipt.draft.contributor),
+      element('p',receipt.draft.scope),element('p',receipt.draft.text));
+    for (const id of receipt.draft.source_ids) details.append(element('p',id + ' · ' + receipt.draft.source_revisions[id]));
+    if (receipt.draft.additional_source) details.append(element('p',receipt.draft.additional_source));
+    panel.append(details);
+  });
   $('import-file').onchange = run(async event => {
     const file = event.target.files[0];
     event.target.value = '';

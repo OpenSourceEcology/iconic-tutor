@@ -49,3 +49,12 @@ assert.match(suggestedLesson(task,steps[2],'Could not identify the build'),/Coul
 assert.match(wikitext(task,{...draft,lesson_step:steps[2],lesson_feedback:'Compare the records by build.'}), /Suggested lesson correction/);
 assert(readiness(task,{...draft,lesson_feedback:'Example',lesson_step:''}).length > 0);
 console.log('PASS contribution drafts, scope evidence, revision drift, lesson feedback, safe wiki export and handoff.');
+
+for (const t of tasks.filter(t => t.answer_evidence)) {
+  const d = {...emptyDraft(t.id),kind:'answer',contributor:'Test participant',scope:'Review scope',
+    text:'Proposed observation',source_ids:[t.sources[0].id],source_revisions:{[t.sources[0].id]:t.sources[0].revision}};
+  assert(readiness(t,d).includes(t.answer_evidence));
+  assert(readiness(t,{...d,additional_source:t.sources[0].url}).includes(t.answer_evidence));
+  assert.deepEqual(readiness(t,{...d,additional_source:'https://example.org/build-record/1'}),[]);
+  assert.deepEqual(readiness(t,{...d,kind:'question'}),[]);
+}

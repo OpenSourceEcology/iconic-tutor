@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contribution review · Iconic Tutor</title>
+  <link rel="stylesheet" href="css/studio.css"><link rel="stylesheet" href="css/contribute.css">
+</head>
+<body>
+  <header class="masthead"><a class="wordmark" href="studio.html"><span class="mark" aria-hidden="true">✳</span> OPEN SOURCE ECOLOGY</a>
+    <a class="back" id="review-coach" href="coach.html">Tutor coach</a>
+    <a id="return-task" href="contribute.html">Open contribution task</a></header>
+  <main class="contribution">
+    <header class="brief"><h1>Review a contribution</h1><p id="review-context">Inspect the submission, cited revisions and generated outputs before recording your decision.</p></header>
+    <p id="notice" role="status" aria-live="polite"></p>
+    <section class="form-card" id="server-panel" hidden>
+      <h2 id="queue-heading">Workshop review</h2>
+      <form id="review-login" hidden><label>Workshop invitation<input type="password" required autocomplete="off" id="invite"></label>
+        <button>Sign in</button></form>
+      <div id="review-queue" hidden><p id="queue-note"></p>
+        <label>Submission or review round<select id="round"></select></label>
+        <div class="actions"><button id="reload-queue" type="button">Refresh reviews</button></div></div>
+    </section>
+    <section class="form-card" id="pilot-panel" hidden></section>
+    <section class="form-card" id="portable-panel">
+      <h2>Portable review</h2>
+      <p>Open a downloaded contribution handoff to review it on this device. Return the receipt file to its contributor. Portable decisions are local and unverified.</p>
+      <label>Contribution handoff JSON<input type="file" id="handoff-file" disabled accept="application/json,.json"></label>
+    </section>
+    <article id="submission" class="brief" hidden>
+      <p class="module" id="submission-ref"></p><h2 id="submission-title"></h2>
+      <p id="submission-origin"></p>
+      <div class="panels"><section class="form-card"><h2>Submission</h2><div id="proposal"></div>
+        <h3>Cited evidence</h3><div id="citations"></div></section>
+        <section class="form-card"><h2>Generated changes</h2><div id="effects"></div></section></div>
+      <section class="form-card" style="margin-top:16px"><h2>Review decision</h2><div id="recorded"></div>
+        <form id="decision-form" class="form-card" hidden>
+          <label id="who-label">Reviewer name<input id="reviewer" maxlength="100"></label>
+          <label>Outcome<select id="outcome" required><option value="">Choose an outcome</option></select></label>
+          <label>Feedback for the contributor<textarea id="feedback" maxlength="3000" rows="4" required></textarea></label>
+          <button class="primary" id="decide"></button>
+        </form>
+        <a id="download-receipt" hidden>Download portable review receipt</a>
+        <a id="back-to-task" href="contribute.html">Return to contribution task</a>
+      </section>
+    </article>
+  </main><script type="module" src="js/review.js"></script>
+</body></html>

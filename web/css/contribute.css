@@ -44,3 +44,6 @@ header.masthead .back { margin-left: auto; }
 #import-file { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(100%); }
 .filebtn:has(+ input:focus-visible) { outline:3px solid #7b974f; }
 @media(max-width:720px){ .panels,.two-fields { grid-template-columns:1fr; } .masthead .edition { display:none; } }
+#submission-origin,#receipt-result,#task-decisions { overflow-wrap:anywhere; }
+#task-decisions small { display:block; }
+#portable-panel,#pilot-panel { margin-top:16px; }

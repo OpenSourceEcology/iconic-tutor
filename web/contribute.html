@@ -49,6 +49,7 @@
           <label><span id="additional-label">Additional source URL (optional)</span><input id="additional_source" type="url" placeholder="https://" maxlength="2000"></label>
           <small id="answer-guidance" hidden></small>
           <details class="lesson"><summary>Help and lesson feedback</summary>
+            <label>Did someone assist with this run?<select id="assistance"><option value="unreported">Unreported</option><option value="independent">I completed this run independently</option><option value="assisted">Another person assisted me</option></select></label>
             <label>Where did you need help?<textarea id="help" rows="2" maxlength="3000"></textarea></label>
             <label>Teaching step<select id="lesson_step"></select></label>
             <button id="suggest-lesson">Draft a lesson correction</button>
@@ -74,11 +75,18 @@
             <div id="import-review" hidden><p id="import-summary"></p><button id="apply-import">Resume imported draft</button> <button id="cancel-import">Cancel import</button></div>
             <a id="author-project" hidden>Return to Studio project</a>
           </section>
+          <section class="panel"><h2>Contribution reviews</h2>
+            <p><a id="open-reviews" href="review.html">Open reviews for this task</a></p>
+            <div id="task-decisions"></div>
+            <label>Inspect a returned portable review receipt<input id="receipt-file" type="file" accept=".json,application/json"></label>
+            <div id="receipt-result" aria-live="polite"></div>
+          </section>
           <section class="panel" id="shared"><h2>Studio task board</h2>
             <div id="public-claim" hidden><p>To coordinate with other wiki contributors, paste a short claim into the module discussion.</p><button id="copy-claim">Copy volunteer claim</button><textarea id="claim-text" aria-label="Volunteer claim text" hidden readonly></textarea></div>
             <p id="shared-status">Checking Studio connection…</p>
             <div id="board" hidden>
               <div class="actions"><button id="claim">Claim task</button><button id="save-shared">Save to Studio</button><button id="submit">Hand off for review</button><button id="release">Release task</button><button id="refresh-board">Refresh</button></div>
+              <a id="claim-coach" hidden>Ask the coach about this claimed task</a>
               <div id="shared-handoffs"></div>
             </div>
           </section>
