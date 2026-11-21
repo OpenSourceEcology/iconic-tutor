@@ -208,9 +208,15 @@ function updateMode() {
   $('paid-notice').hidden = !frontier;
   if (frontier) {
     const rates = credits?.status()?.rates;
+    if (!rates?.configured) {
+      $('paid-notice').textContent = 'Refresh credit status to see the current price.';
+      return;
+    }
+    const markup = (rates.markup_bps ?? 0) / 100;
     $('paid-notice').textContent = 'Your question, recent conversation and current project evidence will go to '
-      + (rates?.model || 'the configured frontier model') + '. Input $' + rates.input_usd_per_mtok
-      + ' and output $' + rates.output_usd_per_mtok + ' per million tokens, using test credit.';
+      + rates.model + '. Model rates per million tokens: input $' + rates.input_usd_per_mtok
+      + (rates.cached_input_usd_per_mtok == null ? '' : ', cached input $' + rates.cached_input_usd_per_mtok)
+      + ', output $' + rates.output_usd_per_mtok + '. OSE support adds ' + markup + '% of model usage. Uses test credit.';
   }
 }
 $('mode').onchange = updateMode;

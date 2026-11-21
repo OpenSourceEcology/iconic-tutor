@@ -35,7 +35,7 @@ const port = reserve.address().port;
 await new Promise(resolve=>reserve.close(resolve));
 const base = 'http://127.0.0.1:' + port;
 const workshop = spawn(python,[...args,'serve','--port',String(port)],{env:{...process.env,STUDIO_LLM_BASE_URL:'',STUDIO_FRONTIER_BASE_URL:'http://127.0.0.1:'+provider.address().port+'/v1',
-  STUDIO_FRONTIER_MODEL:'fixture-frontier',STUDIO_FRONTIER_API_KEY:'',STUDIO_FRONTIER_INPUT_USD_PER_MTOK:'1',STUDIO_FRONTIER_OUTPUT_USD_PER_MTOK:'4'},stdio:['ignore','ignore','pipe']});
+  STUDIO_OSE_SUPPORT_BPS:'500',STUDIO_FRONTIER_MODEL:'fixture-frontier',STUDIO_FRONTIER_API_KEY:'',STUDIO_FRONTIER_INPUT_USD_PER_MTOK:'1',STUDIO_FRONTIER_OUTPUT_USD_PER_MTOK:'4'},stdio:['ignore','ignore','pipe']});
 const stopped = new Promise(resolve=>workshop.once('exit',resolve));
 let log = '', browser;
 workshop.stderr.on('data',chunk=>{log=(log+chunk).slice(-2000);});
@@ -101,13 +101,17 @@ try {
   await lesson('bom');
   await page.locator('#mode').selectOption('frontier');
   assert.match(await page.locator('#paid-notice').textContent(),/fixture-frontier/);
+  assert.match(await page.locator('#paid-notice').textContent(),/5%/);
   await page.locator('#question').fill('The supplier quote is missing. How do I check the price?');
   await page.locator('#send').click();
   await page.waitForFunction(()=>document.querySelector('#messages').textContent.includes('Ask the purchasing lead'));
   await page.waitForFunction(()=>document.querySelector('#credit-rows').textContent.includes('200 input'));
   assert.equal(modelCalls,1);
   const ledger=await (await page.request.get(base+'/api/credits/status')).json();
-  assert.equal(ledger.available_microusd,4999736);
+  assert.equal(ledger.available_microusd,4999723);
+  const charge=ledger.history.find(r=>r.kind==='frontier');
+  assert.equal(charge.model_cost_microusd,264);
+  assert.equal(charge.support_fee_microusd,13);
   await lesson('wiki');
   for (const label of ['Download private project backup','Download wiki draft','Download generated files for wiki upload']) {
     const promised=page.waitForEvent('download');
