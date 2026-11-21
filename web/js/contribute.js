@@ -1,12 +1,28 @@
-import {emptyDraft, handoffFormat, limits, readDraft, readHandoff, readiness, staleSources, steps, suggestedLesson, volunteerClaim, wikitext} from './contribute-core.js';
+import {contributionStorageKeys, emptyDraft, handoffFormat, limits, readDraft, readHandoff, readiness, staleSources, steps, suggestedLesson, volunteerClaim, wikitext} from './contribute-core.js';
 
 const $ = id => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 let tasks, task, draft, existing, offered, timerStart, timerRemainder = 0;
 let boardDetail, claim, boardBusy = false, localService = false;
 const project = params.get('project') || '';
-const draftKey = () => 'ose.contribution.1.' + task.id + '.' + project;
-const claimKey = () => 'ose.contribution.claim.' + task.id;
+let workshop = false, accountId = '', storage;
+
+async function currentAccount() {
+  const response = await fetch('/api/credits/status', {cache:'no-store'});
+  if (!response.ok) throw Error('The workshop could not verify your session. Reload to try again.');
+  const result = await response.json();
+  return result.authenticated ? result.account_storage_id : null;
+}
+
+async function verifyWorkshop() {
+  if (!workshop) return;
+  if (await currentAccount() !== accountId) {
+    $('workspace').hidden = true;
+    location.reload();
+    throw Error('The workshop account changed. Reopening this contribution.');
+  }
+}
+
 
 function note(message, error = false) {
   $('notice').textContent = message;
@@ -30,11 +46,11 @@ function storageGet(key) {
 function saveBrowser() {
   const serialized = JSON.stringify(draft);
   try {
-    if (localStorage.getItem(draftKey()) !== existing) {
+    if (localStorage.getItem(storage.draft) !== existing) {
       $('draft-status').textContent = 'Another tab saved a draft. Download your current handoff before reloading.';
       return;
     }
-    if (serialized !== existing) localStorage.setItem(draftKey(), serialized);
+    if (serialized !== existing) localStorage.setItem(storage.draft, serialized);
     existing = serialized;
     $('draft-status').textContent = 'Draft saved in this browser.';
   } catch {
@@ -227,13 +243,14 @@ async function act(action) {
   boardBusy = true;
   updateBoardControls();
   try {
+    await verifyWorkshop();
     let token = claim?.token;
     const payload = {version:boardDetail.version};
     if (action === 'claim') {
       token = crypto.randomUUID();
       claim = {token, holder:draft.contributor.trim()};
       // Store before POST so a lost response can be recovered by refreshing the board.
-      localStorage.setItem(claimKey(), JSON.stringify(claim));
+      localStorage.setItem(storage.claim, JSON.stringify(claim));
       payload.contributor = claim.holder;
     } else {
       tick();
@@ -244,14 +261,14 @@ async function act(action) {
     boardDetail = await boardRequest(action,payload);
     if (action === 'release' || action === 'submit') {
       claim = null;
-      localStorage.removeItem(claimKey());
+      localStorage.removeItem(storage.claim);
     }
     showBoard();
     note(action === 'submit' ? 'Handed off for Studio review. Your wiki draft is available to copy.' : 'Studio task updated.');
   } catch (error) {
     if (error.status === 403 || (action === 'claim' && error.status)) {
       claim = null;
-      localStorage.removeItem(claimKey());
+      localStorage.removeItem(storage.claim);
     }
     if (error.status === 403 || error.status === 409) await fetchBoard();
     throw error;
@@ -292,9 +309,23 @@ async function start() {
   $('destination').textContent = 'Destination on the OSE wiki: ' + task.wiki_title + '.';
   $('lesson_step').add(new Option('Choose a step',''));
   for (const s of steps) $('lesson_step').add(new Option(s,s));
+  const deploymentResponse = await fetch('deployment.json', {cache:'no-store'});
+  if (!deploymentResponse.ok) throw Error('Could not verify the site configuration. Reload to reopen your draft.');
+  const deployment = await deploymentResponse.json();
+  workshop = deployment.workshop === true;
+  localService = deployment.backend === 'same-origin';
+  accountId = workshop ? await currentAccount() : '';
+  if (workshop && !accountId) {
+    note('Sign in to the workshop, then return to this contribution. ');
+    const login = element('a','Open workshop sign-in');
+    login.href = 'coach.html';
+    $('notice').append(login);
+    return;
+  }
+  storage = contributionStorageKeys(task.id, project, workshop, accountId);
   evidence();
   draft = emptyDraft(task.id);
-  existing = storageGet(draftKey());
+  existing = storageGet(storage.draft);
   if (existing) {
     try { draft = readDraft(JSON.parse(existing), task.id); }
     catch { note('The stored draft could not be read. You can import a handoff or start a new draft.', true); }
@@ -321,8 +352,23 @@ async function start() {
     else { timerStart = performance.now(); showTime(); }
   };
   setInterval(tick,1000);
-  document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
-  window.addEventListener('pagehide',pause);
+  async function resumeWorkshop() {
+    if (!workshop || document.hidden) return;
+    $('workspace').hidden = true;
+    await verifyWorkshop();
+    if (!document.hidden) $('workspace').hidden = false;
+  }
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      pause();
+      if (workshop) $('workspace').hidden = true;
+    } else run(resumeWorkshop)();
+  });
+  window.addEventListener('pagehide', () => {
+    pause();
+    if (workshop) $('workspace').hidden = true;
+  });
+  window.addEventListener('pageshow', event => { if (event.persisted) run(resumeWorkshop)(); });
 
   $('suggest-lesson').onclick = run(() => {
     $('lesson-suggestion').textContent = suggestedLesson(task, draft.lesson_step, draft.help);
@@ -363,14 +409,12 @@ async function start() {
   }
   $('refresh-board').onclick = run(fetchBoard);
   try {
-    const deployment = await fetch('deployment.json').then(r => r.json());
-    localService = deployment.backend === 'same-origin';
     if (localService) {
       if (project) {
         $('author-project').href = 'author.html?project=' + encodeURIComponent(project);
         $('author-project').hidden = false;
       }
-      try { claim = JSON.parse(storageGet(claimKey())); } catch { claim = null; }
+      try { claim = JSON.parse(storageGet(storage.claim)); } catch { claim = null; }
       await fetchBoard();
     }
   } catch {

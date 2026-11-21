@@ -1,6 +1,15 @@
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {emptyDraft, handoffFormat, readDraft, readHandoff, readiness, staleSources, steps, suggestedLesson, volunteerClaim, wikitext} from '../web/js/contribute-core.js';
+import {contributionStorageKeys, emptyDraft, handoffFormat, readDraft, readHandoff, readiness, staleSources, steps, suggestedLesson, volunteerClaim, wikitext} from '../web/js/contribute-core.js';
+
+assert.deepEqual(contributionStorageKeys('wall-fastening','p1',false), {
+  draft:'ose.contribution.1.wall-fastening.p1',claim:'ose.contribution.claim.wall-fastening',
+});
+assert.throws(() => contributionStorageKeys('wall-fastening','',true,null));
+const keyA = contributionStorageKeys('wall-fastening','',true,'a'.repeat(64));
+const keyB = contributionStorageKeys('wall-fastening','',true,'b'.repeat(64));
+assert.notEqual(keyA.claim,keyB.claim);
+assert.notEqual(keyA.draft,keyB.draft);
 
 const {tasks} = JSON.parse(readFileSync(new URL('../web/data/contributions/tasks.json', import.meta.url)));
 const task = tasks[0], source = task.sources[0];

@@ -151,3 +151,15 @@ export function volunteerClaim(task, draft) {
   return "* " + literal(draft.contributor) + " is investigating " + literal(task.module_id + ' · ' + task.title) +
     ". Please add any relevant build evidence to this discussion.";
 }
+
+// Public and single-user Studio installs retain their existing browser drafts.
+export function contributionStorageKeys(task, project, workshop, accountId) {
+  if (workshop && (typeof accountId !== 'string' || !/^[0-9a-f]{64}$/.test(accountId))) {
+    throw Error('Sign in to this workshop before opening a contribution draft.');
+  }
+  const prefix = workshop ? 'ose.workshop.' + accountId + '.' : 'ose.';
+  return {
+    draft: prefix + 'contribution.1.' + task + '.' + project,
+    claim: prefix + 'contribution.claim.' + task,
+  };
+}

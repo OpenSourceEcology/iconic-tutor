@@ -1,7 +1,7 @@
 // Real Studio for shared claims, then the same UI with the static deployment setting.
 // Network requests outside the loopback server are blocked; the wiki remains untouched.
 import assert from 'node:assert/strict';
-import {spawn} from 'node:child_process';
+import {execFileSync, spawn} from 'node:child_process';
 import {mkdtemp, readFile, rm} from 'node:fs/promises';
 import {createServer} from 'node:net';
 import {tmpdir} from 'node:os';
@@ -145,9 +145,54 @@ try {
   await importFile(receiver,handoff);
   await receiver.waitForFunction(() => document.querySelector('#notice').textContent.includes('before importing'));
   assert.equal(await receiver.locator('#apply-import').isVisible(),false);
+  // Use the same browser profile for two actual accounts with the same display name.
+  // Enable the invite-only presentation here. test_coach_workshop.py exercises gateway authorization.
+  const workshop = await contextFor(false);
+  await workshop.route('**/deployment.json', route => route.fulfill({json:{backend:'same-origin',workshop:true}}));
+  const makeCode = () => {
+    const invitation = execFileSync(process.env.PYTHON || 'python3',
+      ['scripts/studio_credits.py','create-account','Workshop participant'],
+      {cwd:repo,env:{...process.env,STUDIO_AUTHORING_DB:path.join(temp,'studio.sqlite3')},encoding:'utf8'});
+    const match = invitation.match(/(?:code[: ]+)\s*(\S+)/i);
+    assert.ok(match,'Test account must provide an invitation');
+    return match[1];
+  };
+  const signIn = async code => {
+    const response = await workshop.request.post(base + '/api/credits/login',{data:{code}});
+    assert.equal(response.status(),200);
+  };
+  const codeA = makeCode(), codeB = makeCode();
+  const sharedBrowser = await workshop.newPage();
+  await sharedBrowser.goto(wall);
+  await sharedBrowser.getByText('Open workshop sign-in').waitFor();
+  assert.equal(await sharedBrowser.locator('#workspace').isVisible(),false);
+  await signIn(codeA);
+  await sharedBrowser.reload();
+  await sharedBrowser.locator('#board').waitFor();
+  await sharedBrowser.locator('#contributor').fill('Workshop participant');
+  await sharedBrowser.locator('#text').fill('Private question from participant A');
+  await sharedBrowser.locator('#claim').click();
+  await sharedBrowser.waitForFunction(() => !document.querySelector('#save-shared').disabled);
+  await signIn(codeB);
+  await sharedBrowser.reload();
+  await sharedBrowser.locator('#board').waitFor();
+  assert.equal(await sharedBrowser.locator('#text').inputValue(),'');
+  assert.equal(await sharedBrowser.locator('#save-shared').isDisabled(),true);
+  await sharedBrowser.locator('#text').fill('Independent question from participant B');
+  await signIn(codeA);
+  await sharedBrowser.reload();
+  await sharedBrowser.locator('#board').waitFor();
+  assert.equal(await sharedBrowser.locator('#text').inputValue(),'Private question from participant A');
+  assert.equal(await sharedBrowser.locator('#save-shared').isEnabled(),true);
+  // An account change in another tab must not use the previous participant's shared claim.
+  await signIn(codeB);
+  await sharedBrowser.locator('#save-shared').click();
+  await sharedBrowser.waitForFunction(() => document.querySelector('#text').value === 'Independent question from participant B');
+  assert.equal(await sharedBrowser.locator('#save-shared').isDisabled(),true);
+  await workshop.close();
   assert.deepEqual(errors,[]);
   assert.deepEqual(remoteRequests,[]);
-  console.log('Contribution browser verification passed: mobile static pilot, lesson transfer, download, resume, revision review and Studio handoff.');
+  console.log('Contribution browser verification passed: mobile static pilot, lesson transfer, download, resume, revision review, Studio handoff and workshop account switching.');
 } finally {
   await browser?.close();
   studio.kill();

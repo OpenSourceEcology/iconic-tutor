@@ -206,6 +206,7 @@ def status(cookie):
         result.update(
             authenticated=True,
             account_label=row["label"],
+            account_storage_id=digest("workshop-browser-storage:" + account),
             balance_microusd=balance,
             held_microusd=held,
             available_microusd=balance - held,
