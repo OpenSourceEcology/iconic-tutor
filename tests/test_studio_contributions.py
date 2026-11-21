@@ -133,6 +133,7 @@ def test_submit_requires_checked_evidence_and_a_build_specific_wall_answer():
         draft(kind="answer", additional_source="https://wiki.opensourceecology.org/wiki/Iconic_CAD_Workflow_Example#Notes"),
         draft(kind="answer", additional_source="https://github.com/OpenSourceEcology/iconic-cad/blob/main/web/data/card_templates/standard.json"),
         draft(kind="answer", additional_source="javascript:void(0)"), draft(active_seconds=-1),
+        draft(additional_source="https://builder:pass@example.org/"), draft(lesson_step=""),
     ]:
         with pytest.raises(studio_authoring.RequestError):
             post(WALL + "/submit", {"version": 2, "claim_token": KEY, "draft": edits})

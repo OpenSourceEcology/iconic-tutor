@@ -131,28 +131,35 @@ def validate_draft(draft, brief, submitting, holder):
         raise RequestError("Choose a proposed answer or an open question.")
     normalized = {"task_id": brief["id"], "kind": kind}
     for name, limit in DRAFT_TEXT_LIMITS.items():
-        normalized[name] = short_text(draft.get(name, ""), limit, name.replace("_", " "), empty=True).strip()
+        value = short_text(draft.get(name, ""), limit, name.replace("_", " "), empty=True)
+        if "\x00" in value:
+            raise RequestError(f"Remove the null character in {name}.")
+        normalized[name] = value.strip()
     link = normalized["additional_source"]
     if link:
         parsed = urlsplit(link)
-        if parsed.scheme not in ("http", "https") or not parsed.hostname or any(c.isspace() for c in link):
-            raise RequestError("Enter a complete HTTP or HTTPS evidence URL.")
+        if (parsed.scheme not in ("http", "https") or not parsed.hostname
+                or parsed.username or parsed.password or any(c.isspace() for c in link)):
+            raise RequestError("Enter a complete HTTP or HTTPS evidence URL without sign-in details.")
     seconds = draft.get("active_seconds", 0)
     if type(seconds) is not int or not 0 <= seconds <= 31_536_000:
         raise RequestError("Invalid active time.")
     normalized["active_seconds"] = seconds
     selected = draft.get("source_ids", [])
     revisions = draft.get("source_revisions", {})
-    if (not isinstance(selected, list) or len(selected) > 30
-            or any(not isinstance(s, str) or not re.fullmatch(r"[a-zA-Z0-9_.-]{1,120}", s) for s in selected)
+    if (not isinstance(selected, list) or len(selected) > 64
+            or any(not isinstance(s, str) or not re.fullmatch(r"[a-zA-Z0-9_.-]{1,100}", s) for s in selected)
+            or {"__proto__", "constructor", "prototype"}.intersection(selected)
             or len(set(selected)) != len(selected) or not isinstance(revisions, dict)
             or set(revisions) != set(selected)):
         raise RequestError("Each selected source must have its saved revision.")
     normalized["source_ids"] = list(selected)
-    normalized["source_revisions"] = {s: short_text(revisions[s], 160, "source revision") for s in selected}
+    normalized["source_revisions"] = {s: short_text(revisions[s], 160, "source revision", empty=True) for s in selected}
     if submitting:
         if not normalized["text"] or not normalized["scope"] or normalized["contributor"] != holder:
             raise RequestError("Enter the observation or question, its scope, and the name on this claim.")
+        if normalized["lesson_feedback"] and not normalized["lesson_step"]:
+            raise RequestError("Identify the teaching step for the suggested correction.")
         if not selected and not link:
             raise RequestError("Cite at least one source before requesting review.")
         if brief["id"] == "wall-fastening" and kind == "answer":
