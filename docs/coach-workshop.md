@@ -2,6 +2,10 @@
 
 A participant needs a browser, a workshop address and a private invitation. The operator installs the software once. Each contributor gets their own projects and conversation. The two contribution tasks share a claim board. A draft submitted to the board is visible to other participants.
 
+## Current pilot
+
+The [hosted contributor tutor](https://ose-tutor.goodancestor.com/coach.html) and [reviewer desk](https://ose-tutor.goodancestor.com/review.html) run on the same invitation-only workshop. The public can read the lessons. Personal projects, submissions and decisions require a workshop session. Starter instructions for the people running the pilot are in the [builder and reviewer handoff](workshop-handoff.md).
+
 ## Try it on the operator's computer
 
 From the repository root with Python 3.11+ and Node.js 22+ installed, run the commands below. Keep the invitation output private. The workshop directory holds its own SQLite database and should be backed up.
@@ -41,3 +45,20 @@ For a public paid launch, OSE still needs to operate the HTTPS service, choose p
 ## First session
 
 Give two builders separate invitations. Have one build the OC16 wall, change to OC24, repair the drawing, and take a sourced fastening question to a wiki preview. Have the second builder resume a shared task using its handoff, and record the first step that needed help. Local checks verify the software flow. This exercise measures whether builders can do it independently. [Timed contribution exercise](wiki-contribution-pilot.md)
+
+## Operating the Nimo pilot
+
+The service runs as the dedicated `ose-tutor` Linux user. Its listener binds to loopback on port 8770. Cloudflare Tunnel forwards the workshop hostname to that listener. The existing wiki review service and CAD site have their own hostname and listener. The workshop has its own SQLite state in `/var/lib/ose-tutor/workshop.sqlite3`. The active application is the `/opt/ose-tutor/current` release. The units are in [deploy/systemd](../deploy/systemd).
+
+The root-owned `/etc/ose-tutor/workshop.env` sets the public HTTPS origin and the included model endpoint and model ID. Nimo currently serves its model on loopback port 8002. To change the included model, update the model settings, restart `ose-tutor.service`, and ask a normal project question from the public URL. Check the answer mode and citations. A cloud endpoint can be configured there too. Use the separate frontier settings and prepaid rates for participant-metered requests. The pilot runs with live payments disabled.
+
+Issue separate invitations for each person. The reviewer flag grants decision rights. Store the printed invitation privately and give it only to that person. A direct sign-in link can use `/review.html#invite=PRIVATE_CODE` or `/coach.html#invite=PRIVATE_CODE`.
+
+```sh
+sudo -u ose-tutor python3 /opt/ose-tutor/current/scripts/coach_workshop.py --data /var/lib/ose-tutor invite --reviewer 'Reviewer name'
+sudo -u ose-tutor python3 /opt/ose-tutor/current/scripts/coach_workshop.py --data /var/lib/ose-tutor invite 'Builder name'
+```
+
+The `ose-tutor-backup.timer` unit makes daily verified, mode-0600 SQLite snapshots under `/var/backups/ose-tutor` and retains seven dated copies on the host. A snapshot includes accounts, sessions, credit records, evidence, generated files and private conversations. Treat it as private operator data. Run `sudo systemctl start ose-tutor-backup.service` for an additional same-day snapshot.
+
+To move the pilot, install Python 3.11+ and Node 22+, stage the same Git release and run `python3 scripts/setup_ichl.py` to fetch its pinned CAD compiler. Install the service user and systemd units, recreate the private environment file and model connection, and restore a verified snapshot to a fresh destination database owned by `ose-tutor` with mode 0600. Test the restore in isolation. Before the hostname cutover, stop the old workshop for the final snapshot so late submissions are included, transfer the database through a private channel and point the existing hostname to the new origin. Check a returning project, a reviewer session, generation and model inference before reopening. The off-host backup destination and production capacity are operator choices for the next deployment.

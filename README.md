@@ -17,6 +17,8 @@ See [attribution and source records](NOTICE.md) and [AGPL-3.0](LICENSE).
 
 ## Author an ICHL module
 
+Open the [hosted workshop](https://ose-tutor.goodancestor.com/coach.html) or the [reviewer desk](https://ose-tutor.goodancestor.com/review.html) with your pilot invitation. [Builder and reviewer handoff](docs/workshop-handoff.md)
+
 Start with the [OSE module tutor](https://opensourceecology.github.io/iconic-tutor/coach.html). Follow one wall from source evidence through all eleven schemas to a wiki handoff. The public walkthrough runs in a browser. A [hosted workshop](docs/coach-workshop.md) or [personal Studio](http://127.0.0.1:8766/coach.html) adds conversation, confirmed edits and real CAD generation.
 
 For a single wiki contribution, open the [wall fastening question](https://opensourceecology.github.io/iconic-tutor/contribute.html?task=wall-fastening) or the [window opening question](https://opensourceecology.github.io/iconic-tutor/contribute.html?task=window-opening). Compare the evidence, prepare a proposed answer or an open question, and copy a draft for the module discussion. [Contributor pilot and review exercise](docs/wiki-contribution-pilot.md)
