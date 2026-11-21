@@ -3,6 +3,8 @@ import assert from 'node:assert/strict';
 import {execFileSync,spawn} from 'node:child_process';
 import {mkdtemp,rm} from 'node:fs/promises';
 import {createServer} from 'node:net';
+import {createServer as modelServer} from 'node:http';
+import {randomUUID} from 'node:crypto';
 import {tmpdir} from 'node:os';
 import path from 'node:path';
 import {setTimeout as delay} from 'node:timers/promises';
@@ -10,13 +12,30 @@ import {chromium} from 'playwright';
 
 const python = process.env.PYTHON || 'python3', root = await mkdtemp(path.join(tmpdir(),'ose-coach-'));
 const args = ['scripts/coach_workshop.py','--data',root];
-const invitation = execFileSync(python,[...args,'invite','Browser builder'],{encoding:'utf8'}).match(/Private invitation (\S+)/)[1];
+const issued = execFileSync(python,[...args,'invite','Browser builder'],{encoding:'utf8'});
+const invitation = issued.match(/Private invitation (\S+)/)[1], account = issued.match(/Account (\S+)/)[1];
+execFileSync(python,['scripts/studio_credits.py','grant-test',account,'500',randomUUID()],{
+  env:{...process.env,STUDIO_AUTHORING_DB:path.join(root,'workshop.sqlite3')},
+});
+let modelCalls = 0;
+const provider = modelServer(async (request,response)=>{
+  const chunks = [];
+  for await (const c of request) chunks.push(c);
+  const payload = JSON.parse(Buffer.concat(chunks)), context = JSON.parse(payload.messages.at(-1).content);
+  modelCalls++;
+  const reply = {reply:'Ask the purchasing lead for a dated quote.',sources:[context.sources[0].id],action_id:null};
+  response.setHeader('Content-Type','application/json');
+  response.end(JSON.stringify({id:'fixture-model-call',model:'fixture-frontier',choices:[{message:{content:JSON.stringify(reply)}}],
+    usage:{prompt_tokens:200,completion_tokens:16}}));
+});
+await new Promise(resolve=>provider.listen(0,'127.0.0.1',resolve));
 const reserve = createServer();
 await new Promise(resolve=>reserve.listen(0,'127.0.0.1',resolve));
 const port = reserve.address().port;
 await new Promise(resolve=>reserve.close(resolve));
 const base = 'http://127.0.0.1:' + port;
-const workshop = spawn(python,[...args,'serve','--port',String(port)],{env:{...process.env,STUDIO_LLM_BASE_URL:'',STUDIO_FRONTIER_BASE_URL:''},stdio:['ignore','ignore','pipe']});
+const workshop = spawn(python,[...args,'serve','--port',String(port)],{env:{...process.env,STUDIO_LLM_BASE_URL:'',STUDIO_FRONTIER_BASE_URL:'http://127.0.0.1:'+provider.address().port+'/v1',
+  STUDIO_FRONTIER_MODEL:'fixture-frontier',STUDIO_FRONTIER_API_KEY:'',STUDIO_FRONTIER_INPUT_USD_PER_MTOK:'1',STUDIO_FRONTIER_OUTPUT_USD_PER_MTOK:'4'},stdio:['ignore','ignore','pipe']});
 const stopped = new Promise(resolve=>workshop.once('exit',resolve));
 let log = '', browser;
 workshop.stderr.on('data',chunk=>{log=(log+chunk).slice(-2000);});
@@ -79,6 +98,16 @@ try {
   const projectId=new URL(page.url()).searchParams.get('project');
   const p=await (await page.request.get(base+'/api/authoring/projects/'+projectId)).json();
   assert.match(p.notes.connections,/dated connection/);
+  await lesson('bom');
+  await page.locator('#mode').selectOption('frontier');
+  assert.match(await page.locator('#paid-notice').textContent(),/fixture-frontier/);
+  await page.locator('#question').fill('The supplier quote is missing. How do I check the price?');
+  await page.locator('#send').click();
+  await page.waitForFunction(()=>document.querySelector('#messages').textContent.includes('Ask the purchasing lead'));
+  await page.waitForFunction(()=>document.querySelector('#credit-rows').textContent.includes('200 input'));
+  assert.equal(modelCalls,1);
+  const ledger=await (await page.request.get(base+'/api/credits/status')).json();
+  assert.equal(ledger.available_microusd,4999736);
   await lesson('wiki');
   for (const label of ['Download private project backup','Download wiki draft','Download generated files for wiki upload']) {
     const promised=page.waitForEvent('download');
@@ -98,4 +127,4 @@ try {
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   assert.deepEqual(errors,[]);
   console.log('PASS public lessons, mobile notes, workshop invitation, confirmed CAD edits, drawing repair, cited guidance, revision downloads and window intake.');
-} finally { await browser?.close();workshop.kill();await stopped;await rm(root,{recursive:true,force:true}); }
+} finally { await browser?.close();workshop.kill();await stopped; await new Promise(resolve=>provider.close(resolve));await rm(root,{recursive:true,force:true}); }
