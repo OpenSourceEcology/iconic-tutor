@@ -28,6 +28,16 @@ Distribute that origin's `/coach.html` link with an individual invitation for ea
 
 The workshop checks project ownership on reads, edits, history, model conversations, artifact downloads and exports. The personal Studio listener has a different purpose and assumes a single local user. The workshop allows four simultaneous expensive operations. Each account has a daily UTC allowance of 40 included AI questions, 12 new projects and 500 saved requests. Frontier requests use the prepaid ledger. Review model capacity and observed session times before expanding a cohort. Account maintenance uses the workshop's `workshop.sqlite3` as `STUDIO_AUTHORING_DB`.
 
+## Choosing a paid model supplier
+
+For a first cohort, use one fixed-price model from a direct provider with a compatible chat endpoint and a usage receipt. Participants sign into OSE Tutor and see their balance. Only the operator needs the provider account. A gateway can add a choice of labs behind one key. Vercel AI Gateway publishes zero token markup and notes that payment processing fees may apply. [Vercel AI Gateway pricing](https://vercel.com/docs/ai-gateway/pricing)
+
+OpenRouter Standard charges 5.5% when the operator purchases credits. TrustedRouter lists a 5.5% markup on prepaid text inference. Those fees go to the gateway. If OSE uses one of those plans, it should work out its landed cost and disclose that basis before setting a support markup. The coach currently meters a pinned model using operator-configured input, cached-input and output rates. Select a fixed route whose bill matches those rates. [OpenRouter pricing](https://openrouter.ai/pricing) · [TrustedRouter pricing](https://trustedrouter.com/pricing)
+
+A 5% markup on model cost leaves about 4.76% of a fully spent contributor payment before fees. For example, a $5 balance buys about $4.76 of direct model usage and leaves $0.24 for OSE. At standard US domestic card pricing, Stripe takes about $0.45, leaving a loss of about $0.21 before hosting. On $25, the same calculation leaves about $0.17. These examples assume direct provider pricing, full use of the balance, and no other charges. A sponsored workshop balance can cover many small learner sessions with one payment. [Stripe card pricing](https://stripe.com/pricing?locale=en-US)
+
+For a public paid launch, OSE still needs to operate the HTTPS service, choose participant sign-up and account recovery, activate merchant and provider accounts, and support refunds and disputes. The current checkout and acceptance tests use test payments. Review invoices and actual support costs from a pilot before promising that any percentage funds continued development.
+
 ## First session
 
 Give two builders separate invitations. Have one build the OC16 wall, change to OC24, repair the drawing, and take a sourced fastening question to a wiki preview. Have the second builder resume a shared task using its handoff, and record the first step that needed help. Local checks verify the software flow. This exercise measures whether builders can do it independently. [Timed contribution exercise](wiki-contribution-pilot.md)
