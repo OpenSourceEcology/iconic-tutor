@@ -3,6 +3,8 @@ import json
 from pathlib import Path
 import shutil
 
+from publish_ichl_examples import publish
+
 ROOT = Path(__file__).resolve().parents[1]
 TARGET = ROOT / "reports/pages-preview/iconic-tutor"
 if TARGET.exists():
@@ -12,4 +14,5 @@ shutil.copytree(ROOT / "web", TARGET)
 (TARGET / ".nojekyll").touch()
 for name in ("LICENSE", "NOTICE.md"):
     shutil.copy2(ROOT / name, TARGET / name)
+publish(ROOT, TARGET / "ichl-015")
 print(TARGET)
