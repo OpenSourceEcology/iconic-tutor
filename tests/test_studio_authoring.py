@@ -216,3 +216,65 @@ def test_live_refresh_pins_new_sources_and_preserves_history_on_partial_failure(
         api("POST", route + "/refresh-evidence", {"version": 2})
     assert api("GET", route)["version"] == 2
     assert not any(e["revid"] == 99 for e in api("GET", route)["evidence"])
+
+
+def test_publication_is_pinned_private_fields_are_excluded_and_wiki_targets_zip(local):
+    (local / "__main__.py").write_text("""
+from pathlib import Path
+import hashlib, json, sys
+target = Path(sys.argv[sys.argv.index("--out") + 1]); target.mkdir()
+files = {"geometry.py":"# generated CAD source", "build.html":"<p>Generated directions</p>",
+         "definitions/geometry.schema.json":"{}", "instances/geometry.json":"{}", "instance.json":"{}"}
+for name, text in files.items():
+    path = target / name
+    path.parent.mkdir(exist_ok=True)
+    path.write_text(text)
+(target / "manifest.json").write_text(json.dumps({"module_id":"ICHL-015","variant":"ICHL-015-OC16",
+    "workstreams":[{"id":"geometry","status":"ready_for_review","files":list(files)}],
+    "hashes":{k:hashlib.sha256(v.encode()).hexdigest() for k,v in files.items()}}))
+(target / "debug.log").write_text("private diagnostic")
+""")
+    route, initial = create()
+    with pytest.raises(app.RequestError) as missing:
+        api("GET", route + "/publication")
+    assert missing.value.status == 409
+    with app.connect() as db:
+        state = app.current(db, initial["id"])
+        state["notes"] = {"geometry": "confidential volunteer note"}
+        state["coach"] = {"messages": [{"text":"private question", "receipt":{"account_label":"private account"}}]}
+        app.record(db, state, "Private revision note", 1)
+    api("POST", route + "/generate", {"version":2})
+    pinned = route + "/revisions/3"
+    export = api("GET", pinned + "/publication")
+    assert export.content == api("GET", route + "/publication").content
+    with ZipFile(BytesIO(export.content)) as archive:
+        names = archive.namelist()
+        assert set(names) == {"outputs/geometry.py","outputs/build.html","outputs/definitions/geometry.schema.json",
+                              "outputs/instances/geometry.json","outputs/instance.json","outputs/manifest.json",
+                              "attribution.json","upload-names.json"}
+        data = b" ".join(archive.read(name) for name in names)
+        for private in (b"confidential volunteer note",b"private question",b"private account",b"private diagnostic",
+                        b"Parker's wall",b"Private revision note",initial["id"].encode()):
+            assert private not in data
+        record = json.loads(archive.read("attribution.json"))
+        assert record["project_revision"] == record["build_revision"] == 3
+        assert all(src["url"].endswith(str(src["revid"])) for src in record["sources"])
+        upload = json.loads(archive.read("upload-names.json"))
+        assert upload["wiki_filename"] == export.filename
+        assert set(upload["members"]) == {name for name in names if name.startswith("outputs/")}
+    with ZipFile(BytesIO(api("GET", pinned+"/package").content)) as private:
+        assert b"private question" in private.read("project.json")
+    wiki = api("GET", pinned+"/wiki").content.decode().split("<!-- OSE-TUTOR-PACKAGE-BEGIN -->")[-1]
+    assert "[[Media:"+export.filename+"|" in wiki and "outputs/build.html" in wiki
+    assert "[[:File:" not in wiki and "outputs/geometry.py" in wiki
+    api("POST", route+"/save", {"version":3, "instance":{**initial["instance"], "spacing_in":24}})
+    with pytest.raises(app.RequestError) as stale:
+        api("GET", route+"/publication")
+    assert stale.value.status == 409
+    assert api("GET", pinned+"/publication").content == export.content
+    with app.connect() as db:
+        db.execute("UPDATE artifacts SET data=? WHERE project=? AND version=3 AND path='geometry.py'",
+                   (b"changed after generation", initial["id"]))
+    with pytest.raises(app.RequestError) as corrupt:
+        api("GET", pinned+"/publication")
+    assert corrupt.value.status == 422

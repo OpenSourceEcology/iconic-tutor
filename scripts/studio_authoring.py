@@ -21,7 +21,7 @@ import urllib.parse
 import urllib.request
 import uuid
 import xml.etree.ElementTree as ET
-from zipfile import ZipFile, ZIP_DEFLATED
+from zipfile import ZipFile, ZipInfo, ZIP_DEFLATED
 
 ROOT = Path(__file__).resolve().parents[1]
 SOURCES = ROOT / "library/ichl/sources"
@@ -515,8 +515,43 @@ def refresh_sources(db, project):
     store_sources(db, project, sources.values())
 
 
-def upload_name(build, module_id, path):
-    return f"{module_id} {build['manifest']['variant']} {path.replace('/', ' - ')}"
+def publication_record(db, project):
+    build = project.get("build")
+    if not build:
+        raise RequestError("Generate and review the module before downloading its publication ZIP.", 409)
+    if fingerprint(project["instance"]) != build["instance_hash"]:
+        raise RequestError("Regenerate the edited instance before exporting its wiki package.", 409)
+    manifest = build["manifest"]
+    artifact_names = {entry["path"] for entry in build["artifacts"]}
+    members = {name for stream in manifest["workstreams"] for name in stream["files"]}
+    members.update(manifest.get("hashes", {}))
+    members.add("manifest.json")
+    if "instance.json" in artifact_names:
+        members.add("instance.json")
+    safe_name = re.compile(r"[A-Za-z0-9][A-Za-z0-9_.-]*(/[A-Za-z0-9][A-Za-z0-9_.-]*)*")
+    if not members <= artifact_names or any(not safe_name.fullmatch(name) for name in members):
+        raise RequestError("The compiler report contains a missing or unsupported publication filename.", 422)
+    sources = [{
+        "title": source["title"], "revid": source["revid"], "timestamp": source.get("timestamp"),
+        "url": f"{WIKI}/index.php?oldid={int(source['revid'])}",
+        "text_sha256": sha256(source["text"].encode()).hexdigest(),
+    } for source in project_sources(db, project)]
+    record = {"module_id": project["module_id"], "project_revision": project["version"],
+              "build_revision": build["version"], "instance_sha256": build["instance_hash"],
+              "manifest_canonical_json_sha256": fingerprint(manifest), "sources": sources, "members": sorted(members)}
+    variant = re.sub(r"[^A-Za-z0-9-]+", "-", str(manifest["variant"])).strip("-")[:60]
+    prefix = project["module_id"]
+    if variant and not variant.startswith(prefix):
+        prefix += "-" + variant
+    elif variant:
+        prefix = variant
+    record["wiki_filename"] = f"{prefix}-workstreams-r{project['version']}-{fingerprint(record)[:16]}.zip"
+    return record
+
+
+def upload_manifest(publication):
+    return {"wiki_filename": publication["wiki_filename"],
+            "members": ["outputs/" + name for name in publication["members"]]}
 
 
 def wiki_text(db, project, live=False):
@@ -537,16 +572,14 @@ def wiki_text(db, project, live=False):
              f"* Based on {'live wiki' if live else 'pinned wiki snapshot'} source: {revision}",
              f"* Tutor project revision: {project['version']}", "* Construction review: pending"]
     if build:
-        if fingerprint(project["instance"]) != build["instance_hash"]:
-            raise RequestError("Regenerate the edited instance before exporting its wiki package.", 409)
-        lines.extend(["", '{| class="wikitable"', "! Workstream !! Validation result !! Proposed file uploads"])
+        publication = publication_record(db, project)
+        filename = publication["wiki_filename"]
+        lines.extend([f"* Generated files and editable schemas: [[Media:{filename}|Download the workstream ZIP]]",
+                      "", '{| class="wikitable"', "! Workstream !! Validation result !! Files in the ZIP"])
         for row in build["manifest"]["workstreams"]:
-            # Compiler-controlled filenames only. Notes and model replies are never wiki markup.
-            names = row.get("files", [])
-            links = [f"[[:File:{upload_name(build, module_id, name)}|{name}]]" for name in names
-                     if re.fullmatch(r"[\w ./-]+", name)]
-            lines.extend(["|-", f"| {STREAMS[row['id']]} || {row['status'].replace('_', ' ')} || {' · '.join(links) or 'Pending'}"])
-        lines += ["|}", "", "Upload each generated file under the proposed name above, review the previews and links, then update the canonical gallery."]
+            names = [f"<code>outputs/{name}</code>" for name in row["files"]]
+            lines.extend(["|-", f"| {STREAMS[row['id']]} || {row['status'].replace('_', ' ')} || {' · '.join(names) or 'Pending'}"])
+        lines += ["|}"]
     else:
         lines += ["* Stage: source intake. No generated assets are ready to upload."]
     lines.append(end)
@@ -568,6 +601,37 @@ class Download:
     inline: bool = False
 
 
+def publication(db, project):
+    record = publication_record(db, project)
+    build = project["build"]
+    expected = set(record["members"])
+    stream = BytesIO()
+    with ZipFile(stream, "w") as archive:
+        def add(name, data):
+            # A saved revision produces the same ZIP bytes when downloaded again.
+            info = ZipInfo(name)
+            info.create_system = 3
+            archive.writestr(info, data, compress_type=ZIP_DEFLATED)
+
+        for row in db.execute("SELECT path,data FROM artifacts WHERE project=? AND version=? ORDER BY path",
+                              (project["id"], build["version"])):
+            name = row["path"]
+            if name not in expected:
+                continue
+            pinned = build["manifest"].get("hashes", {}).get(name)
+            if pinned and sha256(row["data"]).hexdigest() != pinned:
+                raise RequestError("A stored output differs from its compiler digest.", 422)
+            if name == "manifest.json" and json.loads(row["data"]) != build["manifest"]:
+                raise RequestError("The stored manifest differs from the build receipt.", 422)
+            add("outputs/" + name, row["data"])
+            expected.remove(name)
+        if expected:
+            raise RequestError("The generated package is missing stored output files.", 422)
+        add("upload-names.json", encoded(upload_manifest(record)))
+        add("attribution.json", encoded({key: value for key, value in record.items() if key != "members"}))
+    return Download(record["wiki_filename"], stream.getvalue(), "application/zip")
+
+
 def package(db, project):
     stream = BytesIO()
     with ZipFile(stream, "w", compression=ZIP_DEFLATED) as archive:
@@ -579,13 +643,12 @@ def package(db, project):
             archive.writestr(f"sources/{key}.json", encoded(source))
         build = project["build"]
         if build:
-            uploads = {file["path"]: upload_name(build, project["module_id"], file["path"])
-                       for file in build["artifacts"]}
-            archive.writestr("upload-names.json", encoded(uploads))
+            upload = publication_record(db, project)
+            archive.writestr("upload-names.json", encoded(upload_manifest(upload)))
             for row in db.execute("SELECT path,data FROM artifacts WHERE project=? AND version=? ORDER BY path",
                                   (project["id"], build["version"])):
                 archive.writestr(f"outputs/{row['path']}", row["data"])
-    return Download(f"{project['module_id']}-project-r{project['version']}.zip", stream.getvalue(), "application/zip")
+    return Download(f"{project['module_id']}-private-project-r{project['version']}.zip", stream.getvalue(), "application/zip")
 
 
 def dispatch(method, target, body, model_json):
@@ -617,6 +680,8 @@ def dispatch(method, target, body, model_json):
                 return Download(f"{project['module_id']}.wikitext", wiki_text(db, project, live).encode(), "text/plain; charset=utf-8")
             if segments[2:] == ["package"]:
                 return package(db, project)
+            if segments[2:] == ["publication"]:
+                return publication(db, project)
             if segments[2] == "artifacts" and len(segments) >= 5:
                 name = "/".join(segments[4:])
                 row = db.execute("SELECT data FROM artifacts WHERE project=? AND version=? AND path=?",
