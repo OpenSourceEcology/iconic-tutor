@@ -1,0 +1,412 @@
+{
+  "version": 1,
+  "lessons": [
+    {
+      "id": "welcome",
+      "title": "Start a wall project",
+      "workstream": null,
+      "prompt": "Which wall are you documenting, and what should someone be able to build from it?",
+      "steps": [
+        "Choose Wall Framing for the reference exercise. It models a plain 48 × 96-inch 2×6 frame. OC16 and OC24 describe stud spacing in inches on center.",
+        "Choose Evidence next. Your project saves conversation and results after each step."
+      ],
+      "completion": "A saved project has a module, a name and a bounded scope.",
+      "resources": [
+        {
+          "label": "Download the OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        },
+        {
+          "label": "Download the OC24 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC24.zip"
+        },
+        {
+          "label": "Watch the spacing and drawing repair",
+          "url": "media/ichl-wall-walkthrough.mp4"
+        }
+      ]
+    },
+    {
+      "id": "evidence",
+      "title": "Find evidence",
+      "workstream": "rationale",
+      "prompt": "Which drawing, photo or build record establishes what this wall should contain?",
+      "steps": [
+        "Read the captured source title, revision and excerpt. Ask for a refresh to compare the latest wiki record.",
+        "Bring the observed detail, its units, the build or specimen it applies to and where someone else can find it. Save an unanswered question if a source is missing."
+      ],
+      "completion": "Another contributor can locate the evidence and identify its limits.",
+      "resources": [
+        {
+          "label": "Open example rationale.pdf",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/rationale.pdf"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        }
+      ]
+    },
+    {
+      "id": "geometry",
+      "title": "Build and inspect the frame",
+      "workstream": "geometry",
+      "prompt": "Can you trace one named stud from the wall model to the cut list?",
+      "steps": [
+        "Ask to generate the current wall. The software builds a FreeCAD model and reports actual members and checks.",
+        "Inspect an individual member. Compare its length and placement to an independent drawing or measurement. In the reference OC16 exercise expect four studs and three plates."
+      ],
+      "completion": "The compiled inventory and independent evidence can be compared by member name.",
+      "resources": [
+        {
+          "label": "Open example wall.FCStd",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/wall.FCStd"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        }
+      ]
+    },
+    {
+      "id": "drawings",
+      "title": "Choose a drawing dimension",
+      "workstream": "drawings",
+      "prompt": "Which measurement should the shop drawing carry through regeneration?",
+      "steps": [
+        "Generate the OC16 model and open its drawing. For this exercise select the left-edge offset of stud.at16.",
+        "Confirm the proposed selection and regeneration. Open the SVG and locate the dimension and named feature."
+      ],
+      "completion": "The exported drawing contains the chosen dimension linked to an existing member.",
+      "resources": [
+        {
+          "label": "Open example drawing.svg",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/drawing.svg"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        },
+        {
+          "label": "Download the OC24 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC24.zip"
+        },
+        {
+          "label": "Watch the spacing and drawing repair",
+          "url": "media/ichl-wall-walkthrough.mp4"
+        }
+      ]
+    },
+    {
+      "id": "variation",
+      "title": "Change stud spacing",
+      "workstream": "geometry",
+      "prompt": "What changes when we keep the same wall and switch to 24-inch spacing?",
+      "steps": [
+        "Keep the OC16 drawing selection. Ask for OC24 and inspect the proposed change before confirming.",
+        "Regenerate. Compare the member inventory and cut quantities. The OC24 example has three studs and three plates. Look at the drawing checks before proceeding."
+      ],
+      "completion": "The new frame has been generated and the drawing result is visible.",
+      "resources": [
+        {
+          "label": "Open example wall.FCStd",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/wall.FCStd"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        },
+        {
+          "label": "Download the OC24 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC24.zip"
+        },
+        {
+          "label": "Watch the spacing and drawing repair",
+          "url": "media/ichl-wall-walkthrough.mp4"
+        }
+      ]
+    },
+    {
+      "id": "repair",
+      "title": "Repair the drawing",
+      "workstream": "drawings",
+      "prompt": "Which saved drawing reference no longer exists in the current model?",
+      "steps": [
+        "Read the failed drawing check and compare the saved selections to the current model features.",
+        "For the OC16-to-OC24 exercise replace the obsolete stud.at16 offset with stud.at24. Confirm, regenerate, and inspect the new SVG."
+      ],
+      "completion": "The drawing passes after repair; earlier project revisions retain their original outputs.",
+      "resources": [
+        {
+          "label": "Open example drawing.svg",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/drawing.svg"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        },
+        {
+          "label": "Download the OC24 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC24.zip"
+        },
+        {
+          "label": "Watch the spacing and drawing repair",
+          "url": "media/ichl-wall-walkthrough.mp4"
+        }
+      ]
+    },
+    {
+      "id": "connections",
+      "title": "Resolve the fastening question",
+      "workstream": "connections",
+      "prompt": "Which fastening schedule applies to the stud-to-plate joint on this exact build?",
+      "steps": [
+        "Compare the two source records. The standard card calls for 3-⅛-inch T25 screws through the bottom and first top plate. The earlier wall-family workflow describes 3¼-inch ring-shank nails for wood. Identify the build, joint, and OC16 or OC24 configuration before proposing a schedule.",
+        "Keep stud-to-plate and top-to-top schedules separate. Use the workspace form for hardware ID, count, locations, installation, reviewer and source. Save and regenerate to trace the downstream changes. If evidence is missing, save a precise question."
+      ],
+      "completion": "A cited decision or an explicit open question identifies the joint and wall configuration.",
+      "resources": [
+        {
+          "label": "Open example connections.json",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/connections.json"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        },
+        {
+          "label": "OSE standard wall card",
+          "url": "https://github.com/OpenSourceEcology/iconic-cad/blob/301993a0e217e570abaa86b21f869272339f9af3/web/data/card_templates/standard.json"
+        },
+        {
+          "label": "Earlier wall-family workflow",
+          "url": "https://wiki.opensourceecology.org/index.php?title=Iconic_CAD_Workflow_Example&oldid=321455"
+        }
+      ]
+    },
+    {
+      "id": "rationale",
+      "title": "Explain a design choice",
+      "workstream": "rationale",
+      "prompt": "Why did the builder choose this detail, and when would it need another review?",
+      "steps": [
+        "Choose a material, spacing or connection decision. Record its source, the supported configuration and the reason.",
+        "Open the generated rationale and inspect whether assumptions and review triggers are clear."
+      ],
+      "completion": "The rationale distinguishes documented choices from open assumptions.",
+      "resources": [
+        {
+          "label": "Open example rationale.pdf",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/rationale.pdf"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        }
+      ]
+    },
+    {
+      "id": "bom",
+      "title": "Check the purchasing list",
+      "workstream": "bom",
+      "prompt": "How many boards or boxes must be purchased, and which source establishes their price?",
+      "steps": [
+        "Trace a purchasing line to the cut parts or internal fasteners that require it. Confirm the stock length, unit and pack quantity.",
+        "Use the workspace supplier form for a dated quote and sourcing links. Regenerate and compare the CSV and totals. A missing price stays open."
+      ],
+      "completion": "Each purchasing quantity and cost can be traced, or the missing input is recorded.",
+      "resources": [
+        {
+          "label": "Open example bom.csv",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/bom.csv"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        }
+      ]
+    },
+    {
+      "id": "instructions",
+      "title": "Walk the build sequence",
+      "workstream": "instructions",
+      "prompt": "Could a builder identify the parts, tools and inspection point at each step?",
+      "steps": [
+        "Read the ordered procedure alongside the cut list and joint schedule. Trace a named stud to its installation step.",
+        "Record a missing operation or tool and cite the build record. Regenerate after correcting the responsible inputs, then open the instructions PDF."
+      ],
+      "completion": "Each included member has a place in the sequence, with uncertainties visible.",
+      "resources": [
+        {
+          "label": "Open example instructions.pdf",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/instructions.pdf"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        }
+      ]
+    },
+    {
+      "id": "cheatsheet",
+      "title": "Check the field sheet",
+      "workstream": "cheatsheet",
+      "prompt": "Which short instructions does someone need beside the assembly table?",
+      "steps": [
+        "Inspect the one-page sheet beside the detailed instructions, parts, cuts and checks.",
+        "Verify a member count and a step after a configuration change. Carry any missing tool or unresolved fastening detail into review."
+      ],
+      "completion": "The field sheet and detailed package describe the same wall.",
+      "resources": [
+        {
+          "label": "Open example cheatsheet.svg",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/cheatsheet.svg"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        }
+      ]
+    },
+    {
+      "id": "cuts",
+      "title": "Follow a cut to its board",
+      "workstream": "cuts",
+      "prompt": "Which purchased board supplies one finished stud?",
+      "steps": [
+        "In the cut CSV find the named member and stock ID. Compare the finished length with the modeled piece.",
+        "Check the purchased board length, kerf and remaining offcut. Revisit its supplier quote if the stock length changes."
+      ],
+      "completion": "Each cut can be traced to a member and purchased board.",
+      "resources": [
+        {
+          "label": "Open example cuts.csv",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/cuts.csv"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        }
+      ]
+    },
+    {
+      "id": "qc",
+      "title": "Record a real inspection",
+      "workstream": "qc",
+      "prompt": "What did you measure, on which wall, with what method and tolerance?",
+      "steps": [
+        "Select an actual specimen and describe the measurement, units, source of the tolerance and reviewer. The inspection form records the observation.",
+        "Regenerate and check its status. Missing observations stay pending. A failed measurement stays visible until a new observation justifies a change."
+      ],
+      "completion": "Only performed measurements have inspection results.",
+      "resources": [
+        {
+          "label": "Open example qc.pdf",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/qc.pdf"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        }
+      ]
+    },
+    {
+      "id": "interfaces",
+      "title": "Check a mating face",
+      "workstream": "interfaces",
+      "prompt": "Where does the adjoining module align, and which record specifies the fit?",
+      "steps": [
+        "Identify the face, neighbor, datum, clearance and tolerance. Keep interface requirements separate from the selected hardware.",
+        "Use the workspace to enter reviewed requirements. Inspect the compatible and incompatible side-mate checks. Record any missing physical fit evidence."
+      ],
+      "completion": "The two contributors can describe the same boundary and its remaining questions.",
+      "resources": [
+        {
+          "label": "Open example interfaces.json",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/interfaces.json"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        }
+      ]
+    },
+    {
+      "id": "icons",
+      "title": "Check the parametric icon",
+      "workstream": "icons",
+      "prompt": "Can a contributor recover this exact wall configuration from its SVG icon?",
+      "steps": [
+        "Read the label on the generated icon. Compare its wall ID, spacing and dimensions with the configured instance.",
+        "Change a supported parameter and regenerate. Inspect the icon round-trip check and its new label."
+      ],
+      "completion": "Visible values and parsed values agree with the current variant.",
+      "resources": [
+        {
+          "label": "Open example icon.svg",
+          "url": "https://opensourceecology.github.io/iconic-tutor/ichl-015/OC16/icon.svg"
+        },
+        {
+          "label": "Download the complete OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        },
+        {
+          "label": "Download the OC24 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC24.zip"
+        }
+      ]
+    },
+    {
+      "id": "export",
+      "title": "Export the review package",
+      "workstream": null,
+      "prompt": "Can the next contributor reproduce the wall from the package you hand them?",
+      "steps": [
+        "Generate the current revision and inspect any invalid or blocked workstreams. Record the outstanding evidence.",
+        "Download the project ZIP. Unzip it and locate instance.json, the outputs folder, the validation manifest, upload-names.json, and wiki-draft.wikitext."
+      ],
+      "completion": "You have a versioned package with inputs, source records, files and open checks.",
+      "resources": [
+        {
+          "label": "Download the OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        },
+        {
+          "label": "Download the OC24 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC24.zip"
+        }
+      ]
+    },
+    {
+      "id": "wiki",
+      "title": "Prepare the wiki handoff",
+      "workstream": null,
+      "prompt": "Would a wiki reader be able to download the files and see what still needs review?",
+      "steps": [
+        "Download the generated-only publication ZIP and a fresh wiki draft. Unzip the publication files and inspect the manifest. The separate project-transfer ZIP includes private notes and coach conversation; keep that ZIP with your collaborators.",
+        "Compare the draft with the current module page. Preserve existing text, attribution and review counts.",
+        "While signed into the OSE wiki, open Special:Upload. Choose the generated-only ZIP, keep its exact destination filename from upload-names.json, and add the module, variant, source, license and validation status in the description. The draft links one archive containing the individual files. If the wiki rejects ZIPs or your account lacks upload permission, use a reviewed public archive link and adjust the draft before preview.",
+        "For a question or proposed finding, prepare a discussion on the module’s Talk page. For an agreed module update, open the canonical page for editing, preview it and check the download links before a human publishes."
+      ],
+      "completion": "A human can review the proposed update, file names, accessible links and outstanding checks.",
+      "resources": [
+        {
+          "label": "Download the OC16 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        },
+        {
+          "label": "Download the OC24 example",
+          "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC24.zip"
+        },
+        {
+          "label": "Review the current wall module page",
+          "url": "https://wiki.opensourceecology.org/wiki/ICHL-015"
+        },
+        {
+          "label": "Open the OSE file upload form",
+          "url": "https://wiki.opensourceecology.org/wiki/Special:Upload"
+        }
+      ]
+    }
+  ]
+}

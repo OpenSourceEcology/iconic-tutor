@@ -22,6 +22,7 @@ import urllib.parse
 import uuid
 from studio_tutor import tutor_context, cited_sources
 from studio_authoring import handle_authoring
+from studio_coach import handle_coach
 from studio_credits import handle_credits, handle_webhook
 from studio_contributions import handle_contribution
 
@@ -192,6 +193,8 @@ class Handler(SimpleHTTPRequestHandler):
             )
         if path.startswith("/api/credits/"):
             return handle_credits(self, "GET")
+        if path.startswith("/api/coach/"):
+            return handle_coach(self, "GET", None, model_json)
         if path.startswith("/api/contributions/"):
             return handle_contribution(self, "GET")
         if path.startswith("/api/authoring/"):
@@ -241,6 +244,8 @@ class Handler(SimpleHTTPRequestHandler):
                 raise ValueError("Expected a JSON object.")
             if self.path.startswith("/api/credits/"):
                 return handle_credits(self, "POST", body)
+            if self.path.startswith("/api/coach/"):
+                return handle_coach(self, "POST", body, model_json)
             if contribution:
                 return handle_contribution(self, "POST", body)
             if authoring:
