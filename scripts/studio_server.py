@@ -22,6 +22,7 @@ import urllib.parse
 import uuid
 from studio_tutor import tutor_context, cited_sources
 from studio_authoring import handle_authoring
+from studio_contributions import handle_contribution
 
 from studio_contract import (
     HOUSE_IDS,
@@ -186,6 +187,8 @@ class Handler(SimpleHTTPRequestHandler):
             return self.json_response(
                 403, {"error": "Use this service from its configured address."}
             )
+        if path.startswith("/api/contributions/"):
+            return handle_contribution(self, "GET")
         if path.startswith("/api/authoring/"):
             return handle_authoring(self, "GET", None, model_json)
         if path == "/api/studio/status":
@@ -219,7 +222,8 @@ class Handler(SimpleHTTPRequestHandler):
         try:
             length = int(self.headers.get("Content-Length", "0"))
             authoring = self.path.startswith("/api/authoring/")
-            max_bytes = 160_000 if authoring else 20_000
+            contribution = self.path.startswith("/api/contributions/")
+            max_bytes = 160_000 if authoring or contribution else 20_000
             if (
                 not 0 < length <= max_bytes
                 or self.headers.get_content_type() != "application/json"
@@ -228,6 +232,8 @@ class Handler(SimpleHTTPRequestHandler):
             body = json.loads(self.rfile.read(length))
             if not isinstance(body, dict):
                 raise ValueError("Expected a JSON object.")
+            if contribution:
+                return handle_contribution(self, "POST", body)
             if authoring:
                 return handle_authoring(self, "POST", body, model_json)
             if self.path == "/api/studio/tutor":
