@@ -163,3 +163,19 @@ def test_unresolved_fasteners_retain_project_evidence_and_separate_verification(
     assert any("applicability is unresolved" in step for step in state["lesson"]["steps"])
     state = post(state, "message", text="What goes between the top plates?")
     assert "top-plate lap" in state["messages"][-1]["text"]
+    def ordinary(base, payload):
+        ctx = json.loads(payload["messages"][-1]["content"])
+        assert ctx["fastening_evidence"] is None
+        assert ctx["actions"] == []
+        return {"reply": "The project keeps your earlier revisions.", "sources": ["workspace-procedure"], "action_id": "save_note"}
+    state = post(state, "message", ordinary, mode="free", text="How does my project remember what I wrote yesterday?")
+    assert state["messages"][-1]["text"] == "The project keeps your earlier revisions." and state["pending"] is None
+    state = post(state, "message", lambda *_: pytest.fail("No paid model call needed for saved file links"),
+                 mode="frontier", text="Where can I download my package?")
+    reply = state["messages"][-1]
+    assert reply["mode"] == "guided" and "available now" in reply["text"]
+    assert {s["id"] for s in reply["sources"]} == {"project-zip", "wiki-draft"}
+    state = post(state, "message", lambda *_: {"verification_id": "not-an-option"},
+                 mode="free", text="Which stud-to-plate fastener?")
+    reply = state["messages"][-1]
+    assert reply["mode"] == "guided" and "verifiable reply" in reply["text"] and "applicability is unresolved" in reply["text"]
