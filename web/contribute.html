@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Contribute to a module · Iconic Tutor</title>
+  <link rel="stylesheet" href="css/studio.css">
+  <link rel="stylesheet" href="css/contribute.css">
+</head>
+<body>
+  <header class="masthead">
+    <a class="wordmark" href="studio.html"><span class="mark" aria-hidden="true">✳</span> OPEN SOURCE ECOLOGY</a>
+    <span class="edition">ICONIC TUTOR</span>
+    <a class="back" href="studio.html">Tutor Studio</a>
+  </header>
+  <main class="contribution">
+    <div class="taskbar">
+      <label for="task-select">Choose a contribution</label>
+      <select id="task-select" disabled><option>Loading tasks…</option></select>
+    </div>
+    <p id="notice" role="status" aria-live="polite"></p>
+    <div id="workspace" hidden>
+      <header class="brief">
+        <p class="module" id="module"></p>
+        <h1 id="title"></h1>
+        <p class="question" id="question"></p>
+        <p class="muted" id="task-scope"></p>
+        <p><a id="discussion" target="_blank" rel="noopener noreferrer">Check the module discussion ↗</a> for existing claims or decisions.</p>
+      </header>
+      <section class="evidence" aria-labelledby="evidence-title">
+        <h2 id="evidence-title">Compare the sources</h2>
+        <div id="source-list"></div>
+        <div class="reconcile" id="reconcile" hidden>
+          <p id="changed-sources"></p>
+          <button id="confirm-sources">I've checked the current sources</button>
+        </div>
+        <details class="criteria"><summary>What this contribution needs</summary><ul id="completion"></ul>
+          <h3>Outputs affected</h3><p id="affected"></p></details>
+      </section>
+      <div class="panels">
+        <section class="form-card" aria-labelledby="response-title">
+          <h2 id="response-title">Record your contribution</h2>
+          <div class="two-fields">
+            <label>Contributor name<input id="contributor" autocomplete="name" maxlength="100"></label>
+            <label>Contribution type<select id="kind"><option value="question">Open question</option><option value="answer">Proposed answer for review</option></select></label>
+          </div>
+          <label>Applicable build or scope<textarea id="scope" rows="2" maxlength="3000" placeholder="Identify the build and joint or interface. Record any limits."></textarea></label>
+          <label><span id="response-label">Question for the next contributor</span><textarea id="text" rows="4" maxlength="3000"></textarea></label>
+          <label><span id="additional-label">Additional source URL (optional)</span><input id="additional_source" type="url" placeholder="https://" maxlength="2000"></label>
+          <small id="answer-guidance" hidden></small>
+          <details class="lesson"><summary>Help and lesson feedback</summary>
+            <label>Where did you need help?<textarea id="help" rows="2" maxlength="3000"></textarea></label>
+            <label>Teaching step<select id="lesson_step"></select></label>
+            <button id="suggest-lesson">Draft a lesson correction</button>
+            <div id="suggestion-box" hidden><p id="lesson-suggestion"></p><button id="use-suggestion">Use this suggestion</button></div>
+            <label>Suggested lesson correction<textarea id="lesson_feedback" rows="3" maxlength="3000"></textarea></label>
+            <section id="lesson-transfer"></section>
+          </details>
+          <div class="time"><span>Active time <strong id="time">0:00</strong></span><button id="timer" aria-pressed="false">Start timer</button></div>
+          <p id="draft-status" role="status"></p>
+        </section>
+        <aside class="handoff">
+          <section class="panel"><h2>Prepare a wiki contribution</h2>
+            <p id="destination"></p>
+            <ul id="missing"></ul>
+            <details id="preview-details"><summary>Preview wikitext</summary><textarea id="wiki-preview" readonly rows="10" aria-label="Wikitext draft"></textarea></details>
+            <div class="actions"><button class="primary" id="copy-wiki">Copy wikitext</button>
+              <a id="edit-wiki" target="_blank" rel="noopener noreferrer">Open wiki editor ↗</a></div>
+            <p class="muted">Append the draft to the module discussion and preview it there. Saving that wiki edit is a separate step.</p>
+          </section>
+          <section class="panel"><h2>Hand off this draft</h2>
+            <p>Download the draft, cited revisions and lesson feedback to continue on another device or pass them to another contributor.</p>
+            <div class="actions"><button id="download">Download handoff</button><label class="filebtn" for="import-file">Import handoff</label><input id="import-file" type="file" accept=".json,application/json"></div>
+            <div id="import-review" hidden><p id="import-summary"></p><button id="apply-import">Resume imported draft</button> <button id="cancel-import">Cancel import</button></div>
+            <a id="author-project" hidden>Return to Studio project</a>
+          </section>
+          <section class="panel" id="shared"><h2>Studio task board</h2>
+            <div id="public-claim" hidden><p>To coordinate with other wiki contributors, paste a short claim into the module discussion.</p><button id="copy-claim">Copy volunteer claim</button><textarea id="claim-text" aria-label="Volunteer claim text" hidden readonly></textarea></div>
+            <p id="shared-status">Checking Studio connection…</p>
+            <div id="board" hidden>
+              <div class="actions"><button id="claim">Claim task</button><button id="save-shared">Save to Studio</button><button id="submit">Hand off for review</button><button id="release">Release task</button><button id="refresh-board">Refresh</button></div>
+              <div id="shared-handoffs"></div>
+            </div>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <script type="module" src="js/contribute.js"></script>
+  <script type="module" src="js/lesson-transfer.js"></script>
+</body>
+</html>
