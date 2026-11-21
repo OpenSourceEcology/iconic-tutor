@@ -58,6 +58,30 @@ class Workshop(Handler):
     def list_directory(self, path):
         self.send_error(404)
 
+    def end_headers(self):
+        path = urlsplit(self.path).path
+        if not path.startswith("/api/") and path != "/deployment.json":
+            # A workshop updates in place. A CDN may otherwise reuse yesterday's
+            # lesson catalog or client even after the new server has started.
+            self.send_header("Cache-Control", "no-store")
+        self.send_header("Referrer-Policy", "same-origin")
+        super().end_headers()
+
+    def do_HEAD(self):
+        path = urlsplit(self.path).path
+        if path == "/deployment.json":
+            self.send_response(200)
+            self.send_header("Content-Type", "application/json")
+            self.send_header("Cache-Control", "no-store")
+            self.end_headers()
+            return
+        if path.startswith("/api/"):
+            self.send_error(405)
+            return
+        if path == "/":
+            self.path = "/coach.html"
+        super().do_HEAD()
+
     def do_GET(self):
         path = urlsplit(self.path).path
         if path == "/deployment.json":
