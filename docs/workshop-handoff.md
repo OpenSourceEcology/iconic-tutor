@@ -2,9 +2,11 @@
 
 The pilot is live at [OSE Tutor](https://ose-tutor.goodancestor.com/coach.html). It runs on the OSE Wikibot machine with a separate workshop database. Each builder and reviewer receives an individual invitation. An invitation link fills in the code. Select **Join workshop** or **Sign in**. Use the same invitation when returning on another device.
 
+From the [public Studio](https://opensourceecology.github.io/iconic-tutor/studio.html), **Read the module lessons** opens the walkthrough. **Build a module package** opens the example drawings and downloads, with a link to the workshop project editor. **Open the AI module coach** takes you to the invitation screen or your signed-in chat.
+
 ## As a builder
 
-1. Choose **Wall Framing**, give the project a name and select **Create project**. Ask the tutor what a builder’s notes contribute to the housing library.
+1. Under **Chat with the tutor**, ask what a builder’s notes contribute to the housing library. Your first question starts a saved wall conversation. To name your own project or choose another module, open **Start or resume a project**.
 2. Choose **Build and inspect the frame**. Generate the reference wall and confirm the action. The OC16 example has four studs and three plates. Use the drawing and cut list to identify one of them. To compare two revisions, follow the spacing-change and drawing-repair lessons and regenerate.
 3. From the saved project, select **Choose a contribution**. Pick a question you can address, claim it, and start the timer if you want your active time included. For fastening, identify the wall and the joint. Bring a dated drawing, marked-up build record, or other independent evidence. For a missing fact, write the specific question and who might answer it. You can also contribute a lumber quote, a width measurement, an adjoining-wall detail or a window-opening requirement.
 4. Use **Hand off for review** in the workshop task board. The reviewer can see the submitted finding, citations and available build comparison. Return to the task to read the decision and feedback. If asked for evidence, claim the returned task and submit a new round.

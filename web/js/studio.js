@@ -1,3 +1,4 @@
+import { studioDeployment } from "./studio-deployment.js";
 import { saveSession, loadSession } from "./studio-storage.js";
 import {
   DOMAIN_LABELS,
@@ -1624,9 +1625,9 @@ async function init() {
     }
     $("render-status").hidden = true;
     render({ fit: true });
+    const deployment = await studioDeployment;
     try {
-      const deployment = await (await fetch("deployment.json")).json();
-      if (deployment.backend === "same-origin")
+      if (deployment.backend === "same-origin" && !deployment.workshop)
         service = await jsonFetch("/api/studio/status");
     } catch {}
     $("hosting-note").hidden = service.generation && service.tutor;
@@ -1642,7 +1643,7 @@ async function init() {
     }
     $("tutor-mode").textContent = service.tutor
       ? "Local AI connected"
-      : "Guided lesson · AI not connected";
+      : "Guided lesson";
     renderInspector();
     renderLesson();
     restoreChat();

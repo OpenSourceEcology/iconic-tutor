@@ -69,6 +69,7 @@ try {
   const taskEntry = base+'/coach.html?brief=wall-fastening&lesson=connections';
   await page.goto(taskEntry);
   await page.locator('#join').waitFor();
+  assert.equal(await page.locator('#back-to-studio').getAttribute('href'),'https://opensourceecology.github.io/iconic-tutor/studio.html');
   assert.match(await page.locator('#availability').innerText(),/stud-to-plate/);
   await page.locator('[name=invite]').fill(invitation);
   await page.getByRole('button',{name:'Join workshop'}).click();
@@ -86,6 +87,17 @@ try {
   await page.waitForFunction(()=>document.querySelectorAll('#messages .message').length>=2);
   assert.equal(new URL(page.url()).searchParams.get('project'),started.id);
   assert.equal((await projects()).length,1);
+  const editor = await browser.newPage();
+  await editor.goto(base+'/author.html?project='+started.id+'#invite='+invitation);
+  const signIn = editor.locator('#author-join');
+  await signIn.waitFor();
+  assert.equal(await editor.locator('#library').isVisible(),false);
+  assert.equal(await signIn.locator('[name=invite]').inputValue(),invitation);
+  assert.equal(new URL(editor.url()).hash,'');
+  await signIn.getByRole('button',{name:'Join workshop'}).click();
+  await editor.locator('#project-title').waitFor();
+  assert.equal(await editor.locator('#project-title').textContent(),started.name);
+  await editor.close();
   async function lesson(id) {
     await page.locator('#lesson').selectOption(id);
     await page.waitForFunction(id=>new URL(location.href).searchParams.get('lesson')===id,id);

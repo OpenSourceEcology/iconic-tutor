@@ -143,11 +143,15 @@ try {
   assert.equal(await page.locator('#notes').inputValue(),'Saved from another editor');
   await second.close();
 
-  await page.route('**/deployment.json', route=>route.fulfill({json:{backend:null}}));
+  await page.route('**/deployment.json', route=>route.fulfill({json:{backend:null,workshop_url:'https://workshop.example/coach.html'}}));
   await page.goto(base + '/author.html');
-  await page.locator('#setup[open]').waitFor();
+  await page.locator('#public-example').waitFor();
   assert(await page.locator('#library').isHidden());
-  assert.equal(await page.locator('#setup a[href$=".zip"]').count(),2);
+  assert.equal(await page.locator('#open-workspace').getAttribute('href'),'https://workshop.example/author.html');
+  for (const variant of ['OC16','OC24']) {
+    assert.ok(await page.locator('#public-example a[href$="' + variant + '.zip"]').isVisible());
+    assert.ok(await page.locator('#public-example a[href$="' + variant + '/drawing.svg"]').isVisible());
+  }
   assert.deepEqual(errors,[]);
   console.log('PASS wall authoring, proposal approval, variation, stale dimension repair, evidence, downloads, resume, mobile layout and second module intake.');
 } finally {

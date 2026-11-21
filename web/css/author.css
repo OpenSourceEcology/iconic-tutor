@@ -70,3 +70,11 @@ body:has(.author-main) header.masthead nav a { display: inline; }
   .resume { max-width: none; }
   .author-main { margin-top: 22px; }
 }
+
+.author-intro { max-width: 70ch; font-size: 1.06rem; }
+.author-paths { display: flex; flex-wrap: wrap; gap: .75rem 1.25rem; align-items: center; }
+.author-paths .primary { display: inline-block; padding: .65rem 1rem; border-radius: 5px; font-weight: 600; text-decoration: none; }
+#public-example { max-width: 70rem; margin: 1.6rem 0; }
+.wall-variants { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
+.wall-variants img { display: block; width: 100%; height: auto; }
+.wall-variants p { margin: .6rem 0 0; }

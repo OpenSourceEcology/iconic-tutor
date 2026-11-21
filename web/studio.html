@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Iconic Tutor · Learn by making</title>
     <link rel="stylesheet" href="css/studio.css?v=20260912-village-4" />
-    <link rel="stylesheet" href="css/home.css?v=1" />
+    <link rel="stylesheet" href="css/home.css?v=2" />
     <script type="importmap">
       {
         "imports": {
@@ -14,6 +14,7 @@
         }
       }
     </script>
+    <script type="module" src="js/studio-deployment.js"></script>
   </head>
   <body>
     <header class="masthead">
@@ -23,8 +24,8 @@
         >ICONIC TUTOR <span class="pill">EARLY DEMO</span></span
       >
       <nav>
-        <a href="coach.html" class="section-nav-link">Module tutor ↗</a>
-        <a href="author.html" class="section-nav-link">Module authoring ↗</a>
+        <a href="coach.html" class="section-nav-link">Read the module lessons</a>
+        <a href="author.html" class="section-nav-link">Build a module package</a>
         <a href="village.html" class="section-nav-link village-nav-link">Village design ↗</a>
         <a href="https://opensourceecology.github.io/iconic-cad/"
           >House editor ↗</a
@@ -40,6 +41,8 @@
           >Explore, resize previews and export existing geometry. New CAD
           generation and the AI tutor require the full version.</span
         >
+        <a data-module-coach hidden>Open the AI module coach ↗</a>
+        <a href="contribute.html">Choose a contribution</a>
         <a
           href="https://github.com/OpenSourceEcology/iconic-tutor#enable-real-generation"
           target="_blank"
@@ -329,7 +332,7 @@
               </button>
             </form>
             <p class="tutor-footnote">
-              You make the decisions. The tutor helps with the next step.
+              <a data-module-coach hidden>Ask the AI module coach ↗</a>
             </p>
           </aside>
         </div>
@@ -413,6 +416,6 @@
       <div id="review-content"></div>
       <button id="ack-review" class="primary">I’ve inspected the checks</button>
     </dialog>
-    <script type="module" src="js/studio.js?v=20260912-village-4"></script>
+    <script type="module" src="js/studio.js?v=workshop-1"></script>
   </body>
 </html>

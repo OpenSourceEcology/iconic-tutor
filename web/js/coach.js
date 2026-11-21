@@ -365,6 +365,9 @@ try {
   workshop = !!deployment.workshop;
   live = deployment.backend === 'same-origin';
   if (workshop) {
+    const studio = 'https://opensourceecology.github.io/iconic-tutor/studio.html';
+    $('back-to-studio').href = studio;
+    $('studio-home').href = studio;
     const account = await api('/api/credits/status');
     workshopAccount = account.account_storage_id || null;
     $('notes').hidden = !account.authenticated;

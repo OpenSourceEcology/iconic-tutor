@@ -3,29 +3,49 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Module authoring · Iconic Tutor</title>
+  <title>Build a module package · Iconic Tutor</title>
   <link rel="stylesheet" href="css/studio.css">
-  <link rel="stylesheet" href="css/author.css">
+  <link rel="stylesheet" href="css/author.css?v=studio-1">
 </head>
 <body>
 <header class="masthead">
-  <a class="wordmark" href="studio.html"><span class="mark" aria-hidden="true">✳</span> OPEN SOURCE ECOLOGY</a>
+  <a class="wordmark" data-studio-home href="studio.html"><span class="mark" aria-hidden="true">✳</span> OPEN SOURCE ECOLOGY</a>
   <span class="edition">ICONIC TUTOR</span>
-  <nav><a href="studio.html">Back to Studio</a></nav>
+  <nav><a class="section-nav-link" data-studio-home href="studio.html">Back to Studio</a></nav>
 </header>
 <main class="author-main">
-  <h1>Module authoring</h1>
-  <p><a id="open-coach" href="coach.html">Walk through this project with the OSE Tutor</a></p>
+  <h1>Build a module package</h1>
+  <p class="author-intro">Collect the drawings, cut lists and evidence another builder needs to reproduce a module. The project editor keeps your changes together and shows which workstreams still need review.</p>
+  <div class="author-paths">
+    <a id="open-workspace" class="primary" hidden>Open the workshop project editor ↗</a>
+    <a id="open-coach" href="coach.html">Walk through the steps with the OSE Tutor</a>
+  </div>
+  <p id="notice" role="status" aria-live="polite">Opening the project library…</p>
+  <form id="author-join" class="panel project-tools" hidden>
+    <label>Workshop invitation<input name="invite" type="password" required autocomplete="off"></label>
+    <button class="primary">Join workshop</button>
+  </form>
+  <section id="public-example" aria-labelledby="wall-example-title" hidden>
+    <h2 id="wall-example-title">Compare the ICHL-015 wall packages</h2>
+    <p>Both examples frame the same wall. Follow the change in stud spacing from the drawing to the cut list.</p>
+    <div class="wall-variants">
+      <article class="panel">
+        <h3>Studs at 16 inches on center</h3>
+        <img src="data/coach/OC16.svg" loading="lazy" width="860" height="590" alt="OC16 wall drawing showing four vertical studs">
+        <p><a href="ichl-015/OC16/drawing.svg">Open drawing</a> · <a href="ichl-015/OC16/cuts.csv">Cut list</a> · <a href="ichl-015/OC16.zip">Download OC16 package</a></p>
+      </article>
+      <article class="panel">
+        <h3>Studs at 24 inches on center</h3>
+        <img src="data/coach/OC24.svg" loading="lazy" width="860" height="590" alt="OC24 wall drawing showing three vertical studs">
+        <p><a href="ichl-015/OC24/drawing.svg">Open drawing</a> · <a href="ichl-015/OC24/cuts.csv">Cut list</a> · <a href="ichl-015/OC24.zip">Download OC24 package</a></p>
+      </article>
+    </div>
+    <p><a href="ichl-015/">Inspect the outputs, schemas and review status for all eleven workstreams ↗</a></p>
+  </section>
   <p><a href="contribute.html?task=wall-fastening">Contribute evidence for the wall fastening schedule</a> · <a href="contribute.html?task=window-opening">Document the window opening interface</a></p>
-  <p id="notice" role="status" aria-live="polite">Opening the local project library…</p>
-  <details id="setup" class="panel"><summary>Setup and sample wall packages</summary>
-    <p>Run the local Studio server to save projects and generate files. The reference packages contain the OC16 and OC24 example outputs.</p>
-    <ul>
-      <li><a href="https://github.com/OpenSourceEcology/iconic-tutor/blob/main/docs/ichl-authoring.md">Local setup and handoff guide</a></li>
-      <li><a href="https://opensourceecology.github.io/iconic-tutor/ichl-015/">Browse both wall packages by workstream</a></li>
-      <li><a href="https://github.com/OpenSourceEcology/iconic-cad/raw/refs/heads/main/ichl_wall/examples/OC16.zip">16-inch wall package (ZIP)</a></li>
-      <li><a href="https://github.com/OpenSourceEcology/iconic-cad/raw/refs/heads/main/ichl_wall/examples/OC24.zip">24-inch wall package (ZIP)</a></li>
-    </ul>
+  <details id="setup" class="panel"><summary>Local setup and reference files</summary>
+    <p>To edit projects on your own computer, follow the <a href="https://github.com/OpenSourceEcology/iconic-tutor/blob/main/docs/ichl-authoring.md">local setup and handoff guide</a>.</p>
+    <p><a href="https://opensourceecology.github.io/iconic-tutor/ichl-015/">Browse the published wall packages</a></p>
   </details>
   <div id="conflict" hidden>
     <button id="keep-draft">Download current form values</button>
@@ -92,6 +112,6 @@
     </div>
   </section>
 </main>
-<script type="module" src="js/author.js"></script>
+<script type="module" src="js/author.js?v=studio-1"></script>
 </body>
 </html>

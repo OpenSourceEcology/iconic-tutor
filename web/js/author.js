@@ -1,9 +1,12 @@
+import {consumeInvitation} from './workshop-invite.js';
 import {guides, intakeQuestions} from './author-guides.js';
 import {editFields, el, field} from './author-editor.js';
 import {showModel} from './author-model.js';
 
 const $ = id => document.getElementById(id);
 const root = '/api/authoring';
+const invitation = consumeInvitation();
+let workshopAccount = null;
 let modules = [], contributionTasks = [], aiAvailable = false, project = null, draft = null;
 let collect = () => {}, dirty = false, busy = false, rawMode = false;
 
@@ -31,12 +34,12 @@ async function run(action) {
   if (busy) return;
   busy = true;
   // Prevent edits made during an in-flight save from being overwritten by its result.
-  $('library').inert = $('project').inert = true;
+  $('author-join').inert = $('library').inert = $('project').inert = true;
   try { await action(); }
   catch(e) {
     notice(e.message, true);
     if (project) $('project-select').value = project.id;
-  } finally { busy = false; $('library').inert = $('project').inert = false; }
+  } finally { busy = false; $('author-join').inert = $('library').inert = $('project').inert = false; }
 }
 function projectOption(p) { return new Option(p.name + ' · ' + p.module_id, p.id); }
 function bindProject(p) {
@@ -102,7 +105,7 @@ function bindProject(p) {
   $('steps').append(steps);
   if (guide) $('steps').append(el('p',guide.repair));
   $('ai-state').textContent = aiAvailable ? 'The configured model receives this workstream and source excerpts. Review proposed edits before applying them.'
-    : 'To use live AI, configure STUDIO_LLM_MODEL and STUDIO_LLM_BASE_URL on the local server. Guided procedures remain available.';
+    : 'AI suggestions are offline. Use the authoring procedure and linked sources to work through this step.';
   $('ask').disabled = !aiAvailable;
   renderEditor(); renderResult(); renderEvidence($('evidence'),project.evidence); renderConversation();
   const refresh = p.last_evidence_refresh;
@@ -305,13 +308,17 @@ $('project-select').onchange = () => run(async () => {
   notice('Resumed saved project.');
 });
 window.addEventListener('beforeunload', e => { if (dirty) { e.preventDefault(); e.returnValue = ''; } });
-async function init() {
-  const hosting = await fetch('deployment.json').then(r=>r.json());
-  if (!hosting.backend) {
-    $('setup').open = true;
-    notice('Module authoring runs on the local Studio server. Run python3 scripts/setup_ichl.py and python3 scripts/studio_server.py, then open /author.html.');
-    return;
-  }
+async function workshopStatus(code) {
+  const response = code === undefined
+    ? await fetch('/api/credits/status', {cache:'no-store'})
+    : await fetch('/api/credits/login', {
+      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({code}),
+    });
+  const result = await response.json();
+  if (!response.ok) throw Error(result.error || 'Could not verify your workshop session.');
+  return result;
+}
+async function loadLibrary() {
   const [catalog, listing] = await Promise.all([json('/modules'),json('/projects')]);
   const tasks = await fetch('data/contributions/tasks.json?v=review-1').then(r => r.ok ? r.json() : null).catch(() => null);
   contributionTasks = tasks?.tasks || [];
@@ -326,4 +333,56 @@ async function init() {
     bindProject(await json('/projects/' + encodeURIComponent(existing))); notice('Resumed saved project.');
   } else notice('Create a project or resume a saved revision.');
 }
+$('author-join').onsubmit = event => {
+  event.preventDefault();
+  run(async () => {
+    const form = $('author-join');
+    const status = await workshopStatus(form.elements.invite.value.trim());
+    workshopAccount = status.account_storage_id;
+    form.reset();
+    form.hidden = true;
+    await loadLibrary();
+  });
+};
+
+async function init() {
+  const hosting = await fetch('deployment.json', {cache:'no-store'}).then(r=>r.json());
+  if (hosting.backend !== 'same-origin') {
+    $('public-example').hidden = false;
+    if (hosting.workshop_url) {
+      $('open-workspace').href = new URL('author.html', hosting.workshop_url).href;
+      $('open-workspace').hidden = false;
+      notice('Use your workshop invitation to create a project and generate your own package.');
+    } else {
+      notice('Explore the wall example below, or use the local setup guide to edit your own project.');
+    }
+    return;
+  }
+  if (hosting.workshop) {
+    for (const link of document.querySelectorAll('[data-studio-home]')) {
+      link.href = 'https://opensourceecology.github.io/iconic-tutor/studio.html';
+    }
+    const status = await workshopStatus();
+    if (!status.authenticated) {
+      const form = $('author-join');
+      if (invitation) form.elements.invite.value = invitation;
+      form.hidden = false;
+      notice('Sign in with your workshop invitation to create or resume a module project.');
+      return;
+    }
+    workshopAccount = status.account_storage_id;
+  }
+  await loadLibrary();
+}
+
+async function checkSession() {
+  if (!workshopAccount || document.hidden) return;
+  const status = await workshopStatus();
+  if (status.account_storage_id !== workshopAccount) {
+    dirty = false;
+    location.reload();
+  }
+}
+document.addEventListener('visibilitychange', () => checkSession().catch(e=>notice(e.message,true)));
+window.addEventListener('pageshow', e => { if (e.persisted) checkSession().catch(err=>notice(err.message,true)); });
 run(init);

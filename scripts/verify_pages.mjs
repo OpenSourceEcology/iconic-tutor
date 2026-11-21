@@ -20,10 +20,15 @@ try {
   );
   await page.locator("#hosting-note").waitFor({ state: "visible" });
   assert(await page.locator("#generate").isDisabled());
-  assert.match(
-    await page.locator("#tutor-mode").textContent(),
-    /AI not connected/,
-  );
+  assert.equal(await page.locator("#tutor-mode").textContent(), "Guided lesson");
+  const deployment = await (await page.request.get(new URL("deployment.json",page.url()).href)).json();
+  for (const link of await page.locator("[data-module-coach]").all()) {
+    assert.equal(await link.isVisible(),Boolean(deployment.workshop_url));
+    if (deployment.workshop_url) assert.equal(await link.getAttribute("href"),deployment.workshop_url);
+  }
+  assert.equal(await page.getByRole("link",{name:"Read the module lessons"}).getAttribute("href"),"coach.html");
+  assert.equal(await page.getByRole("link",{name:"Build a module package"}).getAttribute("href"),"author.html");
+  assert.equal(await page.getByRole("link",{name:"Choose a contribution"}).getAttribute("href"),"contribute.html");
   await page.locator("#mount-fit").click();
   await page.waitForFunction(
     () => document.querySelector("#viewport").dataset.livePlateWidth === "90",
