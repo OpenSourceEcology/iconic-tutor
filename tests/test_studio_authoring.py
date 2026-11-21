@@ -189,3 +189,30 @@ def test_registry_entries_are_available_for_intake_with_module_specific_scope(lo
     with pytest.raises(app.RequestError) as error:
         api("POST", route + "/generate", {"version": 1})
     assert error.value.status == 422
+
+
+def test_live_refresh_pins_new_sources_and_preserves_history_on_partial_failure(local, monkeypatch):
+    route, _ = create("ICHL-303")
+
+    def live(title):
+        if title == "ICHL-303":
+            return None
+        return {"title": title, "revid": 1456, "timestamp": "2026-01-01",
+                "text": "Drywall configuration record", "url": "https://wiki.opensourceecology.org/index.php?oldid=1456"}
+
+    monkeypatch.setattr(app, "live_source", live)
+    p = api("POST", route + "/refresh-evidence", {"version": 1})
+    assert p["last_evidence_refresh"]["missing"] == ["ICHL-303"]
+    assert any(e["revid"] == 1456 for e in p["evidence"])
+    assert len(api("GET", route + "/revisions/1")["evidence"]) == 1
+
+    def unavailable(title):
+        if title == "ICHL-303":
+            return {"title": title, "revid": 99, "timestamp": "2026-01-01", "text": "Newer"}
+        raise app.RequestError("Remote source unavailable", 502)
+
+    monkeypatch.setattr(app, "live_source", unavailable)
+    with pytest.raises(app.RequestError, match="Previous evidence is preserved"):
+        api("POST", route + "/refresh-evidence", {"version": 2})
+    assert api("GET", route)["version"] == 2
+    assert not any(e["revid"] == 99 for e in api("GET", route)["evidence"])

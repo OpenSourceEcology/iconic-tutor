@@ -226,6 +226,16 @@ def project_sources(db, project):
     return [json.loads(row["record"]) for row in rows]
 
 
+def store_sources(db, project, sources):
+    keys = []
+    for source in sources:
+        text = encoded(source)
+        key = sha256(text.encode()).hexdigest()
+        db.execute("INSERT OR IGNORE INTO source_documents VALUES(?,?)", (key, text))
+        keys.append(key)
+    project["source_keys"] = keys
+
+
 def current(db, project_id, version=None):
     if version is None:
         row = db.execute(
@@ -289,12 +299,7 @@ def create(db, body):
         "instance": default_instance(module_id), "active_workstream": "geometry",
         "notes": {}, "proposals": [], "build": None,
     }
-    project["source_keys"] = []
-    for source in intake_sources(module_id):
-        text = encoded(source)
-        key = sha256(text.encode()).hexdigest()
-        db.execute("INSERT OR IGNORE INTO source_documents VALUES(?,?)", (key, text))
-        project["source_keys"].append(key)
+    store_sources(db, project, intake_sources(module_id))
     return record(db, project, "Created project", 0)
 
 
@@ -459,8 +464,9 @@ def accept(project, body):
     proposal["status"] = "accepted"
 
 
-def live_source(module_id):
-    request = urllib.request.Request(f"{WIKI}/wiki/Special:Export/{urllib.parse.quote(module_id)}",
+def live_source(title):
+    title = title.partition("#")[0].replace("_", " ").strip()
+    request = urllib.request.Request(f"{WIKI}/wiki/Special:Export/{urllib.parse.quote(title, safe='')}",
                                      headers={"User-Agent": "OSE-Iconic-Tutor/1.0 (local contributor draft export)"})
     try:
         with urllib.request.urlopen(request, timeout=15) as response:
@@ -471,16 +477,42 @@ def live_source(module_id):
         if xml.tag.split("}")[-1] != "mediawiki":
             raise RequestError("The wiki returned an unexpected export format.", 502)
         for page in xml.findall("{*}page"):
-            if page.findtext("{*}title") == module_id:
+            if page.findtext("{*}title", "").casefold() == title.casefold():
                 rev = page.find("{*}revision")
                 if rev is None or rev.find("{*}text") is None or not rev.findtext("{*}id"):
                     raise RequestError("The wiki did not return complete revision metadata.", 502)
-                return {"text": rev.findtext("{*}text", ""), "revid": int(rev.findtext("{*}id"))}
+                revid = int(rev.findtext("{*}id"))
+                return {"title": page.findtext("{*}title"), "text": rev.findtext("{*}text", ""),
+                        "revid": revid, "timestamp": rev.findtext("{*}timestamp", ""),
+                        "url": f"{WIKI}/index.php?oldid={revid}",
+                        "history": f"{WIKI}/index.php?" + urllib.parse.urlencode({"title": title, "action": "history"}),
+                        "license": "CC BY-SA 4.0 unless otherwise noted"}
         return None
     except (OSError, ValueError, ET.ParseError) as exc:
         if isinstance(exc, RequestError):
             raise
         raise RequestError("Current wiki source is unavailable. Retry, or select the dated snapshot export.", 502) from exc
+
+
+def refresh_sources(db, project):
+    module_id = project["module_id"]
+    titles = [module_id, registry_entries()[module_id]["reference_title"]]
+    if module_id == "ICHL-015":
+        titles.append("Iconic CAD Workflow Example")
+    sources = {source["title"]: source for source in project_sources(db, project)}
+    found, missing = [], []
+    for title in dict.fromkeys(titles):
+        try:
+            source = live_source(title)
+        except RequestError as error:
+            raise RequestError(f"Could not refresh {title}. Previous evidence is preserved. {error}", error.status) from error
+        if source:
+            sources[source["title"]] = source
+            found.append(f"{source['title']} (revision {source['revid']})")
+        else:
+            missing.append(title)
+    project["last_evidence_refresh"] = {"timestamp": timestamp(), "found": found, "missing": missing}
+    store_sources(db, project, sources.values())
 
 
 def upload_name(build, module_id, path):
@@ -596,6 +628,9 @@ def dispatch(method, target, body, model_json):
             files = None
             if action == "save":
                 label = save(project, body)
+            elif action == "refresh-evidence":
+                refresh_sources(db, project)
+                label = "Refreshed live wiki evidence"
             elif action == "generate":
                 files = generate(project)
                 label = "Generated and validated module package"
