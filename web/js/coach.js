@@ -156,7 +156,7 @@ function render() {
   $('next').disabled = index === rows.length-1;
   $('previous').onclick = () => requestLesson(rows[index-1].id);
   $('next').onclick = () => requestLesson(rows[index+1].id);
-  $('field-note').value = notes()[lessonId] || '';
+  $('field-note').value = workshop && !workshopAccount ? '' : (notes()[lessonId] || '');
   $('refs').replaceChildren();
   for (const r of current.resources || []) link($('refs'),r.label,r.url);
   const urls = state?.links || {};
@@ -274,7 +274,8 @@ $('join').onsubmit = e => {e.preventDefault();run(async ()=>{
 try {
   const [catalog,deployment] = await Promise.all([api('data/coach/lessons.json'),api('deployment.json')]);
   lessons = catalog.lessons;
-  render();
+  const resumeRequested = deployment.backend === 'same-origin' && params.has('project');
+  if (!resumeRequested) render();
   workshop = !!deployment.workshop;
   live = deployment.backend === 'same-origin';
   if (workshop) {
@@ -293,3 +294,4 @@ try {
     $('availability').append(' or use the '); link($('availability'),'setup guide',guide); $('availability').append('.');
   }
 } catch (e) { notice(e.message,true); }
+finally { if (lessons.length && !state) render(); }

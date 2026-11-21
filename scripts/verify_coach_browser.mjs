@@ -117,7 +117,8 @@ try {
   }
   await page.reload();
   await page.waitForFunction(()=>document.querySelector('#title').textContent.includes('wiki handoff'));
-  assert.ok(await page.locator('#messages .message').count()>2);
+  await page.locator('#chat').waitFor();
+  await page.waitForFunction(()=>document.querySelectorAll('#messages .message').length>2);
   await page.locator('#library summary').click();
   await page.locator('#module').selectOption('ICHL-016');
   await page.locator('#name').fill('Window measurements');
