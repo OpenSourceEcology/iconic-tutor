@@ -77,10 +77,10 @@ def test_accounts_cookies_grants_and_usage_receipt(monkeypatch):
         credits.grant(other_account, 5, grant_id)
     assert credits.status(cookie)["balance_microusd"] == 60000
     raw, receipt = credits.metered_completion(cookie, key, PAYLOAD, call)
-    assert raw == RAW and receipt["amount_microusd"] == 1213
+    assert raw == RAW and receipt["amount_microusd"] == 1212
     assert (receipt["model_cost_microusd"], receipt["support_fee_microusd"], receipt["markup_bps"]) == (
         1155,
-        58,
+        57,
         500,
     )
     monkeypatch.setenv("STUDIO_OSE_SUPPORT_BPS", "250")
@@ -91,8 +91,8 @@ def test_accounts_cookies_grants_and_usage_receipt(monkeypatch):
         credits.metered_completion(cookie, key, {**PAYLOAD, "max_tokens": 1}, call)
     assert err.value.status == 409
     info = credits.status(cookie)
-    assert info["available_microusd"] == 58787 and info["held_microusd"] == 0
-    assert next(h for h in info["history"] if h["kind"] == "frontier")["amount_microusd"] == -1213
+    assert info["available_microusd"] == 58788 and info["held_microusd"] == 0
+    assert next(h for h in info["history"] if h["kind"] == "frontier")["amount_microusd"] == -1212
     assert credits.status(another)["history"] == []
     monkeypatch.delenv("STUDIO_FRONTIER_INPUT_USD_PER_MTOK")
     assert not credits.status(cookie)["rates"]["configured"]
@@ -147,7 +147,7 @@ def test_unknown_outcomes_and_definitive_provider_rejection(monkeypatch):
         monkeypatch.setattr(sys, "argv", ["studio_credits.py", "reconcile", account, key, *args])
         credits.main()
         assert credits.status(cookie)["held_microusd"] == 0
-    assert credits.status(cookie)["balance_microusd"] == 5_000_000 - 1213
+    assert credits.status(cookie)["balance_microusd"] == 5_000_000 - 1212
 
 
 def signature(raw, now=None):
@@ -380,7 +380,7 @@ def test_concurrent_legacy_db_migration_keeps_receipts_and_holds_at_zero_fee(mon
     assert info["balance_microusd"] == 5_000_000 - 2 * 1155
     assert (
         credits.metered_completion(cookie, uid(), PAYLOAD, Mock(return_value=RAW))[1]["support_fee_microusd"]
-        == 87
+        == 86
     )
 
 
@@ -398,10 +398,10 @@ def test_fee_is_pinned_for_ambiguous_outcomes_and_reconciliation(monkeypatch):
     )
     credits.main()
     entry = next(r for r in credits.status(cookie)["history"] if r["kind"] == "frontier")
-    assert entry["model_cost_microusd"] == 1155 and entry["support_fee_microusd"] == 145
+    assert entry["model_cost_microusd"] == 1155 and entry["support_fee_microusd"] == 144
     assert (
-        entry["amount_microusd"] == -1300
-        and entry["usage_cost_microusd"] == 1300
+        entry["amount_microusd"] == -1299
+        and entry["usage_cost_microusd"] == 1299
         and entry["markup_bps"] == 1250
     )
     assert entry["operator_covered_microusd"] == 0
@@ -430,5 +430,5 @@ def test_preflight_includes_entire_fee_and_invalid_config_cannot_run(monkeypatch
 
 def test_fractional_micro_usd_rounding():
     assert credits.cost(1, 0, 0, 1, 0, 0) == 1
-    for base, bps, fee in ((1, 500, 1), (20, 500, 1), (21, 500, 2), (0, 500, 0), (1, 0, 0)):
+    for base, bps, fee in ((1, 500, 0), (20, 500, 1), (21, 500, 1), (264, 500, 13), (0, 500, 0), (1, 0, 0)):
         assert credits.support_fee(base, bps) == fee

@@ -189,7 +189,7 @@ def cost(input_tokens, cached_tokens, output_tokens, inp, cached, out):
 
 
 def support_fee(base, markup_bps):
-    return (base * markup_bps + 9_999) // 10_000
+    return (base * markup_bps) // 10_000
 
 
 def totals(db, account):
