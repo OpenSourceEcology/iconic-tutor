@@ -33,12 +33,33 @@ function node(tag, text) {
 
 const kindLabels = {frontier:'Frontier question', test_checkout:'Test checkout', operator_test_grant:'Operator test credit'};
 
+function feeRate(bps) {
+  if (!Number.isSafeInteger(bps) || bps < 0) return '';
+  return (bps / 100).toLocaleString('en-US', {maximumFractionDigits:2}) + '%';
+}
+
+function showUsageCosts(amount, row) {
+  if (row.kind !== 'frontier' || row.status !== 'settled') return;
+  if (Number.isSafeInteger(row.model_cost_microusd)) {
+    amount.append(node('small','Model cost ' + dollars(row.model_cost_microusd)));
+  }
+  // Pre-fee ledgers recorded a single debit. Do not recompute a historical fee at today's rate.
+  const historical = row.markup_bps == null && row.support_fee_microusd == null;
+  const rate = historical ? '0%' : feeRate(row.markup_bps);
+  const fee = historical ? 0 : row.support_fee_microusd;
+  amount.append(node('small','OSE support fee' + (rate ? ' (' + rate + ')' : '') + ' ' + dollars(fee)));
+  if (row.operator_covered_microusd > 0) {
+    amount.append(node('small','Usage total ' + dollars(row.usage_cost_microusd)));
+    amount.append(node('small','Covered by operator ' + dollars(row.operator_covered_microusd)));
+  }
+}
+
 function transactionTable(rows) {
   if (!Array.isArray(rows) || !rows.length) return node('p','No transactions yet.');
   const table = node('table','');
   table.className = 'coach-credit-table';
   const tr = table.createTHead().insertRow();
-  for (const heading of ['Activity','Amount','Usage']) tr.append(node('th',heading));
+  for (const heading of ['Activity','Balance change','Usage']) tr.append(node('th',heading));
   const body = table.createTBody();
   for (const row of rows) {
     const cells = body.insertRow();
@@ -49,6 +70,7 @@ function transactionTable(rows) {
     if (row.status) activity.append(node('small',row.status));
     const amount = cells.insertCell();
     amount.textContent = dollars(row.amount_microusd);
+    showUsageCosts(amount,row);
     if (row.status === 'held' && row.reserved_microusd > 0) amount.append(node('small',dollars(row.reserved_microusd) + ' reserved'));
     const usage = cells.insertCell();
     if (row.model) usage.append(node('span',row.model));
@@ -67,7 +89,10 @@ function rateText(rates) {
     ...(rates.cached_input_usd_per_mtok != null ? ['cached input $' + rates.cached_input_usd_per_mtok] : []),
     'output $' + rates.output_usd_per_mtok,
   ];
-  return rates.model + ' · ' + prices.join(' · ') + ' per million tokens. Studio adds no service fee.';
+  const fee = feeRate(rates.markup_bps);
+  const disclosure = fee ? 'New Frontier questions add a ' + fee + ' OSE support fee to the model cost.' :
+    'This Studio has not reported an OSE support fee rate.';
+  return rates.model + ' · ' + prices.join(' · ') + ' per million tokens. ' + disclosure;
 }
 
 export async function mountCredits(host, onChange = () => {}) {
@@ -131,7 +156,7 @@ export async function mountCredits(host, onChange = () => {}) {
       field('checkout-link').hidden = !data.checkout_enabled || !state.checkoutURL;
       field('new-checkout').hidden = !data.checkout_enabled || !state.checkoutURL;
       field('purchase-note').textContent = data.checkout_enabled
-        ? 'Test mode · Use Stripe test payment details. A verified processor event adds ' + amount + ' in test credit. Return here to refresh your balance.'
+        ? 'Test mode · Use Stripe test payment details. A verified processor event adds the full ' + amount + ' in test credit. Return here to refresh your balance.'
         : 'Hosted test checkout is unavailable on this Studio.';
     } else {
       for (const id of ['owner','total','available','held','rows']) field(id).replaceChildren();
