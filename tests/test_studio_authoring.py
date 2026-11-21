@@ -147,7 +147,7 @@ def test_second_module_is_intake_only_with_its_own_sources(local):
     assert state["instance"]["module_id"] == "ICHL-016"
     assert any("Registry" in e["title"] for e in state["evidence"])
     draft = api("GET", route + "/wiki").content.decode()
-    assert "Module: ICHL-016" in draft and "new page" in draft
+    assert "Module: ICHL-016" in draft and "draft appendix only" in draft
     assert "== Contributor package ==" in draft and len(draft) < 2000
     with pytest.raises(app.RequestError) as error:
         api("POST", route + "/generate", {"version": 1})
@@ -176,3 +176,16 @@ def test_named_wikibot_snapshot_is_pinned_per_project(local, tmp_path, monkeypat
     # Saved revisions and exports continue to resolve against their original sources.
     assert api("GET", route + "/wiki").content.startswith(text.encode())
     assert any(s["revid"] == 234 for s in api("GET", route)["evidence"])
+
+def test_registry_entries_are_available_for_intake_with_module_specific_scope(local):
+    catalog = api("GET", "modules")["modules"]
+    assert [module["id"] for module in catalog[:2]] == ["ICHL-015", "ICHL-016"]
+    assert "ICHL-011" in {m["id"] for m in catalog}  # This registry row includes a check template.
+    route, project = create("ICHL-303")
+    assert "drywall" in project["instance"]["scope"].lower()
+    assert set(project["instance"]) == {"module_id", "scope", "interfaces", "parameters"}
+    assert len(project["evidence"]) == 1
+    assert "drywall" in project["evidence"][0]["excerpt"].lower()
+    with pytest.raises(app.RequestError) as error:
+        api("POST", route + "/generate", {"version": 1})
+    assert error.value.status == 422

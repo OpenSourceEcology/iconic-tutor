@@ -3,7 +3,9 @@
 from contextlib import closing
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from functools import lru_cache
 from hashlib import sha256
+from html import unescape
 from io import BytesIO
 import json
 import mimetypes
@@ -67,21 +69,37 @@ def cad_root():
     return Path(os.environ.get("STUDIO_ICONIC_ROOT", ROOT / "reports/ichl-cad")).resolve()
 
 
+@lru_cache(maxsize=1)
+def registry_entries():
+    registry = read_json(SOURCES / "Iconic_CAD_Housing_Library_Registry.json")
+    entries = {}
+    for line in registry["text"].splitlines():
+        columns = re.split(r"\s*\|\|\s*", line)
+        if len(columns) < 5:
+            continue
+        module = re.fullmatch(r"\|\s*(?:\[\[)?(ICHL-\d+)(?:\]\])?(?:\s*\{\{check\}\})?\s*", columns[0])
+        reference = re.fullmatch(r"\[\[([^\]|]+)(?:\|([^\]]+))?\]\]", columns[2])
+        if module and reference:
+            module_id = module[1]
+            entries[module_id] = {
+                "id": module_id, "title": unescape(reference[2] or reference[1]),
+                "reference_title": unescape(reference[1]).replace("_", " "),
+                "scope": unescape(columns[-1].replace(chr(39) * 3, "")),
+                "registry_revision": registry["revid"],
+            }
+    return entries
+
+
 def module_catalog():
-    catalog_path = cad_root() / "ichl_wall/catalog.json"
     standard = [{"id": key, "title": title} for key, title in STREAMS.items()]
+    registered = registry_entries()
+    catalog_path = cad_root() / "ichl_wall/catalog.json"
     wall = read_json(catalog_path) if catalog_path.is_file() else {}
-    return {
-        "ICHL-015": {
-            **wall, "id": "ICHL-015", "title": "Wall Framing",
-            "workstreams": wall.get("workstreams", standard),
-            "can_generate": catalog_path.is_file(),
-        },
-        "ICHL-016": {
-            "id": "ICHL-016", "title": "Window Framing", "workstreams": standard,
-            "can_generate": False,
-        },
-    }
+    order = ["ICHL-015", "ICHL-016", *sorted(set(registered) - {"ICHL-015", "ICHL-016"})]
+    modules = {key: {**registered[key], "workstreams": standard, "can_generate": False} for key in order}
+    modules["ICHL-015"].update(wall)
+    modules["ICHL-015"].update(title=registered["ICHL-015"]["title"], can_generate=catalog_path.is_file())
+    return modules
 
 
 def default_instance(module_id):
@@ -90,14 +108,24 @@ def default_instance(module_id):
         if path.is_file():
             return read_json(path)
         raise RequestError("Set STUDIO_ICONIC_ROOT to the Iconic CAD checkout containing ichl_wall and restart Studio.", 503)
-    return {"module_id": module_id, "scope": "", "parameters": {}, "interfaces": []}
+    return {"module_id": module_id, "scope": registry_entries()[module_id]["scope"], "parameters": {}, "interfaces": []}
 
 
 def source_snapshots(module_id):
-    names = (module_id, "Wall_Framing", "Iconic_CAD_Workflow_Example") if module_id == "ICHL-015" else (
-        module_id, "Window_Framing", "Iconic_CAD_Housing_Library_Registry",
-    )
+    names = [module_id, "Iconic_CAD_Housing_Library_Registry"]
+    reference = registry_entries()[module_id]["reference_title"].replace(" ", "_")
+    if re.fullmatch(r"[\w -]+", reference):
+        names.append(reference)
+    if module_id == "ICHL-015":
+        names.append("Iconic_CAD_Workflow_Example")
     return [read_json(SOURCES / f"{name}.json") for name in names if (SOURCES / f"{name}.json").is_file()]
+
+
+def registry_excerpt(text, module_id):
+    for line in text.splitlines():
+        if module_id == re.sub(r"[^A-Z0-9-]", "", line.split("||", 1)[0]):
+            return line.split("||")[-1].strip()
+    return f"No matching {module_id} row was found in this saved registry revision."
 
 
 def source_excerpt(text, terms):
@@ -116,7 +144,8 @@ def sources_for(module_id, workstream="geometry", prompt="", records=None):
         evidence.append({
             "id": f"wiki-{revision}", "title": title, "revid": revision,
             "timestamp": record["timestamp"], "url": f"{WIKI}/index.php?oldid={revision}",
-            "excerpt": source_excerpt(record["text"], terms), "kind": "source",
+            "excerpt": registry_excerpt(record["text"], module_id) if record["title"] == "Iconic CAD Housing Library Registry"
+            else source_excerpt(record["text"], terms), "kind": "source",
         })
     if module_id == "ICHL-015":
         pinned = "63c3618e8e8ccd2e66fa2eec325c8648366fb5c6"
@@ -177,7 +206,7 @@ def intake_sources(module_id):
             "JOIN pages p ON sp.page_id=p.id WHERE sp.snapshot_id=? AND p.source_id=? ORDER BY sp.ordinal",
             (snapshot, match["source_id"]),
         ):
-            if row["title"] not in pinned and row["title"] != module_id:
+            if row["title"] not in {*pinned, module_id, registry_entries()[module_id]["reference_title"]}:
                 continue
             if sha256(row["text"].encode()).hexdigest() != row["content_sha256"]:
                 raise RequestError("The Wikibot source digest does not match its stored text.", 503)
@@ -354,7 +383,7 @@ def propose(db, project, body, model_json):
                 for field in choices.get(stream, []) if field in project["instance"]}
     note_path = f"/notes/{stream}"
     editable[note_path] = project["notes"].get(stream, "")
-    if project["module_id"] == "ICHL-016" and stream == "geometry":
+    if project["module_id"] != "ICHL-015" and stream == "geometry":
         editable["/instance/scope"] = project["instance"].get("scope", "")
     history = [{"question": item["prompt"], "reply": item["reply"]} for item in project["proposals"][-4:]]
     report = (project.get("build") or {}).get("manifest", {})
@@ -468,7 +497,10 @@ def wiki_text(db, project, live=False):
         raise RequestError("The canonical wall page source could not be found. Draft export stopped.", 502)
     begin, end = "<!-- OSE-TUTOR-PACKAGE-BEGIN -->", "<!-- OSE-TUTOR-PACKAGE-END -->"
     build = project["build"]
-    revision = source["revid"] if source else "new page"
+    revision = source["revid"] if source else (
+        "new page (live export confirmed no canonical page)" if live else
+        "canonical page absent from saved sources; draft appendix only. Check the current wiki before merging."
+    )
     lines = [begin, "== Contributor package ==", f"* Module: {module_id}",
              f"* Based on {'live wiki' if live else 'pinned wiki snapshot'} source: {revision}",
              f"* Tutor project revision: {project['version']}", "* Construction review: pending"]
