@@ -15,6 +15,17 @@ wall-layout lesson, a motor mounting-plate lesson and a twelve-cabin village les
 Derived from Iconic CAD by Collin DeSantis and Open Source Ecology.
 See [attribution and source records](NOTICE.md) and [AGPL-3.0](LICENSE).
 
+## Author an ICHL module
+
+Start the browser authoring workspace with Git, Python 3.11+ and Node.js 22+.
+
+```sh
+python3 scripts/setup_ichl.py
+python3 scripts/studio_server.py
+```
+
+Open [Module authoring](http://127.0.0.1:8766/author.html). ICHL-015 includes eleven guided procedures, versioned projects, OC16 and OC24 wall generation, named drawing dimensions, compiler feedback, and downloadable review packages. See the [setup and contributor walkthrough](docs/ichl-authoring.md).
+
 ## Try the composition interface
 
 Python 3.11+ is sufficient for the committed catalog:

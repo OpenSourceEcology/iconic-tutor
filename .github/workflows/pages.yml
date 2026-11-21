@@ -22,9 +22,13 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: python -m pip install -r requirements-dev.txt
+      - name: Fetch pinned ICHL compiler
+        run: python scripts/setup_ichl.py
       - run: python -m pytest tests -q
       - run: python scripts/build_pages.py
       - run: npx playwright install --with-deps chromium
+      - name: Exercise module authoring in the browser
+        run: npm run test:authoring
       - name: Test the static deployment
         run: |
           python -m http.server 8777 --bind 127.0.0.1 --directory reports/pages-preview &

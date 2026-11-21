@@ -51,3 +51,11 @@ from the OSE wiki's `301 ICHL Icons` gallery and `Registry for the 301 ICHL Icon
 The committed registry records source URLs and image SHA-256 values. Thumbnails
 retain their original OSE attribution and are not claimed as original app artwork.
 Local palette grouping tags are navigation aids authored for this application.
+## Housing reference sources
+
+The MediaWiki revision snapshots in `library/ichl/sources/` reproduce work by
+Open Source Ecology wiki contributors. Each JSON file includes the original page
+title, revision number, revision date, source URL and history link for attribution.
+The wiki identifies its text as CC BY-SA 4.0 unless otherwise noted. External
+materials linked by those pages retain their own notices. See the
+[OSE copyright page](https://wiki.opensourceecology.org/wiki/Copyright).
