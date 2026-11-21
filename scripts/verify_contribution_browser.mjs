@@ -17,6 +17,7 @@ await new Promise(resolve => reserve.listen(0, '127.0.0.1', resolve));
 const port = reserve.address().port;
 await new Promise(resolve => reserve.close(resolve));
 const base = 'http://127.0.0.1:' + port;
+const hostedCoach = 'https://workshop.example/coach.html';
 const wall = base + '/contribute.html?task=wall-fastening';
 const studio = spawn(process.env.PYTHON || 'python3', ['scripts/studio_server.py', '--port', String(port)], {
   cwd:repo, env:{...process.env, STUDIO_AUTHORING_DB:path.join(temp,'studio.sqlite3')}, stdio:['ignore','ignore','pipe'],
@@ -37,7 +38,7 @@ async function contextFor(staticSite) {
       remoteRequests.push(url.href);
       return route.abort();
     }
-    if (staticSite && url.pathname === '/deployment.json') return route.fulfill({json:{backend:null}});
+    if (staticSite && url.pathname === '/deployment.json') return route.fulfill({json:{backend:null,workshop_url:hostedCoach}});
     if (staticSite && url.pathname.startsWith('/api/')) throw Error('Unexpected backend request on static pilot: ' + url.pathname);
     return route.continue();
   });
@@ -67,6 +68,10 @@ try {
   browser = await chromium.launch();
   const context = await contextFor(true);
   const page = await context.newPage();
+  await page.goto(wall + '&project=private-local-project');
+  const coachLink = page.getByRole('link',{name:'Ask the coach about this task',exact:true});
+  await coachLink.waitFor();
+  assert.equal(await coachLink.getAttribute('href'),hostedCoach + '?brief=wall-fastening&lesson=connections');
   await page.goto(wall);
   await page.locator('#copy-claim').waitFor();
   assert.equal(await page.locator('#board').isVisible(), false);
@@ -123,6 +128,7 @@ try {
   const receiver = await second.newPage();
   await receiver.goto(wall);
   await receiver.locator('#board').waitFor();
+  assert.equal(await receiver.locator('#task-coach').getAttribute('href'),base + '/coach.html?brief=wall-fastening&lesson=connections');
   assert.equal(await receiver.locator('#text').inputValue(),'');
   handoff.draft.source_revisions[id] = 'old-source-revision';
   await importFile(receiver,handoff);
@@ -163,9 +169,12 @@ try {
   };
   const codeA = makeCode(), codeB = makeCode();
   const sharedBrowser = await workshop.newPage();
-  await sharedBrowser.goto(base + '/contribute.html?task=window-opening');
+  await sharedBrowser.goto(base + '/contribute.html?task=window-opening&project=window-example');
   await sharedBrowser.getByText('Open workshop sign-in').waitFor();
+  const windowCoach = base + '/coach.html?brief=window-opening&lesson=interfaces&project=window-example';
+  assert.equal(await sharedBrowser.getByText('Open workshop sign-in').getAttribute('href'),windowCoach);
   assert.equal(await sharedBrowser.locator('#workspace').isVisible(),false);
+  await sharedBrowser.goto(base + '/contribute.html?task=window-opening');
   await signIn(codeA);
   await sharedBrowser.reload();
   await sharedBrowser.locator('#board').waitFor();

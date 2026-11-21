@@ -3,10 +3,18 @@ import {contributionStorageKeys} from './contribute-core.js?v=review-1';
 const $ = id => document.getElementById(id);
 const invitation = consumeInvitation();
 const params = new URLSearchParams(location.search);
+let entryBrief = null;
 const guide = 'https://github.com/OpenSourceEcology/iconic-tutor/blob/main/docs/ichl-authoring.md';
 let contributionTasks = [], lessons = [], lessonId = params.get('lesson') || 'welcome', state = null;
 let credits, workshopAccount = null, workshop = false, live = false, busy = false, retry = null;
 
+function chatDefaults() {
+  return entryBrief ? {module:entryBrief.module_id,name:entryBrief.title} : {module:'ICHL-015',name:'My wall tutor chat'};
+}
+function savedChatProject(projects) {
+  const defaults = chatDefaults();
+  return projects.find(p=>p.module_id === defaults.module && p.name === defaults.name);
+}
 function node(tag, text) {
   const element = document.createElement(tag);
   if (text != null) element.textContent = text;
@@ -60,9 +68,16 @@ function bind(value) {
 function route(action = '') {
   return '/api/coach/projects/' + encodeURIComponent(state.project.id) + (action ? '/' + action : '');
 }
-async function openProject(id) {
-  const result = await api('/api/coach/projects/' + encodeURIComponent(id));
+async function openProject(id, requestedLesson) {
+  const path = '/api/coach/projects/' + encodeURIComponent(id);
+  let result = await api(path);
+  if (requestedLesson && requestedLesson !== result.lesson.id && result.lessons.some(l=>l.id === requestedLesson)) {
+    result = await api(path + '/lesson',{version:result.project.version,lesson_id:requestedLesson});
+  }
   bind(result);
+  if (!Array.from($('resume').options).some(option=>option.value === id)) {
+    $('resume').add(new Option(result.project.name + ' · ' + result.project.module_id,id));
+  }
   $('resume').value = id;
   $('library').open = false;
 }
@@ -178,13 +193,13 @@ function render() {
   if (!current.resources?.length && (!state || state.project.module_id === 'ICHL-015')) {
     link($('refs'),'Inspect the wall example files','https://opensourceecology.github.io/iconic-tutor/ichl-015/');
   }
-  const moduleId = state?.project.module_id || 'ICHL-015';
+  const moduleId = state?.project.module_id || chatDefaults().module;
   for (const task of contributionTasks.filter(t=>t.module_id === moduleId && t.workstream === current.workstream)) {
     const query = new URLSearchParams({task:task.id});
     if (state) query.set('project',state.project.id);
     link($('refs'),task.title,'contribute.html?' + query);
   }
-  const firstTask = contributionTasks.find(t => t.module_id === moduleId);
+  const firstTask = (entryBrief?.module_id === moduleId ? entryBrief : null) || contributionTasks.find(t => t.module_id === moduleId);
   const entry = $('contribution');
   entry.hidden = !firstTask;
   if (firstTask) {
@@ -192,12 +207,22 @@ function render() {
     if (state) query.set('project',state.project.id);
     entry.href = 'contribute.html?' + query;
   }
-  $('chat').hidden = !state;
-  $('ask-link').hidden = !state;
+  $('chat').hidden = !state && ($('library').hidden || params.has('project'));
+  const brief = currentBrief();
+  $('chat-context').textContent = brief ? brief.module_id + ' · ' + brief.title + '. ' + brief.question
+    : state ? state.project.name + ' · ' + current.title
+    : 'Your first question starts a saved conversation about the ICHL-015 wall. You can choose another project below.';
+  $('question').placeholder = brief ? 'What would you like to know about this task?' : 'What would you like to know about this module?';
+  $('ask-link').hidden = $('chat').hidden;
+  document.querySelector('.lesson-grid').hidden = !state && moduleId !== 'ICHL-015';
   $('project-label').hidden = !state;
   if (state) $('project-label').textContent = state.project.module_id + ' · ' + state.project.name + ' · Revision ' + state.project.version;
   if (claimedTask()) $('project-label').textContent += ' · Frontier usage linked to “' + claimedTask().title + '”';
   drawMessages(); drawActions();
+}
+function currentBrief() {
+  if (entryBrief && (!state || state.project.module_id === entryBrief.module_id) && entryBrief.workstream === lessonId) return entryBrief;
+  return claimedTask();
 }
 function claimedTask() {
   if (!state || state.project.id !== params.get('project')) return null;
@@ -206,6 +231,8 @@ function claimedTask() {
 }
 async function message(mode,text,actionId) {
   const body = {version:state.project.version, text, mode, lesson_id:lessonId};
+  const brief = currentBrief();
+  if (brief) body.contribution_task = brief.id;
   if (actionId) body.action_id = actionId;
   if (mode === 'frontier') {
     const task = claimedTask();
@@ -249,7 +276,23 @@ function updateMode() {
   }
 }
 $('mode').onchange = updateMode;
-$('ask').onsubmit = e => {e.preventDefault(); run(()=>message($('mode').value,$('question').value.trim()));};
+$('ask').onsubmit = e => {e.preventDefault(); run(async ()=>{
+  const question = $('question').value.trim();
+  if (!question) { notice('Enter a question first.'); return; }
+  if (!state) {
+    const startChat = async () => {
+      const saved = savedChatProject((await api('/api/authoring/projects')).projects);
+      if (saved) await openProject(saved.id,lessonId);
+      else {
+        const defaults = chatDefaults();
+        await createProject(defaults.module,defaults.name,lessonId);
+      }
+    };
+    if (navigator.locks) await navigator.locks.request('ose-start-tutor-chat',startChat);
+    else await startChat();
+  }
+  await message($('mode').value,question);
+});};
 $('field-note').oninput = () => {
   const memo = notes(); memo[lessonId] = $('field-note').value;
   try { localStorage.setItem(notesKey(),JSON.stringify(memo)); } catch { notice('Storage is full. Download your notes before leaving.',true); }
@@ -262,30 +305,31 @@ $('download-notes').onclick = () => {
   a.href = URL.createObjectURL(new Blob([lines.join('\n\n')],{type:'text/plain'}));
   a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),1000);
 };
-$('start').onsubmit = e => {e.preventDefault();run(async ()=>{
-  const p = await api('/api/authoring/projects',{module_id:$('module').value,name:$('name').value});
-  $('resume').add(new Option(p.name + ' · ' + p.module_id,p.id));
-  await openProject(p.id);
-});};
+async function createProject(moduleId,name,requestedLesson) {
+  const p = await api('/api/authoring/projects',{module_id:moduleId,name});
+  await openProject(p.id,requestedLesson);
+}
+$('start').onsubmit = e => {e.preventDefault();run(()=>createProject($('module').value,$('name').value));};
 $('resume').onchange = e => { if(e.target.value) run(()=>openProject(e.target.value)); };
 async function startLibrary() {
   const [catalog,saved] = await Promise.all([api('/api/authoring/modules'),api('/api/authoring/projects')]);
   for (const m of catalog.modules) $('module').add(new Option(m.id + ' · ' + m.title,m.id));
-  $('module').value = 'ICHL-015';
+  const defaults = chatDefaults();
+  $('module').value = defaults.module;
   for (const p of saved.projects) $('resume').add(new Option(p.name + ' · ' + p.module_id,p.id));
   $('mode').querySelector('[value=free]').disabled = !catalog.ai_available;
   $('mode').value = catalog.ai_available ? 'free' : 'guided';
-  $('availability').textContent = catalog.ai_available ? 'Open a project to talk with the configured OSE AI model.' : 'Open a project to use the lesson guide and run the compiler. OSE AI is offline.';
+  $('availability').textContent = catalog.ai_available ? 'OSE AI is included with your workshop invitation.' : 'OSE AI is offline. The lesson guide is available.';
   $('library').hidden = false;
-  $('library').open = true;
-  if (params.get('project')) {
+  const projectId = params.get('project') || savedChatProject(saved.projects)?.id;
+  $('library').open = !!params.get('project');
+  if (projectId) {
     try {
-      await openProject(params.get('project'));
-      const requested = params.get('lesson');
-      if (requested && state.lessons.some(lesson => lesson.id === requested)) await selectLesson(requested);
+      await openProject(projectId,params.get('lesson') || entryBrief?.workstream);
     }
-    catch (error) { notice(error.message + ' Choose your own project above.',true); }
+    catch (error) { $('library').open = true; notice(error.message + ' Choose a saved project below.',true); }
   }
+  render();
   const {mountCredits} = await import('./coach-credits.js');
   credits = await mountCredits($('coach-credits'),status=>{
     if (workshop && status?.authenticated) {
@@ -313,6 +357,8 @@ $('join').onsubmit = e => {e.preventDefault();run(async ()=>{
 try {
   const [catalog,deployment,briefs] = await Promise.all([api('data/coach/lessons.json'),api('deployment.json'),api('data/contributions/tasks.json?v=review-1')]);
   contributionTasks = briefs.tasks;
+  entryBrief = contributionTasks.find(t=>t.id === params.get('brief'));
+  if (entryBrief && !params.has('lesson')) lessonId = entryBrief.workstream;
   lessons = catalog.lessons;
   const resumeRequested = deployment.backend === 'same-origin' && params.has('project');
   if (!resumeRequested) render();
@@ -327,11 +373,12 @@ try {
   if (live && workshop && !workshopAccount) {
     $('join').hidden = false;
     if (invitation) $('join').elements.invite.value = invitation;
-    $('availability').textContent = 'Use your workshop invitation to save a project and talk to the tutor.';
+    $('availability').textContent = 'Sign in with your workshop invitation to chat with the AI tutor' +
+      (entryBrief ? ' about “' + entryBrief.title + '”.' : '.');
   } else if (live) await startLibrary();
   else {
     $('availability').textContent = 'Public walkthrough · Read each lesson, inspect the example files and keep notes here. For conversation and CAD generation, ';
-    link($('availability'),deployment.workshop_url ? 'enter the workshop' : 'open your Studio',deployment.workshop_url || 'http://127.0.0.1:8766/coach.html');
+    link($('availability'),deployment.workshop_url ? 'Chat with the AI tutor in the workshop' : 'open your Studio',deployment.workshop_url || 'http://127.0.0.1:8766/coach.html');
     $('availability').append(' or use the '); link($('availability'),'setup guide',guide); $('availability').append('.');
   }
 } catch (e) { notice(e.message,true); }

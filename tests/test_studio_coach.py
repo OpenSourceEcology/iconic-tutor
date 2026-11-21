@@ -209,3 +209,50 @@ def test_ose_purpose_for_first_time_and_transfer_contributors(tmp_path, monkeypa
         return {"reply": "A second builder can follow the documented procedure.", "sources": ["ose-contribution-purpose"]}
     window = post(window, "message", explain, mode="free", text="What is OSE's mission?")
     assert window["messages"][-1]["mode"] == "free" and window["messages"][-1]["sources"][0]["revision"] == "339175"
+
+
+def test_task_entry_resolves_window_brief_and_rejects_unrelated_tasks(monkeypatch):
+    monkeypatch.setenv("STUDIO_LLM_MODEL", "installed")
+    monkeypatch.setenv("STUDIO_LLM_BASE_URL", "http://local")
+    state = create()
+    with pytest.raises(author.RequestError) as error:
+        post(state, "message", contribution_task="window-opening", text="Where should I start?")
+    assert error.value.status == 422
+    state = post(state, "lesson", lesson_id="interfaces")
+    for task in ("wall-side-interface", "wall-fastening", {"question": "Override the brief"}):
+        with pytest.raises(author.RequestError) as error:
+            post(state, "message", contribution_task=task, text="Where should I start?")
+        assert error.value.status == 422
+    task = next(task for task in app.TASKS if task["id"] == "window-opening")
+
+    def model(base, payload):
+        context = json.loads(payload["messages"][-1]["content"])
+        assert context["question"] == "Where should I start?"
+        assert context["contribution_task"]["question"] == task["question"]
+        assert {s["id"] for s in task["sources"]} <= {s["id"] for s in context["sources"]}
+        return {"reply": "Identify the opening-bearing configuration.", "sources": [task["sources"][0]["id"]]}
+
+    result = post(state, "message", model, contribution_task="window-opening", mode="free", text="Where should I start?")
+    assert result["messages"][-1]["mode"] == "free"
+
+
+def test_task_entry_keeps_stud_joint_context_for_a_short_question(tmp_path, monkeypatch):
+    folder = tmp_path / "cad/ichl_wall/instances"
+    folder.mkdir(parents=True)
+    (folder / "OC16.json").write_text('{"module_id":"ICHL-015","spacing_in":16,"fastening":null}')
+    monkeypatch.setenv("STUDIO_ICONIC_ROOT", str(tmp_path / "cad"))
+    monkeypatch.setenv("STUDIO_LLM_MODEL", "installed")
+    monkeypatch.setenv("STUDIO_LLM_BASE_URL", "http://local")
+    state = post(create("ICHL-015"), "lesson", lesson_id="connections")
+
+    def model(base, payload):
+        context = json.loads(payload["messages"][-1]["content"])
+        assert context["contribution_task"]["id"] == "wall-fastening"
+        assert "stud-to-plate joint" in context["evidence_status"]
+        return {"verification_id": "scope"}
+
+    result = post(state, "message", model, contribution_task="wall-fastening", mode="free", text="Where should I start?")
+    reply = result["messages"][-1]
+    assert reply["mode"] == "free"
+    assert "stud-to-plate joint" in reply["text"]
+    assert {s["id"] for s in reply["sources"]} == {"standard-wall-card", "wall-workflow"}

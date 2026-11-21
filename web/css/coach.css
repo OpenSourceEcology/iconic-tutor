@@ -38,3 +38,6 @@
 #drawing figcaption{padding:.6rem .8rem;background:#f2f4eb}#drawing select{display:inline-block;font-size:.85rem;margin:0 .4rem}
 #drawing img{height:auto;width:100%;max-height:20rem;object-fit:contain;display:block}
 #result{border:1px solid var(--line);padding:.8rem;background:#faf9ef}
+
+#chat{background:var(--white);border:1px solid var(--line);border-radius:10px;padding:clamp(1rem,3vw,1.6rem)}
+#chat h2{font-size:1.65rem;margin-top:0}#chat-context{margin:.3rem 0 .8rem;color:#475744}

@@ -66,11 +66,26 @@ try {
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
   assert.deepEqual(publicApi,[]);
   await page.unroute('**/deployment.json'); await page.unroute('**/api/**');
-  await page.goto(base+'/coach.html');
+  const taskEntry = base+'/coach.html?brief=wall-fastening&lesson=connections';
+  await page.goto(taskEntry);
+  await page.locator('#join').waitFor();
+  assert.match(await page.locator('#availability').innerText(),/stud-to-plate/);
   await page.locator('[name=invite]').fill(invitation);
   await page.getByRole('button',{name:'Join workshop'}).click();
-  await page.locator('#start button').click();
   await page.locator('#chat').waitFor();
+  const projects = async ()=>(await (await page.request.get(base+'/api/authoring/projects')).json()).projects;
+  assert.equal((await projects()).length,0);
+  assert.match(await page.locator('#chat-context').innerText(),/stud end meeting the bottom/);
+  await page.locator('#question').fill('Which sources should I compare for this joint?');
+  const sent = page.waitForRequest(r=>r.url().endsWith('/message'));
+  await page.locator('#send').click();
+  assert.equal((await sent).postDataJSON().contribution_task,'wall-fastening');
+  await page.waitForFunction(()=>document.querySelector('#question').value==='');
+  const started = (await projects())[0];
+  await page.goto(taskEntry);
+  await page.waitForFunction(()=>document.querySelectorAll('#messages .message').length>=2);
+  assert.equal(new URL(page.url()).searchParams.get('project'),started.id);
+  assert.equal((await projects()).length,1);
   async function lesson(id) {
     await page.locator('#lesson').selectOption(id);
     await page.waitForFunction(id=>new URL(location.href).searchParams.get('lesson')===id,id);
@@ -130,6 +145,18 @@ try {
   await page.waitForFunction(()=>document.querySelector('#project-label').textContent.includes('ICHL-016'));
   assert.equal(await page.locator('#actions').getByRole('button',{name:'Generate and check this wall'}).count(),0);
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+  await page.goto(base+'/coach.html');
+  await page.locator('#question').waitFor();
+  assert.match(await page.locator('#chat-context').innerText(),/ICHL-015/);
+  assert.equal(await page.locator('#library').getAttribute('open'),null);
+  await page.goto(base+'/coach.html?brief=window-opening&lesson=interfaces');
+  await page.locator('#chat').waitFor();
+  assert.match(await page.locator('#chat-context').innerText(),/ICHL-016/);
+  await page.locator('#question').fill('Which two parts meet here?');
+  await page.locator('#send').click();
+  await page.waitForFunction(()=>document.querySelector('#question').value==='');
+  assert.match(await page.locator('#project-label').innerText(),/ICHL-016/);
+  assert.equal(await page.locator('#lesson').inputValue(),'interfaces');
   assert.deepEqual(errors,[]);
   console.log('PASS public lessons, mobile notes, workshop invitation, confirmed CAD edits, drawing repair, cited guidance, revision downloads and window intake.');
 } finally { await browser?.close();workshop.kill();await stopped; await new Promise(resolve=>provider.close(resolve));await rm(root,{recursive:true,force:true}); }

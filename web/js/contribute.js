@@ -345,11 +345,20 @@ async function start() {
   const deployment = await deploymentResponse.json();
   workshop = deployment.workshop === true;
   localService = deployment.backend === 'same-origin';
+  const coachPage = localService ? 'coach.html' : deployment.workshop_url;
+  if (coachPage) {
+    const destination = new URL(coachPage, location.href);
+    destination.searchParams.set('brief',task.id);
+    destination.searchParams.set('lesson',task.workstream);
+    if (localService && project) destination.searchParams.set('project',project);
+    $('task-coach').href = destination.href;
+    $('task-coach').hidden = false;
+  }
   accountId = workshop ? await currentAccount() : '';
   if (workshop && !accountId) {
     note('Sign in to the workshop, then return to this contribution. ');
     const login = element('a','Open workshop sign-in');
-    login.href = 'coach.html';
+    login.href = $('task-coach').href;
     $('notice').append(login);
     return;
   }
