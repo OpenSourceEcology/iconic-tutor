@@ -57,10 +57,17 @@ def test_independent_work_and_versioned_handoff():
         post(WALL + "/submit", {"claim_token": KEY, "version": 1, "draft": draft()})
     assert exc.value.status == 409
     submitted = post(WALL + "/submit", {"claim_token": KEY, "version": 2, "draft": draft()})
-    assert submitted["status"] == "ready_for_review"
+    assert submitted["status"] == "ready_for_review" and submitted["awaiting_review"]
     assert submitted["handoffs"][0]["draft"] == submitted["draft"]
     assert submitted["draft"]["source_revisions"] == draft()["source_revisions"]
-    pickup = claim(version=3, name="Builder B", token=uuid.uuid4().hex)
+    with pytest.raises(studio_authoring.RequestError) as waiting:
+        claim(version=3,name="Builder B",token=uuid.uuid4().hex)
+    assert waiting.value.status==409
+    review_id=submitted["reviews"][0]["id"]
+    post("/api/contributions/reviews/"+review_id+"/decision",{
+        "submission_version":3,"outcome":"open_question","feedback":"Ask the builder which configuration is documented.",
+    })
+    pickup = claim(version=4, name="Builder B", token=uuid.uuid4().hex)
     assert pickup["draft"] == submitted["draft"] and pickup["handoffs"][0]["contributor"] == "Builder A"
     listing = contributions.dispatch("GET", "/api/contributions/tasks")
     assert all("draft" not in record for record in listing["tasks"])
@@ -128,17 +135,123 @@ def test_submit_requires_checked_evidence_and_a_build_specific_wall_answer():
     assert saved["changed_sources"] == ["standard-wall-card"]
     for edits in [
         changed,
-        draft(source_ids=[], source_revisions={}), draft(scope=""),
-        draft(contributor="Other"), draft(kind="answer"),
-        draft(kind="answer", additional_source="https://wiki.opensourceecology.org/wiki/Iconic_CAD_Workflow_Example#Notes"),
-        draft(kind="answer", additional_source="https://github.com/OpenSourceEcology/iconic-cad/blob/main/web/data/card_templates/standard.json"),
-        draft(kind="answer", additional_source="javascript:void(0)"), draft(active_seconds=-1),
-        draft(additional_source="https://builder:pass@example.org/"), draft(lesson_step=""),
+        draft(source_ids=[], source_revisions={}),
+        draft(scope=""),
+        draft(contributor="Other"),
+        draft(kind="answer"),
+        draft(assistance="forged"),
+        draft(
+            kind="answer",
+            additional_source="https://wiki.opensourceecology.org/wiki/Iconic_CAD_Workflow_Example#Notes",
+        ),
+        draft(
+            kind="answer",
+            additional_source="https://github.com/OpenSourceEcology/iconic-cad/blob/main/web/data/card_templates/standard.json",
+        ),
+        draft(kind="answer", additional_source="javascript:void(0)"),
+        draft(active_seconds=-1),
+        draft(additional_source="https://builder:pass@example.org/"),
+        draft(lesson_step=""),
     ]:
         with pytest.raises(studio_authoring.RequestError):
             post(WALL + "/submit", {"version": 2, "claim_token": KEY, "draft": edits})
     assert contributions.dispatch("GET", WALL) == saved
-    supported = draft(kind="answer", text="Proposed reading of the field record.",
-                      additional_source="https://example.org/site-log/observations/7")
+    supported = draft(
+        kind="answer",
+        text="Proposed reading of the field record.",
+        additional_source="https://example.org/site-log/observations/7",
+    )
     ready = post(WALL + "/submit", {"version": 2, "claim_token": KEY, "draft": supported})
     assert ready["status"] == "ready_for_review"
+
+
+def test_two_reviewer_decisions_are_serialized_and_pinned_sources_report_drift(monkeypatch):
+    claim()
+    evidence = draft(kind="answer", additional_source="https://example.org/field-record/wall-3")
+    ready = post(WALL + "/submit", {"version": 1, "claim_token": KEY, "draft": evidence})
+    route = "/api/contributions/reviews/" + ready["reviews"][0]["id"]
+    first = contributions.dispatch("GET", route)
+    assert first["effects"]["state"] == "no_project" and first["sources"][0]["excerpt"]
+    briefs = contributions.task_briefs()
+    briefs["wall-fastening"]["sources"][0]["excerpt"] += " Updated context."
+    monkeypatch.setattr(contributions, "task_briefs", lambda: briefs)
+    changed = contributions.dispatch("GET", route)
+    assert (
+        changed["changed_sources"] == [first["sources"][0]["id"]] and changed["sources"] == first["sources"]
+    )
+    with pytest.raises(studio_authoring.RequestError) as err:
+        post(route + "/decision", {"submission_version": 2, "outcome": "accepted", "feedback": "Reviewed"})
+    assert err.value.status == 409
+    barrier = threading.Barrier(2)
+
+    def decide(outcome):
+        barrier.wait(timeout=5)
+        try:
+            result = post(
+                route + "/decision", {"submission_version": 2, "outcome": outcome, "feedback": outcome}
+            )
+            return result["decision"], 200
+        except studio_authoring.RequestError as exc:
+            return None, exc.status
+
+    with ThreadPoolExecutor(max_workers=2) as pool:
+        attempts = list(pool.map(decide, ["needs_evidence", "open_question"]))
+    assert sorted(code for _, code in attempts) == [200, 409]
+    chosen = next(r for r, _ in attempts if r)
+    assert contributions.dispatch("GET", route)["decision"] == chosen
+    assert contributions.dispatch("GET", WALL)["reviews"][0]["decision"] == chosen
+
+
+def test_pre_upgrade_submissions_retain_original_claim_and_mark_missing_snapshot():
+    claim()
+    ready = post(WALL + "/submit", {"version": 1, "claim_token": KEY, "draft": draft()})
+    with closing(contributions.open_db()) as db:
+        # A legacy installation persisted only the contribution revision for each handoff.
+        db.execute("DELETE FROM review_submissions")
+        db.commit()
+    migrated = contributions.dispatch("GET", "/api/contributions/reviews")["reviews"]
+    assert len(migrated) == 1
+    route = "/api/contributions/reviews/" + migrated[0]["id"]
+    saved = contributions.dispatch("GET", route)
+    assert saved["effects"]["state"] == "legacy" and not saved["sources"]
+    assert saved["draft"]["source_revisions"] == ready["draft"]["source_revisions"]
+    with pytest.raises(studio_authoring.RequestError) as err:
+        post(
+            route + "/decision",
+            {"submission_version": 2, "outcome": "accepted", "feedback": "Looks complete"},
+        )
+    assert err.value.status == 409
+    assert (
+        post(
+            route + "/decision",
+            {"submission_version": 2, "outcome": "needs_evidence", "feedback": "Resubmit pinned sources."},
+        )["status"]
+        == "needs_evidence"
+    )
+    assert (
+        contributions.dispatch("GET", "/api/contributions/reviews")["reviews"][0]["id"] == migrated[0]["id"]
+    )
+
+
+def test_new_independent_evidence_tasks_use_catalog_requirement():
+    brief = {
+        **contributions.task_briefs()["window-opening"],
+        "answer_evidence": "Identify an independently dated quote.",
+    }
+    source = brief["sources"][0]
+    item = {
+        "task_id": brief["id"],
+        "kind": "answer",
+        "text": "A quote was supplied.",
+        "scope": "A single project.",
+        "contributor": "Builder A",
+        "source_ids": [source["id"]],
+        "source_revisions": {source["id"]: source["revision"]},
+    }
+    for url in ["", source["url"]]:
+        with pytest.raises(studio_authoring.RequestError):
+            contributions.validate_draft({**item, "additional_source": url}, brief, True, "Builder A")
+    contributions.validate_draft({**item, "kind": "question"}, brief, True, "Builder A")
+    contributions.validate_draft(
+        {**item, "additional_source": "https://example.org/quote/1"}, brief, True, "Builder A"
+    )

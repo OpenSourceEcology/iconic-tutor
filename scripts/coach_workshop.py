@@ -16,16 +16,20 @@ from urllib.parse import urlsplit
 
 import studio_authoring as author
 import studio_credits as credits
+from studio_review import ReviewActor
 from studio_contributions import handle_contribution
 from studio_server import Handler, WEB, model_json
 from studio_coach import handle_coach
 
 PROJECT = re.compile(r"/api/(authoring|coach)/projects/([0-9a-f]{32})(?:/[A-Za-z0-9_./-]+)?\Z")
 BOARD = re.compile(r"/api/contributions/tasks(?:/[a-z0-9-]+(?:/(?:claim|save|release|submit))?)?\Z")
+REVIEWS = re.compile(r"/api/contributions/reviews(?:/pilot|/[0-9a-f]{32}(?:/decision)?)?\Z")
 SLOTS = threading.BoundedSemaphore(4)
 SCHEMA = """
 CREATE TABLE IF NOT EXISTS workshop_projects(
  project TEXT PRIMARY KEY REFERENCES projects(id), account TEXT NOT NULL REFERENCES credit_accounts(id));
+CREATE TABLE IF NOT EXISTS workshop_reviewers(
+ account TEXT PRIMARY KEY REFERENCES credit_accounts(id));
 CREATE TABLE IF NOT EXISTS workshop_usage(
  account TEXT NOT NULL, day TEXT NOT NULL, category TEXT NOT NULL, count INTEGER NOT NULL,
  PRIMARY KEY(account,day,category));
@@ -113,10 +117,13 @@ class Workshop(Handler):
                 db.execute("INSERT INTO workshop_projects VALUES(?,?)",(project_id,account))
                 project = author.create(db,body,project_id)
             return self.json_response(200,project)
-        if BOARD.fullmatch(path):
+        if BOARD.fullmatch(path) or REVIEWS.fullmatch(path):
             if body and body.get("project_id") is not None and not owner(db,account,body["project_id"]):
                 raise author.RequestError("Unknown workshop project.",404)
-            return handle_contribution(self,method,body)
+            row = db.execute("""SELECT a.label, r.account reviewer FROM credit_accounts a
+                                LEFT JOIN workshop_reviewers r ON a.id=r.account WHERE a.id=?""",(account,)).fetchone()
+            actor = ReviewActor(account,row["label"],row["reviewer"] is not None)
+            return handle_contribution(self,method,body,actor)
         match = PROJECT.fullmatch(path)
         if not match or not owner(db,account,match[2]):
             raise author.RequestError("Unknown workshop project or route.",404)
@@ -146,7 +153,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--data",type=Path,required=True,help="Dedicated workshop directory (shared by serve and invite).")
     cmds = parser.add_subparsers(dest="action",required=True)
-    cmds.add_parser("invite").add_argument("name")
+    invite = cmds.add_parser("invite")
+    invite.add_argument("name")
+    invite.add_argument("--reviewer", action="store_true",help="May decide other contributors' submitted evidence handoffs.")
     serve = cmds.add_parser("serve")
     serve.add_argument("--port",type=int,default=8770)
     serve.add_argument("--origin",help="Public HTTPS origin, or omit for local review.")
@@ -155,6 +164,9 @@ def main():
     configure(args.data)
     if args.action == "invite":
         account,code = credits.create_account(args.name)
+        if args.reviewer:
+            with credits.database(True) as db:
+                db.execute("INSERT INTO workshop_reviewers VALUES(?)",(account,))
         print(f"Account {account}\nPrivate invitation {code}")
         return
     origin = args.origin or f"http://127.0.0.1:{args.port}"
