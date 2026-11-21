@@ -96,6 +96,10 @@ function bindProject(p) {
     : 'To use live AI, configure STUDIO_LLM_MODEL and STUDIO_LLM_BASE_URL on the local server. Guided procedures remain available.';
   $('ask').disabled = !aiAvailable;
   renderEditor(); renderResult(); renderEvidence($('evidence'),project.evidence); renderConversation();
+  const refresh = p.last_evidence_refresh;
+  $('refresh-receipt').textContent = refresh
+    ? [refresh.timestamp, ...refresh.found, ...refresh.missing.map(name=>'Page missing: ' + name)].join(' · ')
+    : 'Saved source revisions are available offline.';
   const manifest = project.build?.manifest;
   $('model-status').textContent = manifest?.members?.length ? `${manifest.variant} · ${manifest.members.length} generated framing members · build r${project.build.version}`
     : moduleInfo().can_generate ? 'Generate the project to inspect its named members.' : 'This module is open for evidence and scope intake. A model compiler has not been registered.';
@@ -236,6 +240,12 @@ $('generate').onclick = () => run(async () => {
   await save(); notice('Generating the module and checking outputs…');
   bindProject(await json(endpoint('generate'),{version:project.version}));
   notice('Generation finished. Inspect the checks and open questions for each workstream.');
+});
+$('refresh-evidence').onclick = () => run(async () => {
+  await save();
+  notice('Retrieving source revisions from the OSE wiki…');
+  bindProject(await json(endpoint('refresh-evidence'),{version:project.version}));
+  notice('Source lookup completed. Review the revision details under Source evidence.');
 });
 $('ask').onclick = () => run(async () => {
   const prompt = $('prompt').value.trim();

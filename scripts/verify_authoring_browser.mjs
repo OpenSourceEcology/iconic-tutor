@@ -118,6 +118,15 @@ try {
   await click('#save');
   await page.reload();
   assert.equal(await page.getByLabel('Supported scope').inputValue(),'Identify source drawings for the window module.');
+  // A remote wiki outage should leave the local notes and pinned evidence intact.
+  await page.route('**/refresh-evidence', route => route.fulfill({status:502,
+    json:{error:'Current wiki source is unavailable. Previous evidence is preserved.'}}));
+  const retainedSources = await page.locator('#evidence details').count();
+  await page.locator('#refresh-evidence').click();
+  await page.waitForFunction(()=>document.querySelector('#notice').dataset.error === 'true');
+  assert.match(await page.locator('#notice').textContent(), /previous evidence/i);
+  assert.equal(await page.locator('#evidence details').count(),retainedSources);
+  await page.unroute('**/refresh-evidence');
   await page.locator('#notes').fill('My unsaved change');
   const second = await browser.newPage();
   await second.goto(page.url());

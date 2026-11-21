@@ -31,6 +31,7 @@ const records = {
   quotes: {label:'Supplier quote', key:'Purchased item ID', fields:[
     ['supplier','Supplier'], ['url','Source URL','url'], ['as_of','Quote date','date'],
     ['unit_price_usd','Price per pack (USD)','number'], ['units_per_pack','Units per pack','number'],
+    ['stock_length_in','Quoted board length (in, lumber only)','number'],
     ['alternatives','Alternative URLs · JSON list','json'], ['alternatives_note','Availability of alternatives'],
   ]},
   decisions: {label:'Design decision', array:true, fields:[['id','Decision ID'],['reason','Reason and limits'],reviewer,source]},
