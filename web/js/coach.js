@@ -179,6 +179,7 @@ function render() {
     link($('refs'),'Compare the two fastening records','contribute.html?task=wall-fastening' + (state ? '&project=' + state.project.id : ''));
   }
   $('chat').hidden = !state;
+  $('ask-link').hidden = !state;
   $('project-label').hidden = !state;
   if (state) $('project-label').textContent = state.project.module_id + ' · ' + state.project.name + ' · Revision ' + state.project.version;
   drawMessages(); drawActions();
@@ -201,6 +202,18 @@ async function message(mode,text,actionId) {
 function showDrawing() { $('frame').src = 'data/coach/' + $('example').value + '.svg'; }
 $('example').onchange = showDrawing;
 $('lesson').onchange = e => requestLesson(e.target.value);
+function updateMode() {
+  const frontier = $('mode').value === 'frontier';
+  $('send').textContent = frontier ? 'Ask frontier AI' : 'Ask';
+  $('paid-notice').hidden = !frontier;
+  if (frontier) {
+    const rates = credits?.status()?.rates;
+    $('paid-notice').textContent = 'Your question, recent conversation and current project evidence will go to '
+      + (rates?.model || 'the configured frontier model') + '. Input $' + rates.input_usd_per_mtok
+      + ' and output $' + rates.output_usd_per_mtok + ' per million tokens, using test credit.';
+  }
+}
+$('mode').onchange = updateMode;
 $('ask').onsubmit = e => {e.preventDefault(); run(()=>message($('mode').value,$('question').value.trim()));};
 $('field-note').oninput = () => {
   const memo = notes(); memo[lessonId] = $('field-note').value;
@@ -248,6 +261,7 @@ async function startLibrary() {
     const option = $('mode').querySelector('[value=frontier]');
     option.disabled = !(status?.authenticated && status.rates?.configured && status.available_microusd > 0);
     if (option.disabled && $('mode').value === 'frontier') $('mode').value = catalog.ai_available ? 'free' : 'guided';
+    updateMode();
   });
 }
 document.addEventListener('visibilitychange', () => {

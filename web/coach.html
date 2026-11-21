@@ -18,7 +18,7 @@
     <aside><label for="lesson" class="section-label">Walkthrough</label><select id="lesson" aria-label="Choose a lesson"></select><nav id="outline" aria-label="Authoring lessons"></nav></aside>
     <article aria-labelledby="title">
       <p id="position" class="section-label"></p><h2 id="title">Opening the walkthrough…</h2>
-      <p id="prompt"></p>
+      <p id="prompt"></p><p id="ask-link" hidden><a href="#question">Ask the tutor about this step ↓</a></p>
       <figure id="drawing" hidden><figcaption><label>Reference drawing<select id="example"><option value="OC16">Wall with 16-inch stud spacing</option><option value="OC24">Wall with 24-inch stud spacing</option></select></label></figcaption><img id="frame" width="860" height="590" alt="Elevation and side view of the example wall frame"></figure>
       <ol id="steps"></ol>
       <p class="checkpoint"><strong>Check your work</strong> <span id="completion"></span></p>
@@ -28,7 +28,7 @@
         <div id="messages" aria-label="Conversation"></div>
         <form id="ask"><label for="question">What do you see, or where are you stuck?</label><textarea id="question" rows="3" maxlength="1200" required></textarea>
           <label for="mode">Answer with</label><select id="mode"><option value="guided">Lesson guide · included</option><option value="free" disabled>OSE AI · included</option><option value="frontier" disabled>Frontier AI · prepaid</option></select>
-          <button id="send">Ask</button></form>
+          <button id="send">Ask</button><small id="paid-notice" hidden></small></form>
         <div id="actions" class="links"></div><div id="proposal" hidden></div>
       </section>
       <section id="coach-credits"></section>
