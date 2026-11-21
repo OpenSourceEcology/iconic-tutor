@@ -240,7 +240,7 @@ async function startLibrary() {
   for (const p of saved.projects) $('resume').add(new Option(p.name + ' · ' + p.module_id,p.id));
   $('mode').querySelector('[value=free]').disabled = !catalog.ai_available;
   $('mode').value = catalog.ai_available ? 'free' : 'guided';
-  $('availability').textContent = catalog.ai_available ? 'OSE AI is connected. Open a project to talk with the tutor.' : 'Open a project to use the lesson guide and run the compiler. OSE AI is offline.';
+  $('availability').textContent = catalog.ai_available ? 'Open a project to talk with the configured OSE AI model.' : 'Open a project to use the lesson guide and run the compiler. OSE AI is offline.';
   $('library').hidden = false;
   $('library').open = true;
   if (params.get('project')) {
