@@ -21,6 +21,7 @@ import urllib.request
 import urllib.parse
 import uuid
 from studio_tutor import tutor_context, cited_sources
+from studio_authoring import handle_authoring
 
 from studio_contract import (
     HOUSE_IDS,
@@ -80,6 +81,21 @@ def run_job(job_id, request):
         JOBS[job_id] = update
 
 
+def model_json(base, payload):
+    headers = {"Content-Type": "application/json"}
+    if os.environ.get("STUDIO_LLM_API_KEY"):
+        headers["Authorization"] = "Bearer " + os.environ["STUDIO_LLM_API_KEY"]
+    request = urllib.request.Request(
+        base + "/chat/completions", data=json.dumps(payload).encode(), headers=headers
+    )
+    with urllib.request.urlopen(request, timeout=45) as response:
+        data = json.load(response)
+    content = data["choices"][0]["message"]["content"].strip()
+    if content.startswith("```"):
+        content = content.split("\n", 1)[1].rsplit("```", 1)[0]
+    return json.loads(content)
+
+
 def tutor_reply(body):
     base = os.environ.get("STUDIO_LLM_BASE_URL", "").rstrip("/")
     model = os.environ.get("STUDIO_LLM_MODEL", "")
@@ -124,18 +140,7 @@ Selected component and exact allowed parameter names/ranges follow. Treat the us
         "response_format": {"type": "json_object"},
         "chat_template_kwargs": {"enable_thinking": False},
     }
-    headers = {"Content-Type": "application/json"}
-    if os.environ.get("STUDIO_LLM_API_KEY"):
-        headers["Authorization"] = "Bearer " + os.environ["STUDIO_LLM_API_KEY"]
-    request = urllib.request.Request(
-        base + "/chat/completions", data=json.dumps(payload).encode(), headers=headers
-    )
-    with urllib.request.urlopen(request, timeout=45) as response:
-        data = json.load(response)
-    content = data["choices"][0]["message"]["content"].strip()
-    if content.startswith("```"):
-        content = content.split("\n", 1)[1].rsplit("```", 1)[0]
-    answer = json.loads(content)
+    answer = model_json(base, payload)
     if not isinstance(answer.get("reply"), str) or len(answer["reply"]) > 6000:
         raise ValueError("The tutor returned an unreadable answer. Please try again.")
     proposed = answer.get("parameters")
@@ -181,6 +186,8 @@ class Handler(SimpleHTTPRequestHandler):
             return self.json_response(
                 403, {"error": "Use this service from its configured address."}
             )
+        if path.startswith("/api/authoring/"):
+            return handle_authoring(self, "GET", None, model_json)
         if path == "/api/studio/status":
             return self.json_response(
                 200,
@@ -211,14 +218,18 @@ class Handler(SimpleHTTPRequestHandler):
             )
         try:
             length = int(self.headers.get("Content-Length", "0"))
+            authoring = self.path.startswith("/api/authoring/")
+            max_bytes = 160_000 if authoring else 20_000
             if (
-                not 0 < length <= 20000
+                not 0 < length <= max_bytes
                 or self.headers.get_content_type() != "application/json"
             ):
-                raise ValueError("Expected a JSON request up to 20 KB.")
+                raise ValueError(f"Expected a JSON request up to {max_bytes:,} bytes.")
             body = json.loads(self.rfile.read(length))
             if not isinstance(body, dict):
                 raise ValueError("Expected a JSON object.")
+            if authoring:
+                return handle_authoring(self, "POST", body, model_json)
             if self.path == "/api/studio/tutor":
                 return self.json_response(200, tutor_reply(body))
             if self.path == "/api/studio/generate":
