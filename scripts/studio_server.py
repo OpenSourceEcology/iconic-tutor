@@ -182,9 +182,6 @@ class Handler(SimpleHTTPRequestHandler):
             f"{self.server.server_address[0]}:{self.server.server_port}",
         }
         origin = self.headers.get("Origin")
-        public = os.environ.get("STUDIO_PUBLIC_ORIGIN", "").rstrip("/")
-        if public.startswith("https://") and host == urllib.parse.urlsplit(public).netloc:
-            return origin is None or origin == public
         return host in allowed and (origin is None or origin == "http://" + host)
 
     def do_GET(self):
