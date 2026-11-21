@@ -7,6 +7,7 @@
       "workstream": null,
       "prompt": "Which wall are you documenting, and what should someone be able to build from it?",
       "steps": [
+        "Open Source Ecology shares hardware designs so people can build and improve them together. In its housing library, a module is one part of a building, such as a wall frame. Its record brings together the drawing, materials, connections and assembly steps a second crew needs to understand it.",
         "Choose Wall Framing for the reference exercise. It models a plain 48 × 96-inch 2×6 frame. OC16 and OC24 describe stud spacing in inches on center.",
         "Choose Evidence next. Your project saves conversation and results after each step."
       ],
@@ -23,6 +24,20 @@
         {
           "label": "Watch the spacing and drawing repair",
           "url": "media/ichl-wall-walkthrough.mp4"
+        },
+        {
+          "label": "Why OSE documents open hardware",
+          "url": "https://www.opensourceecology.org/about-overview/",
+          "source_id": "ose-mission",
+          "reviewed_on": "2026-11-21",
+          "excerpt": "a modular, scalable platform for documenting and developing open source, libre hardware"
+        },
+        {
+          "label": "How a housing module carries building knowledge",
+          "url": "https://wiki.opensourceecology.org/index.php?title=Iconic_CAD_Lead_Announcement&oldid=339168",
+          "source_id": "ose-housing-purpose",
+          "revision": "339168",
+          "excerpt": "Each block carries its dimensions, materials, connections, reasoning and construction knowledge."
         }
       ]
     },
@@ -32,6 +47,7 @@
       "workstream": "rationale",
       "prompt": "Which drawing, photo or build record establishes what this wall should contain?",
       "steps": [
+        "A note helps the next builder when it says which build you saw and where the evidence is. For example, a photo of a stud meeting a plate can identify the joint while leaving the fastener uncertain. Naming that open question gives the next contributor a specific detail to check.",
         "Read the captured source title, revision and excerpt. Ask for a refresh to compare the latest wiki record.",
         "Bring the observed detail, its units, the build or specimen it applies to and where someone else can find it. Save an unanswered question if a source is missing."
       ],
@@ -44,6 +60,13 @@
         {
           "label": "Download the complete OC16 example",
           "url": "https://raw.githubusercontent.com/OpenSourceEcology/iconic-cad/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip"
+        },
+        {
+          "label": "How another contributor can repeat the process",
+          "url": "https://wiki.opensourceecology.org/index.php?title=Parallelizing_Iconic_CAD_Development&oldid=339175",
+          "source_id": "ose-contribution-purpose",
+          "revision": "339175",
+          "excerpt": "Capture the procedure so another contributor can repeat it for another module."
         }
       ]
     },

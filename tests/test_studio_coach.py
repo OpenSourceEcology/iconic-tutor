@@ -179,3 +179,33 @@ def test_unresolved_fasteners_retain_project_evidence_and_separate_verification(
                  mode="free", text="Which stud-to-plate fastener?")
     reply = state["messages"][-1]
     assert reply["mode"] == "guided" and "verifiable reply" in reply["text"] and "applicability is unresolved" in reply["text"]
+
+
+def test_ose_purpose_for_first_time_and_transfer_contributors(tmp_path, monkeypatch):
+    folder = tmp_path / "cad/ichl_wall/instances"
+    folder.mkdir(parents=True)
+    (folder / "OC16.json").write_text('{"module_id":"ICHL-015","spacing_in":16}')
+    monkeypatch.setenv("STUDIO_ICONIC_ROOT", str(tmp_path / "cad"))
+    wall = post(create("ICHL-015"), "message", text="Why does OSE want my wall notes?")
+    msg = wall["messages"][-1]
+    assert "a photo of a stud" in msg["text"] and wall["pending"] is None
+    assert {s["id"] for s in msg["sources"]} == {"ose-mission", "ose-housing-purpose", "ose-contribution-purpose"}
+    for source in msg["sources"]:
+        if "revision" in source:
+            assert "oldid=" + source["revision"] in source["url"]
+        else:
+            assert source["reviewed_on"] == "2026-11-21"
+    window = post(create("ICHL-016"), "lesson", lesson_id="interfaces")
+    window = post(window, "message", text="How does a module help other builders?")
+    assert "reference face" in window["messages"][-1]["text"]
+    assert window["lesson"]["id"] == "interfaces" and window["pending"] is None
+    monkeypatch.setenv("STUDIO_LLM_BASE_URL", "http://local")
+    monkeypatch.setenv("STUDIO_LLM_MODEL", "test-installed-model")
+    def explain(base, payload):
+        context = json.loads(payload["messages"][-1]["content"])
+        assert context["module_id"] == "ICHL-016" and context["lesson"]["id"] == "welcome"
+        refs = {row["id"]: row for row in context["sources"]}
+        assert refs["ose-contribution-purpose"]["revision"] == "339175"
+        return {"reply": "A second builder can follow the documented procedure.", "sources": ["ose-contribution-purpose"]}
+    window = post(window, "message", explain, mode="free", text="What is OSE's mission?")
+    assert window["messages"][-1]["mode"] == "free" and window["messages"][-1]["sources"][0]["revision"] == "339175"
