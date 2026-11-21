@@ -1,0 +1,18 @@
+.credit-panel { min-width:0; color:var(--ink, #27382d); background:var(--white, #fffef9); border:1px solid var(--line,#dce1d4); border-radius:8px; padding:14px 16px; }
+.credit-panel summary { cursor:pointer; font-weight:650; }
+#credit-brief { font-weight:400; margin-left:8px; color:#50624e; }
+.credit-body { padding-top:8px; font-size:14px; }
+.credit-body p { margin:8px 0; }
+.credit-body form { display:flex; flex-wrap:wrap; gap:10px; align-items:end; }
+.credit-body form label { display:grid; gap:3px; }
+.credit-body form input { max-width:100%; border:1px solid #9ba792; border-radius:5px; background:#fffefa; padding:7px; }
+.credit-body form small,.credit-body small { display:block; font-size:12px; color:#50624e; }
+.credit-body [hidden] { display:none !important; }
+.credit-balances { display:flex; flex-wrap:wrap; gap:8px 18px; padding:9px 0; border-block:1px solid var(--line,#dce1d4); }
+.credit-balances dt { font-size:12px; }
+.credit-balances dd { margin:0; font-weight:600; }
+#credit-history { margin-block:12px; }
+.coach-credit-table { width:100%; border-collapse:collapse; font-size:13px; }
+.coach-credit-table :is(td,th) { text-align:left; padding:5px 3px; overflow-wrap:anywhere; border-bottom:1px solid var(--line,#dce1d4); }
+#credit-error:not(:empty) { padding-left:8px; border-left:2px solid #9d7843; }
+#credit-refresh { margin-top:8px; }
