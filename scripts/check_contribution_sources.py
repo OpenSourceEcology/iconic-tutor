@@ -2,6 +2,8 @@
 
 import argparse
 import hashlib
+from functools import lru_cache
+from io import BytesIO
 import json
 import sys
 import urllib.error
@@ -9,6 +11,7 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 from pathlib import Path
+from zipfile import BadZipFile, ZipFile
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -29,6 +32,19 @@ def digest(content):
     return hashlib.sha256(content).hexdigest()
 
 
+def git_text(source, content):
+    member = source.get("archive_member")
+    if member:
+        try:
+            with ZipFile(BytesIO(content)) as archive:
+                content = archive.read(member)
+        except KeyError:
+            return None
+        except BadZipFile as error:
+            raise ValueError("Expected a ZIP archive for the cited example file.") from error
+    return content.decode("utf-8")
+
+
 def validate_pin(source, root):
     snapshot = root / source["snapshot"]
     if source["kind"] == "wiki":
@@ -44,7 +60,9 @@ def validate_pin(source, root):
         content = snapshot.read_bytes()
         if pin != source["revision"] or url != source["url"] or digest(content) != source["sha256"]:
             raise ValueError("Git commit, path, URL or content digest differs from the pinned source.")
-        text = content.decode("utf-8")
+        text = git_text(source, content)
+        if text is None:
+            raise ValueError("The cited example file is missing from the pinned archive.")
     else:
         raise ValueError("Unknown source type.")
     if not source["excerpt"].strip() or source["excerpt"] not in text:
@@ -77,7 +95,9 @@ def compare_live(source, fetcher=fetch):
     else:
         path = urllib.parse.quote(source["repo_path"], safe="/")
         content = fetcher(f"{RAW}/refs/heads/main/{path}")
-        text = content.decode("utf-8")
+        text = git_text(source, content)
+        if text is None:
+            return "missing", None
         version = "sha256:" + digest(content)
         same = digest(content) == source["sha256"]
     if source["excerpt"] not in text:
@@ -86,6 +106,8 @@ def compare_live(source, fetcher=fetch):
 
 
 def report(tasks, live, root=ROOT, fetcher=fetch):
+    # Several briefs cite different sections of one wiki page or one CAD archive.
+    fetcher = lru_cache(maxsize=32)(fetcher)
     rows = []
     for task in tasks:
         for source in task["sources"]:

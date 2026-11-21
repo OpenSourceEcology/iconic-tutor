@@ -1,6 +1,6 @@
 # Test the wiki contribution workflow
 
-The [wall fastening task](https://opensourceecology.github.io/iconic-tutor/contribute.html?task=wall-fastening) starts with two sources for a stud-to-plate connection. The [window opening task](https://opensourceecology.github.io/iconic-tutor/contribute.html?task=window-opening) asks what an adjoining module needs to fit. Both work on GitHub Pages in a browser. Each task gives the contributor a question, source excerpts with revisions, limits on their applicability, and a list of outputs affected by a decision.
+The [wall fastening task](https://opensourceecology.github.io/iconic-tutor/contribute.html?task=wall-fastening) starts with two sources for a stud-to-plate connection. The [window opening task](https://opensourceecology.github.io/iconic-tutor/contribute.html?task=window-opening) asks what an adjoining module needs to fit. The wall also has tasks for a [dated lumber quote](https://opensourceecology.github.io/iconic-tutor/contribute.html?task=wall-lumber-quote), a [measured specimen width](https://opensourceecology.github.io/iconic-tutor/contribute.html?task=wall-width-inspection), and the [interface between adjacent walls](https://opensourceecology.github.io/iconic-tutor/contribute.html?task=wall-side-interface). All five work on GitHub Pages in a browser. Each task gives the contributor a question, source excerpts with revisions, limits on their applicability, and a list of outputs affected by a decision.
 
 ## Parker's first session
 
@@ -25,6 +25,6 @@ One timed session measures one contribution. Record sourcing and reviewer time s
 
 On GitHub Pages, drafts are saved in the current browser. Use a handoff download to move between devices. A contributor can check the module's public discussion before starting. On the same Studio server, the task board can also show a volunteer claim, save a shared draft, and hand work to the next volunteer. A display name identifies a contributor; this service is intended for trusted Studio participants. The module authoring screen links from the matching workstream into its pilot task.
 
-The source catalog pins the wiki revisions and CAD content used in each brief. To check the pins and quotations locally, run `python3 scripts/check_contribution_sources.py`. Add `--live` to check upstream. When a source changes, review the flagged task and update its evidence deliberately. Reopening a draft against updated evidence requires reconciling its citations.
+The source catalog pins the wiki revisions and CAD content used in each brief. To check the pins and quotations locally, run `python3 scripts/check_contribution_sources.py`. Add `--live` to check upstream. For a generated file such as `qc.json`, the checker opens that exact member of the pinned OC16 example ZIP and compares its quoted text against the current Git archive. When a source changes, review the flagged task and update its evidence deliberately. Reopening a draft against updated evidence requires reconciling its citations.
 
 The [proposed ICHL-015 wiki section](wiki-drafts/ICHL-015-contribute.wikitext) contains the public entry links for review.

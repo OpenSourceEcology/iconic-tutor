@@ -1,6 +1,8 @@
+from io import BytesIO
 import json
 import urllib.error
 import xml.etree.ElementTree as ET
+from zipfile import ZipFile
 
 from scripts import check_contribution_sources as evidence
 
@@ -23,8 +25,12 @@ def test_pinned_task_contract_and_quotes():
     assert [(t["id"], t["module_id"], t["workstream"], t["wiki_title"]) for t in TASKS] == [
         ("wall-fastening", "ICHL-015", "connections", "Talk:ICHL-015"),
         ("window-opening", "ICHL-016", "interfaces", "Talk:ICHL-016"),
+        ("wall-lumber-quote", "ICHL-015", "bom", "Talk:ICHL-015"),
+        ("wall-width-inspection", "ICHL-015", "qc", "Talk:ICHL-015"),
+        ("wall-side-interface", "ICHL-015", "interfaces", "Talk:ICHL-015"),
     ]
     for task in TASKS:
+        assert task["completion"] and task["affected"]
         sources = task["sources"]
         assert len({s["id"] for s in sources}) == len(sources)
         assert all(s["applicability"] for s in sources)
@@ -59,3 +65,35 @@ def test_citation_error_and_network_outage_do_not_pass_as_current():
     rows = evidence.report(tasks, live=True, fetcher=unavailable)
     assert [r["status"] for r in rows] == ["invalid_pin", "unavailable", "missing"]
     assert all(r["task"] == "wall-fastening" for r in rows)
+
+
+
+def test_example_citation_checks_named_member_not_the_rest_of_the_archive():
+    source = next(row for t in TASKS for row in t["sources"] if row["id"] == "oc16-width-inspection")
+    def archive(**members):
+        stream = BytesIO()
+        with ZipFile(stream, "w") as zip_file:
+            for name, text in members.items():
+                zip_file.writestr(name, text)
+        return stream.getvalue()
+
+    data = (evidence.ROOT / source["snapshot"]).read_bytes()
+    assert evidence.compare_live(source, lambda url: data)[0] == "current"
+    for members, status in [
+        ({"qc.json": source["excerpt"]}, "revision_changed"),
+        ({"qc.json": "updated observation", "other.json": source["excerpt"]}, "excerpt_missing"),
+        ({"other.json": source["excerpt"]}, "missing"),
+    ]:
+        assert evidence.compare_live(source, lambda url: archive(**members))[0] == status
+
+
+def test_shared_example_is_fetched_once_per_check():
+    members = [s for t in TASKS for s in t["sources"] if s.get("archive_member")]
+    requested = []
+    def fetch_once(url):
+        requested.append(url)
+        return (evidence.ROOT / members[0]["snapshot"]).read_bytes()
+
+    rows = evidence.report([{"id": "archive-members", "sources": members}], live=True, fetcher=fetch_once)
+    assert len(members) == 4 and len(requested) == 1
+    assert all(row["status"] == "current" for row in rows)

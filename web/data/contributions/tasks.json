@@ -44,7 +44,8 @@
           "excerpt": "we use 3-1/4\" ring shank nails as standard for the wood",
           "applicability": "This configurable wall-family example also covers OSB. Its wood-fastener sentence gives no per-stud count, positions or link to a particular ICHL-015 build."
         }
-      ]
+      ],
+      "answer_evidence": "Cite an independent build or reviewer record that identifies the applicable fastener for this joint and build."
     },
     {
       "id": "window-opening",
@@ -87,6 +88,154 @@
           "snapshot": "library/ichl/sources/ICHL-015.json",
           "excerpt": "mating face, alignment reference, clearance, tolerance, connection requirement.",
           "applicability": "The wall module lists Window Framing as an opening mate and calls for these interface fields. The list supplies no numerical clearance or tolerance for the window."
+        }
+      ]
+    },
+    {
+      "id": "wall-lumber-quote",
+      "title": "Find a quote for the wall lumber",
+      "module_id": "ICHL-015",
+      "workstream": "bom",
+      "wiki_title": "Talk:ICHL-015",
+      "question": "What does a purchasing pack of 96-inch 2×6 framing lumber cost from one named supplier on a stated date?",
+      "scope": "Use the OC16 plain-wall example and its lumber.2x6 purchasing line. The reference instance selects 96-inch stock. Record the stock length and purchasing unit exactly as the supplier describes them.",
+      "answer_evidence": "Cite a dated supplier listing or quote for the specified lumber and purchasing unit.",
+      "completion": [
+        "Identify the supplier, product link or shareable quote, date checked, stock length in inches, and USD price for one board or one pack.",
+        "State the number of boards in the quoted pack. Provide two distinct alternative product links or explain which alternatives you checked and why matching stock was unavailable.",
+        "If the supplier uses a different length or omits the pack size, submit the missing detail as a question. A lumber quote can settle one line while the hardware quantities and full wall total remain open."
+      ],
+      "affected": [
+        "bom.csv · lumber.2x6 purchasing line",
+        "purchase_summary.json · purchasing gaps and total"
+      ],
+      "sources": [
+        {
+          "id": "oc16-stock-input",
+          "title": "OC16 example · instances/bom.json",
+          "kind": "git",
+          "revision": "301993a0e217e570abaa86b21f869272339f9af3",
+          "url": "https://github.com/OpenSourceEcology/iconic-cad/blob/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip",
+          "repo_path": "ichl_wall/examples/OC16.zip",
+          "snapshot": "library/ichl/contribution-sources/OC16.zip",
+          "sha256": "372214013f863cf0aaf6a5596f2271dbc5cb183a19ba126ac83f878c891da43c",
+          "archive_member": "instances/bom.json",
+          "excerpt": "\"stock_length_in\": 96",
+          "applicability": "This is the selected stock length in inches for the OC16 example. It does not identify a supplier or price."
+        },
+        {
+          "id": "oc16-lumber-gap",
+          "title": "OC16 example · purchase_summary.json",
+          "kind": "git",
+          "revision": "301993a0e217e570abaa86b21f869272339f9af3",
+          "url": "https://github.com/OpenSourceEcology/iconic-cad/blob/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip",
+          "repo_path": "ichl_wall/examples/OC16.zip",
+          "snapshot": "library/ichl/contribution-sources/OC16.zip",
+          "sha256": "372214013f863cf0aaf6a5596f2271dbc5cb183a19ba126ac83f878c891da43c",
+          "archive_member": "purchase_summary.json",
+          "excerpt": "Supply a dated USD supplier quote for lumber.2x6.",
+          "applicability": "The example leaves this purchasing line open. Its total also depends on unresolved hardware counts."
+        },
+        {
+          "id": "wall-bom-requirements",
+          "title": "Wall module purchasing requirements",
+          "kind": "wiki",
+          "revision": "339171",
+          "url": "https://wiki.opensourceecology.org/index.php?title=ICHL-015&oldid=339171",
+          "wiki_page": "ICHL-015",
+          "snapshot": "library/ichl/sources/ICHL-015.json",
+          "excerpt": "description, quantity, three sourcing links, unit cost, module total.",
+          "applicability": "The module page specifies what the purchasing sheet should contain. A current supplier listing or dated quote supplies the actual purchasing evidence."
+        }
+      ]
+    },
+    {
+      "id": "wall-width-inspection",
+      "title": "Record one wall-width inspection",
+      "module_id": "ICHL-015",
+      "workstream": "qc",
+      "wiki_title": "Talk:ICHL-015",
+      "question": "What width did someone actually measure across the outer stud faces of one identified plain wall frame?",
+      "scope": "Use a physical ICHL-015 specimen. Identify its build and OC16 or OC24 spacing. The OC16 reference file supplies a 48-inch target and shows a pending inspection.",
+      "answer_evidence": "Cite an independent inspection sheet, labelled measurement photo, or builder record that identifies the specimen and measured width.",
+      "completion": [
+        "Name the specimen and spacing variant. Record the measured width in inches, instrument or method, measuring faces, and who took or reviewed the reading.",
+        "Cite the tolerance and its applicability to that build before proposing an acceptance result. Preserve an out-of-tolerance reading and its source.",
+        "If the specimen, measurement or tolerance is unavailable, identify exactly what someone needs to observe or confirm. A drawing dimension alone leaves the physical inspection pending."
+      ],
+      "affected": [
+        "qc.json and qc.pdf · width observation and inspection status",
+        "manifest.json · Quality Control checks and outstanding evidence"
+      ],
+      "sources": [
+        {
+          "id": "oc16-width-inspection",
+          "title": "OC16 example · qc.json",
+          "kind": "git",
+          "revision": "301993a0e217e570abaa86b21f869272339f9af3",
+          "url": "https://github.com/OpenSourceEcology/iconic-cad/blob/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip",
+          "repo_path": "ichl_wall/examples/OC16.zip",
+          "snapshot": "library/ichl/contribution-sources/OC16.zip",
+          "sha256": "372214013f863cf0aaf6a5596f2271dbc5cb183a19ba126ac83f878c891da43c",
+          "archive_member": "qc.json",
+          "excerpt": "\"method\": \"Measure across the outer stud faces.\",\n      \"target_in\": 48,\n      \"status\": \"pending\",\n      \"observation\": null",
+          "applicability": "These are a method, nominal target in inches and an empty observation. The file supplies neither a measured width nor an allowable deviation for this specimen."
+        },
+        {
+          "id": "wall-qc-requirements",
+          "title": "Wall module inspection record",
+          "kind": "wiki",
+          "revision": "339171",
+          "url": "https://wiki.opensourceecology.org/index.php?title=ICHL-015&oldid=339171",
+          "wiki_page": "ICHL-015",
+          "snapshot": "library/ichl/sources/ICHL-015.json",
+          "excerpt": "Inspection steps, measurements, acceptance criteria (square, plumb, OC spacing, fastener count), signed record.",
+          "applicability": "The canonical page calls for recorded observations and acceptance criteria. It does not give a width tolerance for this specimen."
+        }
+      ]
+    },
+    {
+      "id": "wall-side-interface",
+      "title": "Document the side joint between two walls",
+      "module_id": "ICHL-015",
+      "workstream": "interfaces",
+      "wiki_title": "Talk:ICHL-015",
+      "question": "For one pair of adjacent ICHL-015 walls, how should the right face of one frame line up with the left face of the next?",
+      "scope": "Identify two actual walls or a documented pair and their spacing variants. Work on a straight side-to-side joint between plain frames. Corners, internal stud-to-plate joints, openings and the roof use other details.",
+      "answer_evidence": "Cite an independent assembly drawing, fit record or reviewer’s detail that identifies both mating walls.",
+      "completion": [
+        "Name each module or specimen and its mating face. Identify a shared alignment reference and the source drawing, build or reviewer that connects those faces.",
+        "Record the required clearance and tolerance with units and their source, plus the documented connection requirement. Mark each unknown explicitly.",
+        "Describe whether the record specifies a designed fit or reports an actual fit check. If only the nominal profiles are known, ask for a reviewed interface detail or a specimen-specific fit record."
+      ],
+      "affected": [
+        "interfaces.json · reviewed right and left face requirements",
+        "manifest.json · Interface Specifications checks and remaining reviews"
+      ],
+      "sources": [
+        {
+          "id": "oc16-side-mate",
+          "title": "OC16 example · interfaces.json",
+          "kind": "git",
+          "revision": "301993a0e217e570abaa86b21f869272339f9af3",
+          "url": "https://github.com/OpenSourceEcology/iconic-cad/blob/301993a0e217e570abaa86b21f869272339f9af3/ichl_wall/examples/OC16.zip",
+          "repo_path": "ichl_wall/examples/OC16.zip",
+          "snapshot": "library/ichl/contribution-sources/OC16.zip",
+          "sha256": "372214013f863cf0aaf6a5596f2271dbc5cb183a19ba126ac83f878c891da43c",
+          "archive_member": "interfaces.json",
+          "excerpt": "\"face\": \"right\",\n      \"normal\": \"x+\",\n      \"datum_in\": 48,\n      \"candidate_mate\": \"ICHL-015/left\"",
+          "applicability": "The generated right face nominates a left-face mate at the reference wall’s 48-inch X datum. A candidate mate supplies no physical fit observation or reviewed clearance."
+        },
+        {
+          "id": "wall-interface-requirements",
+          "title": "Wall module mating-face requirements",
+          "kind": "wiki",
+          "revision": "339171",
+          "url": "https://wiki.opensourceecology.org/index.php?title=ICHL-015&oldid=339171",
+          "wiki_page": "ICHL-015",
+          "snapshot": "library/ichl/sources/ICHL-015.json",
+          "excerpt": "mating face, alignment reference, clearance, tolerance, connection requirement.",
+          "applicability": "The module identifies adjacent walls as side mates and lists the information a reviewed specification needs. It supplies no as-built measurement for this pair."
         }
       ]
     }
