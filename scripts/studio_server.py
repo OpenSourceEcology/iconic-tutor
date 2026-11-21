@@ -22,6 +22,7 @@ import urllib.parse
 import uuid
 from studio_tutor import tutor_context, cited_sources
 from studio_authoring import handle_authoring
+from studio_credits import handle_credits, handle_webhook
 from studio_contributions import handle_contribution
 
 from studio_contract import (
@@ -162,12 +163,14 @@ class Handler(SimpleHTTPRequestHandler):
         if "/api/" in self.path:
             super().log_message(format, *args)
 
-    def json_response(self, status, value):
+    def json_response(self, status, value, headers=None):
         data = json.dumps(value, allow_nan=False).encode()
         self.send_response(status)
         self.send_header("Content-Type", "application/json")
         self.send_header("Content-Length", str(len(data)))
         self.send_header("Cache-Control", "no-store")
+        for name, header in (headers or {}).items():
+            self.send_header(name, header)
         self.end_headers()
         self.wfile.write(data)
 
@@ -179,6 +182,9 @@ class Handler(SimpleHTTPRequestHandler):
             f"{self.server.server_address[0]}:{self.server.server_port}",
         }
         origin = self.headers.get("Origin")
+        public = os.environ.get("STUDIO_PUBLIC_ORIGIN", "").rstrip("/")
+        if public.startswith("https://") and host == urllib.parse.urlsplit(public).netloc:
+            return origin is None or origin == public
         return host in allowed and (origin is None or origin == "http://" + host)
 
     def do_GET(self):
@@ -187,6 +193,8 @@ class Handler(SimpleHTTPRequestHandler):
             return self.json_response(
                 403, {"error": "Use this service from its configured address."}
             )
+        if path.startswith("/api/credits/"):
+            return handle_credits(self, "GET")
         if path.startswith("/api/contributions/"):
             return handle_contribution(self, "GET")
         if path.startswith("/api/authoring/"):
@@ -215,6 +223,8 @@ class Handler(SimpleHTTPRequestHandler):
         return super().do_GET()
 
     def do_POST(self):
+        if self.path == "/api/credits/webhook":
+            return handle_webhook(self)
         if not self.same_origin():
             return self.json_response(
                 403, {"error": "Use this service from its configured address."}
@@ -232,6 +242,8 @@ class Handler(SimpleHTTPRequestHandler):
             body = json.loads(self.rfile.read(length))
             if not isinstance(body, dict):
                 raise ValueError("Expected a JSON object.")
+            if self.path.startswith("/api/credits/"):
+                return handle_credits(self, "POST", body)
             if contribution:
                 return handle_contribution(self, "POST", body)
             if authoring:
