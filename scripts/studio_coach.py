@@ -11,6 +11,7 @@ import uuid
 
 import studio_authoring as author
 import studio_credits as credits
+import studio_pilot
 
 LESSONS = author.read_json(author.ROOT / "web/data/coach/lessons.json")["lessons"]
 BY_ID = {lesson["id"]: lesson for lesson in LESSONS}
@@ -398,6 +399,7 @@ def answer(db, project, lesson, body, cookie, model_json):
     result = guided(project, lesson, text, actions, sources)
     origin = "guided"
     receipt = None
+    claim = None
     fallback_notice = ""
     if explicit is not None:
         result.update(action_id=explicit, reply=actions[explicit]["description"])
@@ -421,6 +423,7 @@ def answer(db, project, lesson, body, cookie, model_json):
             payload = {"model": model, "messages": messages,
                        "response_format": {"type":"json_object"}}
             if paid:
+                claim = studio_pilot.claim_scope(db, project, body)
                 payload["max_completion_tokens"] = 120 if verify_only else 1100
                 token = os.environ.get("STUDIO_FRONTIER_API_KEY")
                 raw, receipt = credits.metered_completion(cookie, body.get("request_id"), payload,
@@ -479,6 +482,7 @@ def answer(db, project, lesson, body, cookie, model_json):
     state["messages"].append({"role": "user", "text": text, "lesson_id": lesson["id"], "version": project["version"]})
     state["messages"].append({"role": "assistant", "text": result["reply"], "mode": origin, "lesson_id": lesson["id"],
                               "version": project["version"], "sources": [s for s in sources if s["id"] in result["sources"]],
+                              **({"pilot_claim": claim} if claim and receipt else {}),
                               **({"receipt": receipt} if receipt else {})})
 
 

@@ -196,19 +196,25 @@ function render() {
   $('ask-link').hidden = !state;
   $('project-label').hidden = !state;
   if (state) $('project-label').textContent = state.project.module_id + ' · ' + state.project.name + ' · Revision ' + state.project.version;
+  if (claimedTask()) $('project-label').textContent += ' · Frontier usage linked to “' + claimedTask().title + '”';
   drawMessages(); drawActions();
+}
+function claimedTask() {
+  if (!state || state.project.id !== params.get('project')) return null;
+  return contributionTasks.find(task => task.id === params.get('task') && task.module_id === state.project.module_id &&
+    task.workstream === state.lesson.workstream);
 }
 async function message(mode,text,actionId) {
   const body = {version:state.project.version, text, mode, lesson_id:lessonId};
   if (actionId) body.action_id = actionId;
   if (mode === 'frontier') {
-    const task = params.get('task');
-    if (task && state.project.id === params.get('project')) {
-      const storage = contributionStorageKeys(task,state.project.id,workshop,workshopAccount);
+    const task = claimedTask();
+    if (task) {
+      const storage = contributionStorageKeys(task.id,state.project.id,workshop,workshopAccount);
       let claim;
       try { claim = JSON.parse(localStorage.getItem(storage.claim)); } catch {}
       if (!claim?.token) throw Error('Reopen the coach from your current task claim before using frontier credit here.');
-      body.pilot_task = task;
+      body.pilot_task = task.id;
       body.pilot_claim_token = claim.token;
     }
     const key = JSON.stringify([state.project.id, body]);
@@ -273,7 +279,11 @@ async function startLibrary() {
   $('library').hidden = false;
   $('library').open = true;
   if (params.get('project')) {
-    try { await openProject(params.get('project')); }
+    try {
+      await openProject(params.get('project'));
+      const requested = params.get('lesson');
+      if (requested && state.lessons.some(lesson => lesson.id === requested)) await selectLesson(requested);
+    }
     catch (error) { notice(error.message + ' Choose your own project above.',true); }
   }
   const {mountCredits} = await import('./coach-credits.js');
